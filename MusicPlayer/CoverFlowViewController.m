@@ -9,6 +9,7 @@
 #import "CoverFlowViewController.h"
 #import "CoverflowSelectViewController.h"
 #import "AppDelegate.h"
+#import "DFMusicQuery.h"
 
 @implementation CoverFlowViewController
 
@@ -47,10 +48,35 @@ UILabel *label;
     coverFlowView.dataSource=self;
     [self.view insertSubview:coverFlowView atIndex:0];
     
-    
+    if(!musicByAlbum){
+        DFMusicQuery *query=[[DFMusicQuery alloc]init];
+        [query albumQuery];
+        [query release];
+    }
     covers=[[NSMutableArray alloc]init];
-    [covers addObject:[UIImage imageNamed:@"no_album.png"]];
-    [coverFlowView setNumberOfCovers:30];
+    coversAlbumTitle=[[NSMutableArray alloc]init];
+    if([musicByAlbum count]>0){
+        for(MPMediaItemCollection *songs in musicByAlbum){
+            NSArray *songsArray=[songs items];
+            
+            MPMediaItem *theItem=[songsArray objectAtIndex:0];
+            
+            MPMediaItemArtwork *artWork=[theItem valueForProperty:MPMediaItemPropertyArtwork];
+            UIImage *artworkImage=[artWork imageWithSize:CGSizeMake(224, 224)];
+            if(artworkImage){
+                [covers addObject:artworkImage];
+            }else{
+                [covers addObject:[UIImage imageNamed:@"no_album.png"]];
+            }
+            
+            [coversAlbumTitle addObject:[theItem valueForProperty:MPMediaItemPropertyAlbumTitle]];
+        }
+        [coverFlowView setNumberOfCovers:[musicByAlbum count]];
+    }else{
+        [covers addObject:[UIImage imageNamed:@"no_album.png"]];
+        [coverFlowView setNumberOfCovers:1];
+    }
+    
     
     label=[[UILabel alloc]initWithFrame:CGRectMake(100, 370, 120, 21)];
     [label setText:@"0"];
@@ -72,7 +98,7 @@ UILabel *label;
 }
 
 -(void)coverflowView:(TKCoverflowView *)coverflowView coverAtIndexWasBroughtToFront:(int)index{
-    [label setText:[NSString stringWithFormat:@"%i",index]];
+    [label setText:[coversAlbumTitle objectAtIndex:index]];
 }
 
 -(TKCoverflowCoverView*) coverflowView:(TKCoverflowView*)coverflowView coverAtIndex:(int)index{
@@ -118,6 +144,7 @@ UILabel *label;
 -(void)dealloc{
     [coverFlowView release];
     [covers release];
+    [coversAlbumTitle release];
     [super dealloc];
 }
 
