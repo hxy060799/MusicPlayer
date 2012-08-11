@@ -35,6 +35,10 @@
 		A910B5B515C40E1200C0C49A /* NowPlayingTabBarItem.png in Resources */ = {isa = PBXBuildFile; fileRef = A910B5B415C40E1200C0C49A /* NowPlayingTabBarItem.png */; };
 		A919397F15CB7EB9001C48CE /* DFMusicQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = A919397E15CB7EB9001C48CE /* DFMusicQuery.m */; };
 		A919398315CB85D4001C48CE /* DFSongInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = A919398215CB85D3001C48CE /* DFSongInformation.m */; };
+		A93D2BA215D69BB900E89316 /* UIGlossyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A93D2B9F15D69BB900E89316 /* UIGlossyButton.m */; };
+		A93D2BA315D69BB900E89316 /* UIView+LayerEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = A93D2BA115D69BB900E89316 /* UIView+LayerEffects.m */; };
+		A93D2BA715D69BD300E89316 /* RefreshButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A93D2BA615D69BD300E89316 /* RefreshButtonCell.m */; };
+		A93D2BA915D69BFE00E89316 /* RefreshButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A93D2BA815D69BFE00E89316 /* RefreshButtonCell.xib */; };
 		A982CAC115D002AA00D51D5E /* pinyin.m in Sources */ = {isa = PBXBuildFile; fileRef = A982CABF15D002AA00D51D5E /* pinyin.m */; };
 		A9BE9CE915BD7B330004822D /* DFQianQianLyricsDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BE9CE815BD7B330004822D /* DFQianQianLyricsDownloader.m */; };
 		A9BE9CED15BD806D0004822D /* DFLyricsReader.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BE9CEC15BD806D0004822D /* DFLyricsReader.m */; };
@@ -103,6 +107,13 @@
 		A919397E15CB7EB9001C48CE /* DFMusicQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFMusicQuery.m; sourceTree = "<group>"; };
 		A919398115CB85D3001C48CE /* DFSongInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFSongInformation.h; sourceTree = "<group>"; };
 		A919398215CB85D3001C48CE /* DFSongInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFSongInformation.m; sourceTree = "<group>"; };
+		A93D2B9E15D69BB900E89316 /* UIGlossyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGlossyButton.h; sourceTree = "<group>"; };
+		A93D2B9F15D69BB900E89316 /* UIGlossyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIGlossyButton.m; sourceTree = "<group>"; };
+		A93D2BA015D69BB900E89316 /* UIView+LayerEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LayerEffects.h"; sourceTree = "<group>"; };
+		A93D2BA115D69BB900E89316 /* UIView+LayerEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LayerEffects.m"; sourceTree = "<group>"; };
+		A93D2BA515D69BD300E89316 /* RefreshButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshButtonCell.h; sourceTree = "<group>"; };
+		A93D2BA615D69BD300E89316 /* RefreshButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshButtonCell.m; sourceTree = "<group>"; };
+		A93D2BA815D69BFE00E89316 /* RefreshButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RefreshButtonCell.xib; sourceTree = "<group>"; };
 		A982CABF15D002AA00D51D5E /* pinyin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pinyin.m; sourceTree = "<group>"; };
 		A982CAC015D002AA00D51D5E /* pinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pinyin.h; sourceTree = "<group>"; };
 		A9B17C2E15D15DFD00E53367 /* Constents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constents.h; sourceTree = "<group>"; };
@@ -199,6 +210,7 @@
 		A90BA74015D12FAE00A1B1AA /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				A93D2BA415D69BBD00E89316 /* UIGlossyButton */,
 				A90BA73F15D12FA100A1B1AA /* FPPopover */,
 				A90BA73515D12F8600A1B1AA /* TapkuCoverFlow */,
 				A90BA72315D12F6C00A1B1AA /* PinYin */,
@@ -231,6 +243,9 @@
 				A90BA74C15D1326900A1B1AA /* AllSongsViewController.h */,
 				A90BA74D15D1326900A1B1AA /* AllSongsViewController.m */,
 				A90BA74E15D1326900A1B1AA /* AllSongsViewController.xib */,
+				A93D2BA515D69BD300E89316 /* RefreshButtonCell.h */,
+				A93D2BA615D69BD300E89316 /* RefreshButtonCell.m */,
+				A93D2BA815D69BFE00E89316 /* RefreshButtonCell.xib */,
 			);
 			name = AllSongsViewController;
 			sourceTree = "<group>";
@@ -272,6 +287,17 @@
 				A90BA76415D132DA00A1B1AA /* SongInformationViewController.xib */,
 			);
 			name = SongInformationViewController;
+			sourceTree = "<group>";
+		};
+		A93D2BA415D69BBD00E89316 /* UIGlossyButton */ = {
+			isa = PBXGroup;
+			children = (
+				A93D2B9E15D69BB900E89316 /* UIGlossyButton.h */,
+				A93D2B9F15D69BB900E89316 /* UIGlossyButton.m */,
+				A93D2BA015D69BB900E89316 /* UIView+LayerEffects.h */,
+				A93D2BA115D69BB900E89316 /* UIView+LayerEffects.m */,
+			);
+			name = UIGlossyButton;
 			sourceTree = "<group>";
 		};
 		A9C3635E15BD20620027ACDB = {
@@ -437,6 +463,7 @@
 				A90BA75615D1328800A1B1AA /* AlbumViewController.xib in Resources */,
 				A90BA76015D132B600A1B1AA /* CoverflowSelectViewController.xib in Resources */,
 				A90BA76615D132DA00A1B1AA /* SongInformationViewController.xib in Resources */,
+				A93D2BA915D69BFE00E89316 /* RefreshButtonCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,6 +502,9 @@
 				A90BA75A15D132A000A1B1AA /* CoverFlowViewController.m in Sources */,
 				A90BA75F15D132B600A1B1AA /* CoverflowSelectViewController.m in Sources */,
 				A90BA76515D132DA00A1B1AA /* SongInformationViewController.m in Sources */,
+				A93D2BA215D69BB900E89316 /* UIGlossyButton.m in Sources */,
+				A93D2BA315D69BB900E89316 /* UIView+LayerEffects.m in Sources */,
+				A93D2BA715D69BD300E89316 /* RefreshButtonCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

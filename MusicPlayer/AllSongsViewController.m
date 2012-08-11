@@ -14,6 +14,7 @@
 #import "DFMusicQuery.h"
 #import "DFSongInformation.h"
 
+#import "RefreshButtonCell.h"
 
 
 @implementation AllSongsViewController
@@ -125,18 +126,28 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-    if(cell==nil){
-        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+    if([indexPath row]>0){
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        if(cell==nil){
+            cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+        }
+        
+        [cell.textLabel setText:[NSString stringWithFormat:@"%@",[tableViewItems objectAtIndex:[indexPath row]]]];
+        if([tableViewSmallText count]>0){
+            [cell.detailTextLabel setText:[tableViewSmallText objectAtIndex:[indexPath row]]];
+        }
+        return cell;
+    }else{
+        cellIdentifier=@"RefreshButtonCellIdentifier";
+        RefreshButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        if(cell==nil){
+            cell=[[RefreshButtonCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+        }
+        
+        return cell;
     }
-
-    [cell.textLabel setText:[NSString stringWithFormat:@"%@",[tableViewItems objectAtIndex:[indexPath row]]]];
-    if([tableViewSmallText count]>0){
-        [cell.detailTextLabel setText:[tableViewSmallText objectAtIndex:[indexPath row]]];
-    }
-    
-    return cell;
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
