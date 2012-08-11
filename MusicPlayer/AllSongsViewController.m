@@ -135,6 +135,7 @@
     if([tableViewSmallText count]>0){
         [cell.detailTextLabel setText:[tableViewSmallText objectAtIndex:[indexPath row]]];
     }
+    
     return cell;
 }
 

@@ -69,7 +69,9 @@ UILabel *label;
                 [covers addObject:[UIImage imageNamed:@"no_album.png"]];
             }
             
-            [coversAlbumTitle addObject:[theItem valueForProperty:MPMediaItemPropertyAlbumTitle]];
+            NSString *albumText=[NSString stringWithFormat:@"%@-%@",[theItem valueForProperty:MPMediaItemPropertyAlbumTitle],[theItem valueForProperty:MPMediaItemPropertyArtist]];
+            
+            [coversAlbumTitle addObject:albumText];
         }
         [coverFlowView setNumberOfCovers:[musicByAlbum count]];
     }else{
