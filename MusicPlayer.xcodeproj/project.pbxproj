@@ -211,8 +211,7 @@
 		A9D4BD0915D8D1050021F406 /* Loading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Loading.m; sourceTree = "<group>"; };
 		A9EAA9D015C0D55300D4CBE7 /* DFLyricsMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFLyricsMusicPlayer.h; sourceTree = "<group>"; };
 		A9EAA9D115C0D55300D4CBE7 /* DFLyricsMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFLyricsMusicPlayer.m; sourceTree = "<group>"; };
-		A9F6CC0B15D257710049770B /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
-		A9FEB8CA15BED29600D3C121 /* Entitlement.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Entitlement.plist; path = MusicPlayer/Entitlement.plist; sourceTree = "<group>"; };
+		A9FEB8CA15BED29600D3C121 /* Entitlement.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlement.plist; sourceTree = "<group>"; };
 		A9FEB8CC15BED69800D3C121 /* no_album.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_album.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -362,7 +361,6 @@
 		A9C3635E15BD20620027ACDB = {
 			isa = PBXGroup;
 			children = (
-				A9FEB8CA15BED29600D3C121 /* Entitlement.plist */,
 				A9C3637315BD20620027ACDB /* MusicPlayer */,
 				A9C3636C15BD20620027ACDB /* Frameworks */,
 				A9C3636A15BD20620027ACDB /* Products */,
@@ -393,19 +391,12 @@
 		A9C3637315BD20620027ACDB /* MusicPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				A9D4BD0815D8D1050021F406 /* Loading.h */,
-				A9D4BD0915D8D1050021F406 /* Loading.m */,
-				A90BA74015D12FAE00A1B1AA /* Libraries */,
-				A9F6CC0B15D257710049770B /* Config.h */,
+				A9FEB8CA15BED29600D3C121 /* Entitlement.plist */,
 				A9B17C2E15D15DFD00E53367 /* Constents.h */,
-				A90BA76715D132DF00A1B1AA /* SongInformationViewController */,
-				A90BA76115D132B900A1B1AA /* CoverFlowSelectViewController */,
-				A90BA75B15D132A400A1B1AA /* CoverFlowViewController */,
-				A90BA75715D1328C00A1B1AA /* AlbumViewController */,
-				A90BA75115D1326D00A1B1AA /* AllSongsViewController */,
-				A90BA74915D131B300A1B1AA /* SwitchViewController */,
-				A90BA74A15D131BD00A1B1AA /* MainViewController */,
-				A9C819A615C4E242002B3A7A /* ViewControllers */,
+				A90BA74015D12FAE00A1B1AA /* Libraries */,
+				A9D4BD1115D8DD3A0021F406 /* AppDelegate */,
+				A9C819A615C4E242002B3A7A /* NowPlaying */,
+				A9D4BD0F15D8DCD60021F406 /* iPodLibrary */,
 				A9C819A715C4E28B002B3A7A /* Classes */,
 				A9C3637415BD20620027ACDB /* Supporting Files */,
 			);
@@ -426,26 +417,21 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		A9C819A615C4E242002B3A7A /* ViewControllers */ = {
+		A9C819A615C4E242002B3A7A /* NowPlaying */ = {
 			isa = PBXGroup;
 			children = (
-				A9C3637C15BD20620027ACDB /* AppDelegate.h */,
-				A9C3637D15BD20620027ACDB /* AppDelegate.m */,
-				A9C3638415BD20C30027ACDB /* SwitchViewController.h */,
-				A9C3638515BD20C30027ACDB /* SwitchViewController.m */,
-				A9C3638715BD20EC0027ACDB /* MainWindow.xib */,
 				A9C3638D15BD21F60027ACDB /* LyricsViewController.h */,
 				A9C3638E15BD21F60027ACDB /* LyricsViewController.m */,
 				A9C3639015BD22070027ACDB /* LyricsView.xib */,
-				A919397D15CB7EB9001C48CE /* DFMusicQuery.h */,
-				A919397E15CB7EB9001C48CE /* DFMusicQuery.m */,
 			);
-			name = ViewControllers;
+			name = NowPlaying;
 			sourceTree = "<group>";
 		};
 		A9C819A715C4E28B002B3A7A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A919397D15CB7EB9001C48CE /* DFMusicQuery.h */,
+				A919397E15CB7EB9001C48CE /* DFMusicQuery.m */,
 				A9BE9CE715BD7B330004822D /* DFQianQianLyricsDownloader.h */,
 				A9BE9CE815BD7B330004822D /* DFQianQianLyricsDownloader.m */,
 				A9BE9CEB15BD806D0004822D /* DFLyricsReader.h */,
@@ -458,6 +444,8 @@
 				A9BE9CEF15BD86E00004822D /* LyricsRow.m */,
 				A919398115CB85D3001C48CE /* DFSongInformation.h */,
 				A919398215CB85D3001C48CE /* DFSongInformation.m */,
+				A9D4BD0815D8D1050021F406 /* Loading.h */,
+				A9D4BD0915D8D1050021F406 /* Loading.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -526,6 +514,40 @@
 				A9D4BCE115D8CC3B0021F406 /* television@2x.png */,
 			);
 			name = EmptyViewImage;
+			sourceTree = "<group>";
+		};
+		A9D4BD0F15D8DCD60021F406 /* iPodLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				A90BA74915D131B300A1B1AA /* SwitchViewController */,
+				A90BA74A15D131BD00A1B1AA /* MainViewController */,
+				A90BA75115D1326D00A1B1AA /* AllSongsViewController */,
+				A90BA75715D1328C00A1B1AA /* AlbumViewController */,
+				A9D4BD1015D8DCF70021F406 /* CoverFlow */,
+				A90BA76715D132DF00A1B1AA /* SongInformationViewController */,
+			);
+			name = iPodLibrary;
+			sourceTree = "<group>";
+		};
+		A9D4BD1015D8DCF70021F406 /* CoverFlow */ = {
+			isa = PBXGroup;
+			children = (
+				A90BA75B15D132A400A1B1AA /* CoverFlowViewController */,
+				A90BA76115D132B900A1B1AA /* CoverFlowSelectViewController */,
+			);
+			name = CoverFlow;
+			sourceTree = "<group>";
+		};
+		A9D4BD1115D8DD3A0021F406 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				A9C3637C15BD20620027ACDB /* AppDelegate.h */,
+				A9C3637D15BD20620027ACDB /* AppDelegate.m */,
+				A9C3638415BD20C30027ACDB /* SwitchViewController.h */,
+				A9C3638515BD20C30027ACDB /* SwitchViewController.m */,
+				A9C3638715BD20EC0027ACDB /* MainWindow.xib */,
+			);
+			name = AppDelegate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
