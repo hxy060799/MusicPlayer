@@ -13,4 +13,6 @@ NSMutableArray *musicByTitle;
 NSMutableArray *musicByArtist;
 NSMutableArray *musicByAlbum;
 
+BOOL musicSynced;
+
 #endif

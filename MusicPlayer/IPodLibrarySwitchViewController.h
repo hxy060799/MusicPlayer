@@ -11,6 +11,9 @@
 #import "AllSongsViewController.h"
 #import "AlbumViewController.h"
 #import "CoverFlowViewController.h"
+#import "Constents.h"
+
+extern BOOL musicSynced;
 
 @interface IPodLibrarySwitchViewController : UIViewController{
     IPodLibraryMainViewController *first;

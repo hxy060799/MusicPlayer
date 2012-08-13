@@ -15,6 +15,7 @@
 #import "DFSongInformation.h"
 
 #import "RefreshButtonCell.h"
+#import "TKEmptyView.h"
 
 
 @implementation AllSongsViewController
@@ -73,20 +74,30 @@
 }
 
 -(IBAction)buttonClicked:(id)sender{
+    
     DFMusicQuery *query=[[DFMusicQuery alloc]init];
     [query allSongsQuery];
     [query release];
     
-    [tableViewItems removeAllObjects];
-    [tableViewItems addObject:@"Button"];
-    
-    for(int i=1;i<[musicByTitle count]+1;i++){
-        MPMediaItem *theItem=[musicByTitle objectAtIndex:i];
+    if(![musicByTitle count]==0){
         
-        NSString *smallText=[NSString stringWithFormat:@"%@-%@",[theItem valueForProperty:MPMediaItemPropertyArtist],[theItem valueForProperty:MPMediaItemPropertyAlbumTitle]];
+        [tableViewItems removeAllObjects];
+        [tableViewSmallText removeAllObjects];
+        [tableViewSmallText addObject:@"Button"];
+        [tableViewItems addObject:@"Button"];
         
-        [tableViewItems addObject:[theItem valueForProperty:MPMediaItemPropertyTitle]];
-        [tableViewSmallText addObject:smallText];
+        for(int i=0;i<[musicByTitle count];i++){
+            MPMediaItem *theItem=[musicByTitle objectAtIndex:i];
+            
+            NSString *smallText=[NSString stringWithFormat:@"%@-%@",[theItem valueForProperty:MPMediaItemPropertyArtist],[theItem valueForProperty: MPMediaItemPropertyAlbumTitle]];
+        
+            [tableViewItems addObject:[theItem valueForProperty:MPMediaItemPropertyTitle]];
+            [tableViewSmallText addObject:smallText];
+        }
+    }else{
+        TKEmptyView *emptyView=[[TKEmptyView alloc]initWithFrame:songsTableView.frame emptyViewImage:TKEmptyViewImageMusicNote title:@"No Songs" subtitle:@"No songs in your music library"];
+        [songsTableView removeFromSuperview];
+        [self.view insertSubview:emptyView atIndex:2];
     }
     
     [songsTableView reloadData];
