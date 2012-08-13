@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "Loading.h"
 
 @implementation AppDelegate
 
@@ -22,6 +23,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    Loading *loading=[[Loading alloc]init];
+    [loading query];
+    [loading release];
+    
     self.window=[[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
     switchViewController=[[SwitchViewController alloc] init];
     //switchViewController.delegate=self;

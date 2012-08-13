@@ -18,6 +18,6 @@ extern NSMutableArray *musicByTitle;
     NSMutableArray *tableViewSmallText;
 }
 
--(IBAction)buttonClicked:(id)sender;
+-(void)loadSongs;
 
 @end

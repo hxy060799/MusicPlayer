@@ -14,7 +14,6 @@
 #import "DFMusicQuery.h"
 #import "DFSongInformation.h"
 
-#import "RefreshButtonCell.h"
 #import "TKEmptyView.h"
 
 
@@ -40,6 +39,7 @@
     UINavigationItem *back=[[UINavigationItem alloc]initWithTitle:@"音乐库"];
     NSArray *items=[[NSArray alloc]initWithObjects:back,item,nil];
     [navigationBar setItems:items];
+    [back release];
     [items release];
     
     songsTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 44, 320, 480-(44+49+20)) style:UITableViewStylePlain];
@@ -47,8 +47,7 @@
     songsTableView.delegate=self;
     songsTableView.dataSource=self;
     
-    tableViewItems=[[NSMutableArray alloc]initWithObjects:@"Button",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",nil];
-    tableViewSmallText=[[NSMutableArray alloc]init];
+    [self loadSongs];
     
     UILongPressGestureRecognizer *longPressReger=[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tableViewLongPress:)];
     
@@ -58,6 +57,8 @@
     [longPressReger release];
     
     [self.view addSubview:songsTableView];
+    
+    
 }
 
 -(void)tableViewLongPress:(UILongPressGestureRecognizer*)gestureRecognizer{
@@ -73,34 +74,30 @@
     }
 }
 
--(IBAction)buttonClicked:(id)sender{
+-(void)loadSongs{
     
-    DFMusicQuery *query=[[DFMusicQuery alloc]init];
-    [query allSongsQuery];
-    [query release];
+    static BOOL songLoaded=NO;
     
-    if(![musicByTitle count]==0){
+    if(![musicByTitle count]==0&&!songLoaded){
         
+        tableViewItems=tableViewItems?tableViewItems:[[NSMutableArray alloc]init];
+        tableViewSmallText=tableViewSmallText?tableViewSmallText:[[NSMutableArray alloc]init];
+
         [tableViewItems removeAllObjects];
         [tableViewSmallText removeAllObjects];
-        [tableViewSmallText addObject:@"Button"];
-        [tableViewItems addObject:@"Button"];
         
         for(int i=0;i<[musicByTitle count];i++){
             MPMediaItem *theItem=[musicByTitle objectAtIndex:i];
             
             NSString *smallText=[NSString stringWithFormat:@"%@-%@",[theItem valueForProperty:MPMediaItemPropertyArtist],[theItem valueForProperty: MPMediaItemPropertyAlbumTitle]];
-        
+            
             [tableViewItems addObject:[theItem valueForProperty:MPMediaItemPropertyTitle]];
             [tableViewSmallText addObject:smallText];
         }
-    }else{
-        TKEmptyView *emptyView=[[TKEmptyView alloc]initWithFrame:songsTableView.frame emptyViewImage:TKEmptyViewImageMusicNote title:@"No Songs" subtitle:@"No songs in your music library"];
-        [songsTableView removeFromSuperview];
-        [self.view insertSubview:emptyView atIndex:2];
+        [songsTableView reloadData];
+        
+        songLoaded=YES;
     }
-    
-    [songsTableView reloadData];
     
 }
 
@@ -137,66 +134,22 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    /*
-     static NSString *cellIdentifier = @"Cell";
-     if([indexPath row]>0){
-     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-     
-     if(cell==nil){
-     cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
-     }
-     
-     [cell.textLabel setText:[NSString stringWithFormat:@"%@",[tableViewItems objectAtIndex:[indexPath row]]]];
-     if([tableViewSmallText count]>0){
-     [cell.detailTextLabel setText:[tableViewSmallText objectAtIndex:[indexPath row]]];
-     }
-     return cell;
-     }else{
-     cellIdentifier=@"RefreshButtonCellIdentifier";
-     
-     static BOOL nibsRegistered = NO;
-     if (!nibsRegistered) {
-     UINib *nib = [UINib nibWithNibName:@"RefreshButtonCell" bundle:nil];
-     [tableView registerNib:nib forCellReuseIdentifier:cellIdentifier];
-     nibsRegistered = YES;
-     }
-     
-     RefreshButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-     
-     if(cell==nil){
-     cell=[[RefreshButtonCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
-     [cell setButton];
-     }
-     
-     return cell;
-     }*/
     
-    if([indexPath row]==0){
-        NSString *cellIdentifier = @"RefreshButtonCellIdentifier";
-        
-        UINib *nib = [UINib nibWithNibName:@"RefreshButtonCell" bundle:nil];
-        [tableView registerNib:nib forCellReuseIdentifier:cellIdentifier];
-        
-        RefreshButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        
-        [cell setButton];
-        
-        return cell;
-    }else{
-        NSString *cellIdentifier = @"cell";
-        
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        
-        if(cell==nil){
-            cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
-        }
-        
-        [cell.textLabel setText:[NSString stringWithFormat:@"%@",[tableViewItems objectAtIndex:[indexPath row]]]];
-        if([tableViewSmallText count]>0){
-            [cell.detailTextLabel setText:[tableViewSmallText objectAtIndex:[indexPath row]]];
-        }
-        return cell;
+    
+    NSString *cellIdentifier = @"cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    if(cell==nil){
+        cell=[[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier]autorelease];
     }
+    
+    [cell.textLabel setText:[NSString stringWithFormat:@"%@",[tableViewItems objectAtIndex:[indexPath row]]]];
+    if([tableViewSmallText count]>0){
+        [cell.detailTextLabel setText:[tableViewSmallText objectAtIndex:[indexPath row]]];
+    }
+    return cell;
+    
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

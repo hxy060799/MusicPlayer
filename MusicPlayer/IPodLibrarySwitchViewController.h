@@ -14,10 +14,11 @@
 #import "Constents.h"
 
 extern BOOL musicSynced;
+extern NSMutableArray *musicByTitle;
 
 @interface IPodLibrarySwitchViewController : UIViewController{
-    IPodLibraryMainViewController *first;
-    AllSongsViewController *second;
+    IPodLibraryMainViewController *mainViewController;
+    AllSongsViewController *allSongsViewController;
     AlbumViewController *albumController;
     CoverFlowViewController *coverFlowViewController;
     

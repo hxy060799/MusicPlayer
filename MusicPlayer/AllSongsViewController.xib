@@ -11,13 +11,12 @@
 			<string key="NS.object.0">1420</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
-			<string>IBUITabBarItem</string>
-			<string>IBUIBarButtonItem</string>
-			<string>IBProxyObject</string>
 			<string>IBUITabBar</string>
-			<string>IBUINavigationBar</string>
 			<string>IBUINavigationItem</string>
+			<string>IBUITabBarItem</string>
 			<string>IBUIView</string>
+			<string>IBUINavigationBar</string>
+			<string>IBProxyObject</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -51,12 +50,6 @@
 							<object class="IBUINavigationItem" id="591484652">
 								<reference key="IBUINavigationBar" ref="640553501"/>
 								<string key="IBUITitle">所有歌曲</string>
-								<object class="IBUIBarButtonItem" key="IBUIRightBarButtonItem" id="811265366">
-									<string key="IBUITitle">Refresh</string>
-									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-									<int key="IBUIStyle">1</int>
-									<reference key="IBUINavigationItem" ref="591484652"/>
-								</object>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
 						</array>
@@ -120,14 +113,6 @@
 					</object>
 					<int key="connectionID">7</int>
 				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">buttonClicked:</string>
-						<reference key="source" ref="811265366"/>
-						<reference key="destination" ref="372490531"/>
-					</object>
-					<int key="connectionID">12</int>
-				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -168,15 +153,8 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">6</int>
 						<reference key="object" ref="591484652"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="811265366"/>
-						</array>
+						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="640553501"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">11</int>
-						<reference key="object" ref="811265366"/>
-						<reference key="parent" ref="591484652"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">13</int>
@@ -205,7 +183,6 @@
 				<string key="-2.CustomClassName">UIResponder</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="11.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="13.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="14.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="15.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -223,17 +200,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">AllSongsViewController</string>
 					<string key="superclassName">UIViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">buttonClicked:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">buttonClicked:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">buttonClicked:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">navigationBar</string>
 						<string key="NS.object.0">UINavigationBar</string>

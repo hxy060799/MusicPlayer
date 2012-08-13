@@ -7,7 +7,6 @@
 //
 
 #import "IPodLibrarySwitchViewController.h"
-#import <QuartzCore/QuartzCore.h>
 #import "DFMusicQuery.h"
 
 @implementation IPodLibrarySwitchViewController
@@ -25,13 +24,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    first = [[IPodLibraryMainViewController alloc] init];
-    second = [[AllSongsViewController alloc] init];
+    mainViewController = [[IPodLibraryMainViewController alloc] init];
+        musicSynced=NO;
     
-    current = first;
-    [self.view addSubview:current.view];
-    
-    musicSynced=NO;
+    [self.view addSubview:mainViewController.view];
+
 }
 
 -(void)startMoveWithViewController:(UIViewController*)controller PointStart:(CGPoint)pointStart PointTo:(CGPoint)pointTo UseSelector:(BOOL)useSelector{
@@ -51,17 +48,14 @@
 -(void)changeToAllSongsView{
     self.view.userInteractionEnabled=NO;
     
-    if(!musicSynced){
-        NSLog(@"Music Unsynced");
-        musicSynced=YES;
-        [second buttonClicked:nil];
-        NSLog(@"Music SyncedFinished");
+    if(!allSongsViewController){
+        allSongsViewController=[[AllSongsViewController alloc]initWithNibName:@"AllSongsViewController" bundle:nil];
     }
     
-    [self startMoveWithViewController:first PointStart:CGPointMake(0, 0) PointTo:CGPointMake(-320, 0) UseSelector:NO];
-    [self.view insertSubview:second.view atIndex:0];
-    [self startMoveWithViewController:second PointStart:CGPointMake(320, 0) PointTo:CGPointMake(0, 0) UseSelector:YES];
-    viewToRemove=first;
+    [self startMoveWithViewController:mainViewController PointStart:CGPointMake(0, 0) PointTo:CGPointMake(-320, 0) UseSelector:NO];
+    [self.view insertSubview:allSongsViewController.view atIndex:0];
+    [self startMoveWithViewController:allSongsViewController PointStart:CGPointMake(320, 0) PointTo:CGPointMake(0, 0) UseSelector:YES];
+    viewToRemove=mainViewController;
 }
 
 -(void)changeToAlbumController{
@@ -70,10 +64,10 @@
     }
     
     self.view.userInteractionEnabled=NO;
-    [self startMoveWithViewController:first PointStart:CGPointMake(0, 0) PointTo:CGPointMake(-320, 0) UseSelector:NO];
+    [self startMoveWithViewController:mainViewController PointStart:CGPointMake(0, 0) PointTo:CGPointMake(-320, 0) UseSelector:NO];
     [self.view insertSubview:albumController.view atIndex:0];
     [self startMoveWithViewController:albumController PointStart:CGPointMake(320, 0) PointTo:CGPointMake(0, 0) UseSelector:YES];
-    viewToRemove=first;
+    viewToRemove=mainViewController;
 }
 
 -(void)changeToIPodLibraryMainViewWithNowController:(NSString*)controller{
@@ -81,15 +75,15 @@
     UIViewController *usingController;
     
     if([controller isEqualToString:@"MusicSelectView"]){
-        usingController=second;
+        usingController=allSongsViewController;
     }else if([controller isEqualToString:@"CoverflowView"]){
         usingController=coverFlowViewController;
     }
     
     self.view.userInteractionEnabled=NO;
     [self startMoveWithViewController:usingController PointStart:CGPointMake(0, 0) PointTo:CGPointMake(320, 0) UseSelector:NO];
-    [self.view insertSubview:first.view atIndex:0];
-    [self startMoveWithViewController:first PointStart:CGPointMake(-320, 0) PointTo:CGPointMake(0, 0) UseSelector:YES];
+    [self.view insertSubview:mainViewController.view atIndex:0];
+    [self startMoveWithViewController:mainViewController PointStart:CGPointMake(-320, 0) PointTo:CGPointMake(0, 0) UseSelector:YES];
     viewToRemove=usingController;
 }
 
@@ -99,10 +93,10 @@
     }
     
     self.view.userInteractionEnabled=NO;
-    [self startMoveWithViewController:first PointStart:CGPointMake(0, 0) PointTo:CGPointMake(-320, 0) UseSelector:NO];
+    [self startMoveWithViewController:mainViewController PointStart:CGPointMake(0, 0) PointTo:CGPointMake(-320, 0) UseSelector:NO];
     [self.view insertSubview:coverFlowViewController.view atIndex:0];
     [self startMoveWithViewController:coverFlowViewController PointStart:CGPointMake(320, 0) PointTo:CGPointMake(0, 0) UseSelector:YES];
-    viewToRemove=first;
+    viewToRemove=mainViewController;
 }
 
 -(void)animationEnd{

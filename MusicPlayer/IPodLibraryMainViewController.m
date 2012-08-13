@@ -8,6 +8,7 @@
 
 #import "IPodLibraryMainViewController.h"
 #import "AppDelegate.h"
+#import "TKEmptyView.h"
 
 @implementation IPodLibraryMainViewController
 
@@ -24,15 +25,21 @@
 {
     [super viewDidLoad];
     
-    iPodLibraryTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 44, 320, 480-44) style:UITableViewStyleGrouped];
-    
-    iPodLibraryTableView.delegate=self;
-    iPodLibraryTableView.dataSource=self;
-    
-    tableViewItems=[[NSMutableArray alloc]initWithObjects:@"所有歌曲",@"歌手",@"专辑",@"CoverFlow",nil];
-    
-    [self.view addSubview:iPodLibraryTableView];
-
+    if([musicByTitle count]==0){
+        //如果没有歌，就就加载提示界面
+        TKEmptyView *emptyView=[[TKEmptyView alloc]initWithFrame:self.view.frame emptyViewImage:TKEmptyViewImageMusicNote title:@"No Songs" subtitle:@"No songs in your music library"];
+        [self.view insertSubview:emptyView atIndex:0];
+    }else{
+        
+        iPodLibraryTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 44, 320, 480-44) style:UITableViewStyleGrouped];
+        
+        iPodLibraryTableView.delegate=self;
+        iPodLibraryTableView.dataSource=self;
+        
+        tableViewItems=[[NSMutableArray alloc]initWithObjects:@"所有歌曲",@"歌手",@"专辑",@"CoverFlow",nil];
+        
+        [self.view addSubview:iPodLibraryTableView];
+    }
     
 }
 
