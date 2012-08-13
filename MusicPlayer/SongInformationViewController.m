@@ -28,7 +28,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [songTitle setText:@"Hello"];
 }
 
 -(void)setInformationWithItem:(MPMediaItem*)theItem{
