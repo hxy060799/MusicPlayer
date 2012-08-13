@@ -24,7 +24,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self.view setFrame:CGRectMake(0, 0, 320, 367)];
-
+        
     }
     return self;
 }
@@ -46,7 +46,7 @@
     songsTableView.delegate=self;
     songsTableView.dataSource=self;
     
-    tableViewItems=[[NSMutableArray alloc]initWithObjects:@"1",@"2",@"3",@"4",@"5",@"6",nil];
+    tableViewItems=[[NSMutableArray alloc]initWithObjects:@"Button",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",nil];
     tableViewSmallText=[[NSMutableArray alloc]init];
     
     UILongPressGestureRecognizer *longPressReger=[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tableViewLongPress:)];
@@ -58,7 +58,7 @@
     
     [self.view addSubview:songsTableView];
 }
-                                                  
+
 -(void)tableViewLongPress:(UILongPressGestureRecognizer*)gestureRecognizer{
     if(gestureRecognizer.state==UIGestureRecognizerStateBegan){
         CGPoint touchPoint=[gestureRecognizer locationInView:songsTableView];
@@ -78,8 +78,9 @@
     [query release];
     
     [tableViewItems removeAllObjects];
+    [tableViewItems addObject:@"Button"];
     
-    for(int i=0;i<[musicByTitle count];i++){
+    for(int i=1;i<[musicByTitle count]+1;i++){
         MPMediaItem *theItem=[musicByTitle objectAtIndex:i];
         
         NSString *smallText=[NSString stringWithFormat:@"%@-%@",[theItem valueForProperty:MPMediaItemPropertyArtist],[theItem valueForProperty:MPMediaItemPropertyAlbumTitle]];
@@ -125,8 +126,54 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellIdentifier = @"Cell";
-    if([indexPath row]>0){
+    /*
+     static NSString *cellIdentifier = @"Cell";
+     if([indexPath row]>0){
+     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+     
+     if(cell==nil){
+     cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+     }
+     
+     [cell.textLabel setText:[NSString stringWithFormat:@"%@",[tableViewItems objectAtIndex:[indexPath row]]]];
+     if([tableViewSmallText count]>0){
+     [cell.detailTextLabel setText:[tableViewSmallText objectAtIndex:[indexPath row]]];
+     }
+     return cell;
+     }else{
+     cellIdentifier=@"RefreshButtonCellIdentifier";
+     
+     static BOOL nibsRegistered = NO;
+     if (!nibsRegistered) {
+     UINib *nib = [UINib nibWithNibName:@"RefreshButtonCell" bundle:nil];
+     [tableView registerNib:nib forCellReuseIdentifier:cellIdentifier];
+     nibsRegistered = YES;
+     }
+     
+     RefreshButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+     
+     if(cell==nil){
+     cell=[[RefreshButtonCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+     [cell setButton];
+     }
+     
+     return cell;
+     }*/
+    
+    if([indexPath row]==0){
+        NSString *cellIdentifier = @"RefreshButtonCellIdentifier";
+        
+        UINib *nib = [UINib nibWithNibName:@"RefreshButtonCell" bundle:nil];
+        [tableView registerNib:nib forCellReuseIdentifier:cellIdentifier];
+        
+        RefreshButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        [cell setButton];
+        
+        return cell;
+    }else{
+        NSString *cellIdentifier = @"cell";
+        
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
         if(cell==nil){
@@ -137,15 +184,6 @@
         if([tableViewSmallText count]>0){
             [cell.detailTextLabel setText:[tableViewSmallText objectAtIndex:[indexPath row]]];
         }
-        return cell;
-    }else{
-        cellIdentifier=@"RefreshButtonCellIdentifier";
-        RefreshButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        
-        if(cell==nil){
-            cell=[[RefreshButtonCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
-        }
-        
         return cell;
     }
 }
@@ -187,4 +225,13 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+-(NSIndexPath*)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if([indexPath row]==0){
+        return nil;
+    }
+    return indexPath;
+}
+
 @end
+
+

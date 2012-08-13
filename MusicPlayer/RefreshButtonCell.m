@@ -14,9 +14,13 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        [refreshButton setNavigationButtonWithColor:[UIColor doneButtonColor]];
+    
     }
     return self;
+}
+
+-(void)setButton{
+    [refreshButton setNavigationButtonWithColor:[UIColor navigationBarButtonColor]];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

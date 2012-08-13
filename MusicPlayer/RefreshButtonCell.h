@@ -13,5 +13,5 @@
 @interface RefreshButtonCell : UITableViewCell{
     IBOutlet UIGlossyButton *refreshButton;
 }
-
+-(void)setButton;
 @end
