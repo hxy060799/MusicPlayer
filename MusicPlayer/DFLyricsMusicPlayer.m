@@ -157,26 +157,6 @@ NSTimer *lyricsTimer;
     endTimer=[NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerGoes:) userInfo:nil repeats:YES];
 }
 
--(void)setLyricsWithLyrics:(NSMutableArray *)theLyrics{
-    //赋值部分
-    if([lyrics count]>0){
-        [self.lyrics removeAllObjects];
-    }
-    for(int i=0;i<[theLyrics count];i++){
-        [self.lyrics addObject:[theLyrics objectAtIndex:i]];
-    }
-    [theLyrics autorelease];
-    
-    //输出部分
-    for(int i=0;i<[self.lyrics count];i++){
-        LyricsRow *row=(LyricsRow*)[self.lyrics objectAtIndex:i];
-        NSLog(@"!%@--%@",row.time,row.content);
-    }
-    
-    [self saveLyricsWithArtist:[[self.player nowPlayingItem] valueForKey:MPMediaItemPropertyArtist] Title:[[self.player nowPlayingItem] valueForKey:MPMediaItemPropertyTitle]];
-
-}
-
 -(void)saveLyricsWithArtist:(NSString*)artist Title:(NSString*)title{
     NSLog(@"startSaving");
     [self.lyricsDictionary setObject:lyrics forKey:[NSString stringWithFormat:@"%@-%@",artist,title]];
@@ -273,7 +253,25 @@ NSTimer *lyricsTimer;
 }
 
 -(void)readingFinishedWithLyrics:(NSMutableArray *)lyricsFinished{
-    [self setLyricsWithLyrics:lyricsFinished];
+    NSMutableArray *theLyrics=[[NSMutableArray alloc]initWithArray:lyricsFinished];;
+    
+    //赋值部分
+    if([lyrics count]>0){
+        [self.lyrics removeAllObjects];
+    }
+    for(int i=0;i<[theLyrics count];i++){
+        [self.lyrics addObject:[theLyrics objectAtIndex:i]];
+    }
+    [theLyrics release];
+    
+    //输出部分
+    for(int i=0;i<[self.lyrics count];i++){
+        LyricsRow *row=(LyricsRow*)[self.lyrics objectAtIndex:i];
+        NSLog(@"!%@--%@",row.time,row.content);
+    }
+    
+    [self saveLyricsWithArtist:[[self.player nowPlayingItem] valueForKey:MPMediaItemPropertyArtist] Title:[[self.player nowPlayingItem] valueForKey:MPMediaItemPropertyTitle]];
+
 }
 
 @end

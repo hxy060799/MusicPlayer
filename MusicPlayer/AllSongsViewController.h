@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "FPPopoverController.h"
+#import "SongsTableViewController.h"
 
 extern NSMutableArray *musicByTitle;
 
-@interface AllSongsViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
+@interface AllSongsViewController : SongsTableViewController{
     IBOutlet UINavigationBar *navigationBar;
-    UITableView *songsTableView;
+    //UITableView *songsTableView;
     NSMutableArray *tableViewItems;
     NSMutableArray *tableViewSmallText;
 }

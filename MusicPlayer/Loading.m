@@ -14,6 +14,7 @@
 -(void)query{
     DFMusicQuery *query=[[DFMusicQuery alloc]init];
     [query allSongsQuery];
+    [query albumQuery];
     [query release];
 }
 

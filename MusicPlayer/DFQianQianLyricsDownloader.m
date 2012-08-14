@@ -28,9 +28,9 @@
 
     NSArray *tempArray = [result componentsSeparatedByString:@"<lrc"];
     
-    NSString *lrcID,*firstId;
-    NSString *finalArtist,*firstArtist;
-    NSString *finalTitle,*firstTitle;
+    NSString *lrcID=[NSString string],*firstId=[NSString string];
+    NSString *finalArtist=[NSString string],*firstArtist=[NSString string];
+    NSString *finalTitle=[NSString string],*firstTitle=[NSString string];
     if([tempArray count]==1){
         if(delegate){
             [self.delegate downloadFinishedWithString:[NSString stringWithString:@"NoLyrics"]];

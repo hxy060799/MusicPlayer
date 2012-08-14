@@ -9,6 +9,8 @@
 #ifndef MusicPlayer_Constents_h
 #define MusicPlayer_Constents_h
 
+#define MUSIC_COUNT [musicByTitle count]
+
 NSMutableArray *musicByTitle;
 NSMutableArray *musicByArtist;
 NSMutableArray *musicByAlbum;

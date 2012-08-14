@@ -38,7 +38,6 @@
 @property(retain,nonatomic)NSMutableDictionary *lyricsDictionary;
 
 -(id)init;
--(void)setLyricsWithLyrics:(NSMutableArray*)theLyrics;
 -(void)readLyricsWithString:(NSString*)string;
 
 

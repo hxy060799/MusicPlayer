@@ -25,6 +25,7 @@
 {
     
     Loading *loading=[[Loading alloc]init];
+    NSLog(@"Loading......");
     [loading query];
     [loading release];
     

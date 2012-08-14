@@ -19,15 +19,7 @@
 
 @implementation AllSongsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        [self.view setFrame:CGRectMake(0, 0, 320, 367)];
-        
-    }
-    return self;
-}
+
 
 - (void)viewDidLoad
 {
@@ -41,24 +33,6 @@
     [navigationBar setItems:items];
     [back release];
     [items release];
-    
-    songsTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 44, 320, 480-(44+49+20)) style:UITableViewStylePlain];
-    
-    songsTableView.delegate=self;
-    songsTableView.dataSource=self;
-    
-    [self loadSongs];
-    
-    UILongPressGestureRecognizer *longPressReger=[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(tableViewLongPress:)];
-    
-    longPressReger.minimumPressDuration=0.8f;
-    
-    [songsTableView addGestureRecognizer:longPressReger];
-    [longPressReger release];
-    
-    [self.view addSubview:songsTableView];
-    
-    
 }
 
 -(void)tableViewLongPress:(UILongPressGestureRecognizer*)gestureRecognizer{

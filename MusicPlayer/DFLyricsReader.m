@@ -50,7 +50,7 @@
         for(int i=0;i<[temp count]-1;i++){
             
             NSString *tTime=[temp objectAtIndex:i];
-            //部分歌词末尾会有一个t_time:(xx:xx)的标记导致程序出错，这里要处理掉
+            //部分歌词会有t_time:(xx:xx)的标记导致程序出错，这里要处理掉
             if(![tTime rangeOfString:@"t_time"].length>0){
                 LyricsRow *row=[[LyricsRow alloc]init];
                 row.time=tTime;
@@ -70,8 +70,9 @@
     [lyricsRowsToUse release];
     
     if(delegate){
-        [delegate readingFinishedWithLyrics:complateLyrics];
+        [delegate readingFinishedWithLyrics:[complateLyrics autorelease]];
     }else{
+        [complateLyrics autorelease];
         NSLog(@"Delegate is nil");
     }
 }
