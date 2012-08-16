@@ -37,7 +37,7 @@ UILabel *label;
     
     [navigationBar setDelegate:self];
     UINavigationItem *back=[[UINavigationItem alloc]initWithTitle:@"音乐库"];
-    NSArray *items=[[NSArray alloc]initWithObjects:back,titleItem,nil];
+    NSArray *items=[[NSArray alloc]initWithObjects:[back autorelease],[titleItem autorelease],nil];
     [navigationBar setItems:items];
     [items release];
     

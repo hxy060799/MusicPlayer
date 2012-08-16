@@ -22,10 +22,10 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    if(!songsTableView)self.songsTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 44, 320, 367) style:UITableViewStylePlain];
+    if(!songsTableView)songsTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 44, 320, 367) style:UITableViewStylePlain];
     
-    self.songsTableView.delegate=self;
-    self.songsTableView.dataSource=self;
+    songsTableView.delegate=self;
+    songsTableView.dataSource=self;
     
     [self.view insertSubview:self.songsTableView atIndex:0];
     

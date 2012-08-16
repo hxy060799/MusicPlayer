@@ -26,7 +26,7 @@
     navigationBar.delegate=self;
     
     UINavigationItem *item=[navigationBar.items objectAtIndex:0];
-    UINavigationItem *back=[[UINavigationItem alloc]initWithTitle:@"Album"];
+    UINavigationItem *back=[[UINavigationItem alloc]initWithTitle:@"专辑"];
     NSArray *items=[[NSArray alloc]initWithObjects:back,item,nil];
     [navigationBar setItems:items];
     [back release];
@@ -39,6 +39,7 @@
     NSMutableArray *array=[[NSMutableArray alloc]initWithArray:collection.items];
     [super setTableViewWithMusicArray:array];
     [array release];
+    
 }
 
 -(BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item{
