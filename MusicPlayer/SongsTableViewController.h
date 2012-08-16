@@ -8,15 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class TKEmptyView;
 
 @interface SongsTableViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
-    //其中包括一个Tableview和一个EmptyView
+    //其中包括一个Tableview
     UITableView *songsTableView;
-    TKEmptyView *emptyView;
 }
 
 @property(retain,nonatomic)UITableView *songsTableView;
-@property(retain,nonatomic)TKEmptyView *emptyView;
 
 @end

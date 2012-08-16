@@ -9,39 +9,38 @@
 #import "SongsTableViewController.h"
 
 #import "Constents.h"
-#import "TKEmptyView.h"
+#import "MediaPlayer/MediaPlayer.h"
 
 @implementation SongsTableViewController
 
 @synthesize songsTableView;
-@synthesize emptyView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self.view setFrame:CGRectMake(0, 0, 320, 480)];
         
-        if(MUSIC_COUNT>0){
-            if(!emptyView)self.emptyView=[[TKEmptyView alloc]initWithFrame:self.view.frame emptyViewImage:TKEmptyViewImageMusicNote title:@"No Songs" subtitle:@"No songs in your music library"];
-            [self.view insertSubview:self.emptyView atIndex:0];
-        }else{
-            
-            if(!songsTableView)self.songsTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 44, 320, 480-44) style:UITableViewStyleGrouped];
-            
-            self.songsTableView.delegate=self;
-            self.songsTableView.dataSource=self;
-            
-            [self.view insertSubview:self.songsTableView atIndex:0];
-        }
-
     }
     return self;
 }
 
+-(void)viewDidLoad{
+    NSLog(@"%i",[musicByTitle count]);
+    
+    
+    if(!songsTableView)self.songsTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 44, 320, 367) style:UITableViewStylePlain];
+    
+    self.songsTableView.delegate=self;
+    self.songsTableView.dataSource=self;
+    
+    [self.view insertSubview:self.songsTableView atIndex:0];
+    
+    
+    [self.view setFrame:CGRectMake(0, 0, 320, 480)];
+}
+
 -(void)dealloc{
     if(songsTableView)[songsTableView release];
-    if(emptyView)[emptyView release];
     [super dealloc];
 }
 
@@ -52,20 +51,35 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return MUSIC_COUNT;
+    return [musicByTitle count];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"%@",[musicByTitle objectAtIndex:[indexPath row]]);
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellIdentifier = @"Cell";
+    
+    static NSString *cellIdentifier = @"songCell";
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
-    if(!cell)cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    if(cell==nil){
+        cell=[[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier]autorelease];
+    }
     
-    [cell.textLabel setText:[NSString stringWithFormat:@"%i",[indexPath row]]];
+    MPMediaItem *nowItem=[musicByTitle objectAtIndex:indexPath.row];
     
+    NSString *cellText=[nowItem valueForProperty:MPMediaItemPropertyTitle];
+    NSString *smallText=[NSString stringWithFormat:@"%@-%@",[nowItem valueForProperty:MPMediaItemPropertyArtist],[nowItem valueForProperty: MPMediaItemPropertyAlbumTitle]];
+    
+    [cell.textLabel setText:cellText];
+    [cell.detailTextLabel setText:smallText];
     return cell;
+    
 }
 
 

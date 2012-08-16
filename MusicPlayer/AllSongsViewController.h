@@ -15,10 +15,7 @@ extern NSMutableArray *musicByTitle;
 @interface AllSongsViewController : SongsTableViewController{
     IBOutlet UINavigationBar *navigationBar;
     //UITableView *songsTableView;
-    NSMutableArray *tableViewItems;
-    NSMutableArray *tableViewSmallText;
 }
 
--(void)loadSongs;
 
 @end
