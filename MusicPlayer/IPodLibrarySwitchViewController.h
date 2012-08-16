@@ -11,6 +11,7 @@
 #import "AllSongsViewController.h"
 #import "AlbumViewController.h"
 #import "CoverFlowViewController.h"
+#import "AlbumSongsViewController.h"
 #import "Constents.h"
 
 extern BOOL musicSynced;
@@ -21,6 +22,7 @@ extern NSMutableArray *musicByTitle;
     AllSongsViewController *allSongsViewController;
     AlbumViewController *albumController;
     CoverFlowViewController *coverFlowViewController;
+    AlbumSongsViewController *albumSongsViewController;
     
     UIViewController *current;
     
@@ -30,6 +32,8 @@ extern NSMutableArray *musicByTitle;
 -(void)changeToAllSongsView;
 -(void)changeToIPodLibraryMainViewWithNowController:(NSString*)controller;
 -(void)changeToAlbumController;
+-(void)changeBackToAlbumController;
 -(void)changeToCoverFlowView;
+-(void)changeToAlbumSongsViewWithMusicArray:(NSArray*)array;
 
 @end

@@ -59,6 +59,7 @@
 }
 
 -(void)changeToAlbumController{
+    
     if(albumController==nil){
         albumController=[[AlbumViewController alloc]initWithNibName:@"AlbumViewController" bundle:nil];
     }
@@ -70,6 +71,32 @@
     viewToRemove=mainViewController;
 }
 
+-(void)changeBackToAlbumController{
+    if(albumController==nil){
+        albumController=[[AlbumViewController alloc]initWithNibName:@"AlbumViewController" bundle:nil];
+    }
+    
+    self.view.userInteractionEnabled=NO;
+    [self startMoveWithViewController:albumSongsViewController PointStart:CGPointMake(0, 0) PointTo:CGPointMake(320, 0) UseSelector:NO];
+    [self.view insertSubview:albumController.view atIndex:0];
+    [self startMoveWithViewController:albumController PointStart:CGPointMake(-320, 0) PointTo:CGPointMake(0, 0) UseSelector:YES];
+    viewToRemove=albumSongsViewController;
+}
+
+-(void)changeToAlbumSongsViewWithMusicArray:(NSArray*)array{
+    if(albumSongsViewController==nil){
+        albumSongsViewController=[[AlbumSongsViewController alloc]initWithNibName:@"AlbumSongsViewController" bundle:nil];
+    }
+    
+    [albumSongsViewController setTableViewWithMusicArray:[NSMutableArray arrayWithArray:array]];
+    
+    self.view.userInteractionEnabled=NO;
+    [self startMoveWithViewController:albumController PointStart:CGPointMake(0, 0) PointTo:CGPointMake(-320, 0) UseSelector:NO];
+    [self.view insertSubview:albumSongsViewController.view atIndex:0];
+    [self startMoveWithViewController:albumSongsViewController PointStart:CGPointMake(320, 0) PointTo:CGPointMake(0, 0) UseSelector:YES];
+    viewToRemove=albumController;
+}
+
 -(void)changeToIPodLibraryMainViewWithNowController:(NSString*)controller{
     
     UIViewController *usingController;
@@ -78,6 +105,8 @@
         usingController=allSongsViewController;
     }else if([controller isEqualToString:@"CoverflowView"]){
         usingController=coverFlowViewController;
+    }else if([controller isEqualToString:@"AlbumView"]){
+        usingController=albumController;
     }
     
     self.view.userInteractionEnabled=NO;
@@ -103,11 +132,13 @@
     self.view.userInteractionEnabled=YES;
     if(viewToRemove){
         [viewToRemove.view removeFromSuperview];
+        if(viewToRemove==albumSongsViewController){
+            [albumSongsViewController release];
+            albumSongsViewController=nil;
+        }
         viewToRemove=nil;
     }
 }
-
-
 
 - (void)viewDidUnload
 {
@@ -116,7 +147,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return YES;
 }
 
 @end

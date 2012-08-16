@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MusicGroupViewController.h"
 
-@interface AlbumViewController : UIViewController{
-    IBOutlet UIScrollView *scrollView;
+@interface AlbumViewController : MusicGroupViewController{
+    IBOutlet UINavigationBar *navigationBar;
 }
+@property(retain,nonatomic)IBOutlet UINavigationBar *navigationBar;
 
 @end

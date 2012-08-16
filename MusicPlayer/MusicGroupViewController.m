@@ -1,30 +1,27 @@
 //
-//  SongsTableViewController.m
+//  MusicGroupViewController.m
 //  MusicPlayer
 //
-//  Created by Bill on 12-8-14.
+//  Created by Bill on 12-8-16.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "SongsTableViewController.h"
-
+#import "MusicGroupViewController.h"
 #import "Constents.h"
 #import "MediaPlayer/MediaPlayer.h"
 
-@implementation SongsTableViewController
-
-@synthesize songsTableView;
+@implementation MusicGroupViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
     }
     return self;
 }
 
--(void)setTableViewWithMusicArray:(NSMutableArray*)array{
+-(void)viewDidLoad{
+    [super viewDidLoad];
     if(!songsTableView)self.songsTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 44, 320, 367) style:UITableViewStylePlain];
     
     self.songsTableView.delegate=self;
@@ -33,17 +30,6 @@
     [self.view insertSubview:self.songsTableView atIndex:0];
     
     [self.view setFrame:CGRectMake(0, 0, 320, 480)];
-    
-    musicArray=array;
-}
-
--(void)viewDidLoad{
-    [super viewDidLoad];
-}
-
--(void)dealloc{
-    if(songsTableView)[songsTableView release];
-    [super dealloc];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -53,12 +39,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [musicArray count];
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    return [musicByAlbum count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -72,16 +53,32 @@
         cell=[[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier]autorelease];
     }
     
-    MPMediaItem *nowItem=[musicArray objectAtIndex:indexPath.row];
+    NSArray *collection=[[musicByAlbum objectAtIndex:indexPath.row]items];
+
     
-    NSString *cellText=[nowItem valueForProperty:MPMediaItemPropertyTitle];
-    NSString *smallText=[NSString stringWithFormat:@"%@-%@",[nowItem valueForProperty:MPMediaItemPropertyArtist],[nowItem valueForProperty: MPMediaItemPropertyAlbumTitle]];
+    NSString *cellText=[[collection objectAtIndex:0]valueForProperty:MPMediaItemPropertyAlbumTitle];
+    NSString *smallText=[[collection objectAtIndex:0]valueForProperty:MPMediaItemPropertyArtist];
+    
+    MPMediaItemArtwork *mia=[[collection objectAtIndex:0] valueForProperty:MPMediaItemPropertyArtwork];
+    UIImage *artworkImage=[mia imageWithSize:CGSizeMake(44, 44)];
+    
+    artworkImage=(artworkImage)?artworkImage:[UIImage imageNamed:@"no_album.png"];
     
     [cell.textLabel setText:cellText];
     [cell.detailTextLabel setText:smallText];
+    [[cell imageView] setImage:artworkImage];
     return cell;
     
 }
 
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
+}
 
 @end

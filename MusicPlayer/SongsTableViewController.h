@@ -12,8 +12,12 @@
 @interface SongsTableViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
     //其中包括一个Tableview
     UITableView *songsTableView;
+    NSMutableArray *musicArray;
 }
 
 @property(retain,nonatomic)UITableView *songsTableView;
+@property(retain,nonatomic)NSMutableArray *musicArray;
+
+-(void)setTableViewWithMusicArray:(NSMutableArray*)array;
 
 @end

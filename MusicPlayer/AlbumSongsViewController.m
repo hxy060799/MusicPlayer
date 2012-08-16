@@ -1,20 +1,21 @@
 //
-//  AllSongsViewController.m
-//  iPodLibraryViews
+//  AlbumSongsViewController.m
+//  MusicPlayer
 //
-//  Created by Bill on 12-7-30.
+//  Created by Bill on 12-8-16.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "AllSongsViewController.h"
+#import "AlbumSongsViewController.h"
+
 #import "AppDelegate.h"
 
-@implementation AllSongsViewController
+@implementation AlbumSongsViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    if(self=[super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]){
-        
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
     }
     return self;
 }
@@ -22,22 +23,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     navigationBar.delegate=self;
     
     UINavigationItem *item=[navigationBar.items objectAtIndex:0];
-    UINavigationItem *back=[[UINavigationItem alloc]initWithTitle:@"音乐库"];
+    UINavigationItem *back=[[UINavigationItem alloc]initWithTitle:@"Album"];
     NSArray *items=[[NSArray alloc]initWithObjects:back,item,nil];
     [navigationBar setItems:items];
     [back release];
     [items release];
     
-    [super setTableViewWithMusicArray:musicByTitle];
-    
 }
 
 -(BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item{
-    [[[AppDelegate switchViewController] iPodLibrarySwitchViewController]changeToIPodLibraryMainViewWithNowController:@"MusicSelectView"];
+    [[[AppDelegate switchViewController] iPodLibrarySwitchViewController]changeBackToAlbumController];
     return NO;
 }
 
@@ -51,10 +49,4 @@
     return YES;
 }
 
--(void)dealloc{
-    [super dealloc];
-}
-
 @end
-
-

@@ -31,7 +31,6 @@
     
     lyricsViewController=[[LyricsViewController alloc] initWithNibName:@"LyricsView" bundle:nil];
     
-
     
     iPodLibrarySwitchViewController=[[IPodLibrarySwitchViewController alloc]init];
     
@@ -84,7 +83,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return YES;
 }
 
 -(void)deallo{
