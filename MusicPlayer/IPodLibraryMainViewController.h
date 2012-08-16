@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TKEmptyView.h"
 
 @interface IPodLibraryMainViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
     IBOutlet UINavigationBar *navigationBar;
     
     UITableView *iPodLibraryTableView;
+    TKEmptyView *emptyView;
     
     NSArray *tableViewItems;
 }

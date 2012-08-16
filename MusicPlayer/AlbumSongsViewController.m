@@ -34,6 +34,13 @@
     
 }
 
+-(void)setItemsWithIndex:(int)index{
+    MPMediaItemCollection *collection=[musicByAlbum objectAtIndex:index];
+    NSMutableArray *array=[[NSMutableArray alloc]initWithArray:collection.items];
+    [super setTableViewWithMusicArray:array];
+    [array release];
+}
+
 -(BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item{
     [[[AppDelegate switchViewController] iPodLibrarySwitchViewController]changeBackToAlbumController];
     return NO;

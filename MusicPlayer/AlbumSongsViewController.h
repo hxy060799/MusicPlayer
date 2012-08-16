@@ -11,5 +11,5 @@
 @interface AlbumSongsViewController : SongsTableViewController{
     IBOutlet UINavigationBar *navigationBar;
 }
-
+-(void)setItemsWithIndex:(int)index;
 @end

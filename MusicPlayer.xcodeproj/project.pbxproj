@@ -325,6 +325,9 @@
 				A90BA75215D1328800A1B1AA /* AlbumViewController.h */,
 				A90BA75315D1328800A1B1AA /* AlbumViewController.m */,
 				A90BA75415D1328800A1B1AA /* AlbumViewController.xib */,
+				A959F59715DCBB7F00FBAF77 /* AlbumSongsViewController.h */,
+				A959F59815DCBB7F00FBAF77 /* AlbumSongsViewController.m */,
+				A959F59915DCBB7F00FBAF77 /* AlbumSongsViewController.xib */,
 			);
 			name = AlbumViewController;
 			sourceTree = "<group>";
@@ -541,9 +544,6 @@
 		A9D4BD0F15D8DCD60021F406 /* iPodLibrary */ = {
 			isa = PBXGroup;
 			children = (
-				A959F59715DCBB7F00FBAF77 /* AlbumSongsViewController.h */,
-				A959F59815DCBB7F00FBAF77 /* AlbumSongsViewController.m */,
-				A959F59915DCBB7F00FBAF77 /* AlbumSongsViewController.xib */,
 				A935B4F015DCAD22003DDA32 /* TableView */,
 				A90BA74915D131B300A1B1AA /* SwitchViewController */,
 				A90BA74A15D131BD00A1B1AA /* MainViewController */,

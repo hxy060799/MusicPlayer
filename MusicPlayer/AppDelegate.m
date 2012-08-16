@@ -29,7 +29,7 @@
     [loading query];
     [loading release];
     
-    self.window=[[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
+    window=[[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
     switchViewController=[[SwitchViewController alloc] init];
     //switchViewController.delegate=self;
     //[switchViewController showMainView];

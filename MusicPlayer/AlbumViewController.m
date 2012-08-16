@@ -52,11 +52,8 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MPMediaItemCollection *collection=[musicByAlbum objectAtIndex:indexPath.row];
     
-    NSLog(@"%@",[collection items]);
-    
-    [[[AppDelegate switchViewController]iPodLibrarySwitchViewController]changeToAlbumSongsViewWithMusicArray:[NSMutableArray arrayWithArray:[collection items]]];
+    [[[AppDelegate switchViewController]iPodLibrarySwitchViewController]changeToAlbumSongsViewWithIndex:indexPath.row];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

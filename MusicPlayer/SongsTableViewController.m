@@ -34,7 +34,7 @@
     
     [self.view setFrame:CGRectMake(0, 0, 320, 480)];
     
-    musicArray=array;
+    musicArray=[array copy];
 }
 
 -(void)viewDidLoad{

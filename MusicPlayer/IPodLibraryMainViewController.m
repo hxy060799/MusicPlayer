@@ -8,7 +8,7 @@
 
 #import "IPodLibraryMainViewController.h"
 #import "AppDelegate.h"
-#import "TKEmptyView.h"
+
 
 @implementation IPodLibraryMainViewController
 
@@ -27,7 +27,7 @@
     
     if([musicByTitle count]==0){
         //如果没有歌，就就加载提示界面
-        TKEmptyView *emptyView=[[TKEmptyView alloc]initWithFrame:self.view.frame emptyViewImage:TKEmptyViewImageMusicNote title:@"No Songs" subtitle:@"No songs in your music library"];
+        emptyView=[[TKEmptyView alloc]initWithFrame:self.view.frame emptyViewImage:TKEmptyViewImageMusicNote title:@"No Songs" subtitle:@"No songs in your music library"];
         [self.view insertSubview:emptyView atIndex:0];
     }else{
         
@@ -69,7 +69,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if(cell==nil){
-        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell=[[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier]autorelease];
     }
     
     

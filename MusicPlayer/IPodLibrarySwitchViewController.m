@@ -83,12 +83,13 @@
     viewToRemove=albumSongsViewController;
 }
 
--(void)changeToAlbumSongsViewWithMusicArray:(NSArray*)array{
+-(void)changeToAlbumSongsViewWithIndex:(int)index{
+    
     if(albumSongsViewController==nil){
         albumSongsViewController=[[AlbumSongsViewController alloc]initWithNibName:@"AlbumSongsViewController" bundle:nil];
     }
     
-    [albumSongsViewController setTableViewWithMusicArray:[NSMutableArray arrayWithArray:array]];
+    [albumSongsViewController setItemsWithIndex:index];
     
     self.view.userInteractionEnabled=NO;
     [self startMoveWithViewController:albumController PointStart:CGPointMake(0, 0) PointTo:CGPointMake(-320, 0) UseSelector:NO];
@@ -99,7 +100,7 @@
 
 -(void)changeToIPodLibraryMainViewWithNowController:(NSString*)controller{
     
-    UIViewController *usingController;
+    UIViewController *usingController=nil;
     
     if([controller isEqualToString:@"MusicSelectView"]){
         usingController=allSongsViewController;

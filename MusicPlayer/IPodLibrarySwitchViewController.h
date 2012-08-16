@@ -34,6 +34,6 @@ extern NSMutableArray *musicByTitle;
 -(void)changeToAlbumController;
 -(void)changeBackToAlbumController;
 -(void)changeToCoverFlowView;
--(void)changeToAlbumSongsViewWithMusicArray:(NSArray*)array;
+-(void)changeToAlbumSongsViewWithIndex:(int)index;
 
 @end
