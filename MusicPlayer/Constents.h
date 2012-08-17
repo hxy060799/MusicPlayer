@@ -17,4 +17,9 @@ NSMutableArray *musicByAlbum;
 
 BOOL musicSynced;
 
+typedef enum{
+    ViewPushWayLeft,
+    ViewPushWayRight
+}ViewPushWay;
+
 #endif

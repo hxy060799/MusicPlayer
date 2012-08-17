@@ -45,17 +45,24 @@
     [UIView commitAnimations];
 }
 
+-(void)pushViewControllerWithLeftController:(UIViewController*)leftController RightController:(UIViewController*)rightController PushWay:(ViewPushWay)pushWay{
+    //如果界面往左推(进入)那么把左边的界面移走，右边的界面初始化
+    if(pushWay==ViewPushWayLeft){
+        self.view.userInteractionEnabled=NO;
+        [self startMoveWithViewController:leftController PointStart:CGPointMake(0, 0) PointTo:CGPointMake(-320, 0) UseSelector:NO];
+        [self.view insertSubview:rightController.view atIndex:0];
+        [self startMoveWithViewController:rightController PointStart:CGPointMake(320, 0) PointTo:CGPointMake(0, 0) UseSelector:YES];
+        viewToRemove=leftController;
+    }else if(pushWay==ViewPushWayRight){
+        
+    }
+}
+
 -(void)changeToAllSongsView{
-    self.view.userInteractionEnabled=NO;
-    
     if(!allSongsViewController){
         allSongsViewController=[[AllSongsViewController alloc]initWithNibName:@"AllSongsViewController" bundle:nil];
     }
-    
-    [self startMoveWithViewController:mainViewController PointStart:CGPointMake(0, 0) PointTo:CGPointMake(-320, 0) UseSelector:NO];
-    [self.view insertSubview:allSongsViewController.view atIndex:0];
-    [self startMoveWithViewController:allSongsViewController PointStart:CGPointMake(320, 0) PointTo:CGPointMake(0, 0) UseSelector:YES];
-    viewToRemove=mainViewController;
+    [self pushViewControllerWithLeftController:mainViewController RightController:allSongsViewController PushWay:ViewPushWayLeft];
 }
 
 -(void)changeToAlbumController{

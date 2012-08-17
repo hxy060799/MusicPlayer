@@ -17,6 +17,8 @@
 extern BOOL musicSynced;
 extern NSMutableArray *musicByTitle;
 
+
+
 @interface IPodLibrarySwitchViewController : UIViewController{
     IPodLibraryMainViewController *mainViewController;
     AllSongsViewController *allSongsViewController;
