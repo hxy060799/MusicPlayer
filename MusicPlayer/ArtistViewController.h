@@ -8,6 +8,9 @@
 
 #import "MusicGroupViewController.h"
 
-@interface ArtistViewController : MusicGroupViewController
+@interface ArtistViewController : MusicGroupViewController{
+    IBOutlet UINavigationBar *navigationBar;
+}
+@property(retain,nonatomic)IBOutlet UINavigationBar *navigationBar;
 
 @end

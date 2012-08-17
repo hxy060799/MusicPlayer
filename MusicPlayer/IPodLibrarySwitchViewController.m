@@ -46,15 +46,20 @@
 }
 
 -(void)pushViewControllerWithLeftController:(UIViewController*)leftController RightController:(UIViewController*)rightController PushWay:(ViewPushWay)pushWay{
-    //如果界面往左推(进入)那么把左边的界面移走，右边的界面初始化
     if(pushWay==ViewPushWayLeft){
+        //如果界面往左推(进入)那么把左边的界面移走，右边的界面初始化
         self.view.userInteractionEnabled=NO;
         [self startMoveWithViewController:leftController PointStart:CGPointMake(0, 0) PointTo:CGPointMake(-320, 0) UseSelector:NO];
         [self.view insertSubview:rightController.view atIndex:0];
         [self startMoveWithViewController:rightController PointStart:CGPointMake(320, 0) PointTo:CGPointMake(0, 0) UseSelector:YES];
         viewToRemove=leftController;
     }else if(pushWay==ViewPushWayRight){
-        
+        //如果界面往右推(推出)那么把右边的界面移走，左边的界面初始化
+        self.view.userInteractionEnabled=NO;
+        [self startMoveWithViewController:rightController PointStart:CGPointMake(0, 0) PointTo:CGPointMake(320, 0) UseSelector:NO];
+        [self.view insertSubview:leftController.view atIndex:0];
+        [self startMoveWithViewController:leftController PointStart:CGPointMake(-320, 0) PointTo:CGPointMake(0, 0) UseSelector:YES];
+        viewToRemove=rightController;
     }
 }
 
@@ -65,44 +70,35 @@
     [self pushViewControllerWithLeftController:mainViewController RightController:allSongsViewController PushWay:ViewPushWayLeft];
 }
 
+-(void)changeToArtistView{
+    if(artistViewController==nil){
+        artistViewController=[[ArtistViewController alloc]initWithNibName:@"ArtistViewController" bundle:nil];
+    }
+    [self pushViewControllerWithLeftController:mainViewController RightController:artistViewController PushWay:ViewPushWayLeft];
+}
+
 -(void)changeToAlbumController{
-    
     if(albumController==nil){
         albumController=[[AlbumViewController alloc]initWithNibName:@"AlbumViewController" bundle:nil];
     }
-    
-    self.view.userInteractionEnabled=NO;
-    [self startMoveWithViewController:mainViewController PointStart:CGPointMake(0, 0) PointTo:CGPointMake(-320, 0) UseSelector:NO];
-    [self.view insertSubview:albumController.view atIndex:0];
-    [self startMoveWithViewController:albumController PointStart:CGPointMake(320, 0) PointTo:CGPointMake(0, 0) UseSelector:YES];
-    viewToRemove=mainViewController;
+    [self pushViewControllerWithLeftController:mainViewController RightController:albumController PushWay:ViewPushWayLeft];
 }
 
 -(void)changeBackToAlbumController{
     if(albumController==nil){
         albumController=[[AlbumViewController alloc]initWithNibName:@"AlbumViewController" bundle:nil];
     }
-    
-    self.view.userInteractionEnabled=NO;
-    [self startMoveWithViewController:albumSongsViewController PointStart:CGPointMake(0, 0) PointTo:CGPointMake(320, 0) UseSelector:NO];
-    [self.view insertSubview:albumController.view atIndex:0];
-    [self startMoveWithViewController:albumController PointStart:CGPointMake(-320, 0) PointTo:CGPointMake(0, 0) UseSelector:YES];
-    viewToRemove=albumSongsViewController;
+    [self pushViewControllerWithLeftController:albumController RightController:albumSongsViewController PushWay:ViewPushWayRight];
 }
 
 -(void)changeToAlbumSongsViewWithIndex:(int)index{
     
     if(albumSongsViewController==nil){
         albumSongsViewController=[[AlbumSongsViewController alloc]initWithNibName:@"AlbumSongsViewController" bundle:nil];
+        [albumSongsViewController setItemsWithIndex:index];
     }
+    [self pushViewControllerWithLeftController:albumController RightController:albumSongsViewController PushWay:ViewPushWayLeft];
     
-    [albumSongsViewController setItemsWithIndex:index];
-    
-    self.view.userInteractionEnabled=NO;
-    [self startMoveWithViewController:albumController PointStart:CGPointMake(0, 0) PointTo:CGPointMake(-320, 0) UseSelector:NO];
-    [self.view insertSubview:albumSongsViewController.view atIndex:0];
-    [self startMoveWithViewController:albumSongsViewController PointStart:CGPointMake(320, 0) PointTo:CGPointMake(0, 0) UseSelector:YES];
-    viewToRemove=albumController;
 }
 
 -(void)changeToIPodLibraryMainViewWithNowController:(NSString*)controller{
@@ -115,25 +111,17 @@
         usingController=coverFlowViewController;
     }else if([controller isEqualToString:@"AlbumView"]){
         usingController=albumController;
+    }else if([controller isEqualToString:@"ArtistView"]){
+        usingController=artistViewController;
     }
-    
-    self.view.userInteractionEnabled=NO;
-    [self startMoveWithViewController:usingController PointStart:CGPointMake(0, 0) PointTo:CGPointMake(320, 0) UseSelector:NO];
-    [self.view insertSubview:mainViewController.view atIndex:0];
-    [self startMoveWithViewController:mainViewController PointStart:CGPointMake(-320, 0) PointTo:CGPointMake(0, 0) UseSelector:YES];
-    viewToRemove=usingController;
+    [self pushViewControllerWithLeftController:mainViewController RightController:usingController PushWay:ViewPushWayRight];
 }
 
 -(void)changeToCoverFlowView{
     if(coverFlowViewController==nil){
         coverFlowViewController=[[CoverFlowViewController alloc]init];
     }
-    
-    self.view.userInteractionEnabled=NO;
-    [self startMoveWithViewController:mainViewController PointStart:CGPointMake(0, 0) PointTo:CGPointMake(-320, 0) UseSelector:NO];
-    [self.view insertSubview:coverFlowViewController.view atIndex:0];
-    [self startMoveWithViewController:coverFlowViewController PointStart:CGPointMake(320, 0) PointTo:CGPointMake(0, 0) UseSelector:YES];
-    viewToRemove=mainViewController;
+    [self pushViewControllerWithLeftController:mainViewController RightController:coverFlowViewController PushWay:ViewPushWayLeft];
 }
 
 -(void)animationEnd{

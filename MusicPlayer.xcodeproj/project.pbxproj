@@ -39,6 +39,8 @@
 		A929CA3615DCD39C00E93CA5 /* ArtistViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A929CA3415DCD39C00E93CA5 /* ArtistViewController.xib */; };
 		A929CA3815DCD3D200E93CA5 /* AlbumSongsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A929CA3715DCD3D200E93CA5 /* AlbumSongsViewController.xib */; };
 		A935B4F615DCAD95003DDA32 /* MusicGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A935B4F515DCAD95003DDA32 /* MusicGroupViewController.m */; };
+		A9387BE415DE0146007B1386 /* ArtistSongsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9387BE215DE0146007B1386 /* ArtistSongsViewController.m */; };
+		A9387BE515DE0146007B1386 /* ArtistSongsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9387BE315DE0146007B1386 /* ArtistSongsViewController.xib */; };
 		A93D2BA215D69BB900E89316 /* UIGlossyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A93D2B9F15D69BB900E89316 /* UIGlossyButton.m */; };
 		A93D2BA315D69BB900E89316 /* UIView+LayerEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = A93D2BA115D69BB900E89316 /* UIView+LayerEffects.m */; };
 		A959F59A15DCBB7F00FBAF77 /* AlbumSongsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A959F59815DCBB7F00FBAF77 /* AlbumSongsViewController.m */; };
@@ -152,6 +154,9 @@
 		A929CA3715DCD3D200E93CA5 /* AlbumSongsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlbumSongsViewController.xib; sourceTree = "<group>"; };
 		A935B4F415DCAD94003DDA32 /* MusicGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicGroupViewController.h; sourceTree = "<group>"; };
 		A935B4F515DCAD95003DDA32 /* MusicGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicGroupViewController.m; sourceTree = "<group>"; };
+		A9387BE115DE0146007B1386 /* ArtistSongsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtistSongsViewController.h; sourceTree = "<group>"; };
+		A9387BE215DE0146007B1386 /* ArtistSongsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtistSongsViewController.m; sourceTree = "<group>"; };
+		A9387BE315DE0146007B1386 /* ArtistSongsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArtistSongsViewController.xib; sourceTree = "<group>"; };
 		A93D2B9E15D69BB900E89316 /* UIGlossyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGlossyButton.h; sourceTree = "<group>"; };
 		A93D2B9F15D69BB900E89316 /* UIGlossyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIGlossyButton.m; sourceTree = "<group>"; };
 		A93D2BA015D69BB900E89316 /* UIView+LayerEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LayerEffects.h"; sourceTree = "<group>"; };
@@ -372,6 +377,9 @@
 				A929CA3215DCD39C00E93CA5 /* ArtistViewController.h */,
 				A929CA3315DCD39C00E93CA5 /* ArtistViewController.m */,
 				A929CA3415DCD39C00E93CA5 /* ArtistViewController.xib */,
+				A9387BE115DE0146007B1386 /* ArtistSongsViewController.h */,
+				A9387BE215DE0146007B1386 /* ArtistSongsViewController.m */,
+				A9387BE315DE0146007B1386 /* ArtistSongsViewController.xib */,
 			);
 			name = ArtistViewController;
 			sourceTree = "<group>";
@@ -688,6 +696,7 @@
 				A9D4BD0115D8CC3B0021F406 /* television@2x.png in Resources */,
 				A929CA3615DCD39C00E93CA5 /* ArtistViewController.xib in Resources */,
 				A929CA3815DCD3D200E93CA5 /* AlbumSongsViewController.xib in Resources */,
+				A9387BE515DE0146007B1386 /* ArtistSongsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -735,6 +744,7 @@
 				A935B4F615DCAD95003DDA32 /* MusicGroupViewController.m in Sources */,
 				A959F59A15DCBB7F00FBAF77 /* AlbumSongsViewController.m in Sources */,
 				A929CA3515DCD39C00E93CA5 /* ArtistViewController.m in Sources */,
+				A9387BE415DE0146007B1386 /* ArtistSongsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -93,6 +93,8 @@
 {
     if([indexPath row]==0){
         [[[AppDelegate switchViewController] iPodLibrarySwitchViewController]changeToAllSongsView];
+    }else if([indexPath row]==1){
+        [[[AppDelegate switchViewController] iPodLibrarySwitchViewController]changeToArtistView];
     }else if([indexPath row]==2){
         [[[AppDelegate switchViewController] iPodLibrarySwitchViewController]changeToAlbumController];
     }else if ([indexPath row]==3) {
