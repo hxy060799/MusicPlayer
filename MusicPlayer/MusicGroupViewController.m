@@ -13,6 +13,7 @@
 @implementation MusicGroupViewController
 
 @synthesize songsTableView;
+@synthesize groupArray;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -24,6 +25,10 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+}
+
+-(void)setTableViewWithMusicArray:(NSMutableArray*)array{
+    groupArray=[array copy];
     if(!songsTableView)songsTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 44, 320, 367) style:UITableViewStylePlain];
     
     songsTableView.delegate=self;
@@ -32,7 +37,9 @@
     [self.view insertSubview:self.songsTableView atIndex:0];
     
     [self.view setFrame:CGRectMake(0, 0, 320, 480)];
+    
 }
+
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -41,7 +48,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [musicByAlbum count];
+    return [groupArray count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -55,7 +62,7 @@
         cell=[[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier]autorelease];
     }
     
-    NSArray *collection=[[musicByAlbum objectAtIndex:indexPath.row]items];
+    NSArray *collection=[[groupArray objectAtIndex:indexPath.row]items];
 
     
     NSString *cellText=[[collection objectAtIndex:0]valueForProperty:MPMediaItemPropertyAlbumTitle];
@@ -81,6 +88,12 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
+}
+
+-(void)dealloc{
+    if(songsTableView)[songsTableView release];
+    if(groupArray)[groupArray release];
+    [super dealloc];
 }
 
 @end

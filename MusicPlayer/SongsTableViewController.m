@@ -43,6 +43,7 @@
 
 -(void)dealloc{
     if(songsTableView)[songsTableView release];
+    if(musicArray)[musicArray release];
     [super dealloc];
 }
 

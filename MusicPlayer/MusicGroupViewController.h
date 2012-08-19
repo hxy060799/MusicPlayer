@@ -10,7 +10,11 @@
 
 @interface MusicGroupViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
     UITableView *songsTableView;
+    NSMutableArray *groupArray;
 }
 @property(retain,nonatomic)UITableView *songsTableView;
+@property(retain,nonatomic)NSMutableArray *groupArray;
+
+-(void)setTableViewWithMusicArray:(NSMutableArray*)array;
 
 @end

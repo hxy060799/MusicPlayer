@@ -73,6 +73,7 @@
 -(void)changeToArtistView{
     if(artistViewController==nil){
         artistViewController=[[ArtistViewController alloc]initWithNibName:@"ArtistViewController" bundle:nil];
+        [artistViewController setTableViewWithMusicArray:musicByArtist];
     }
     [self pushViewControllerWithLeftController:mainViewController RightController:artistViewController PushWay:ViewPushWayLeft];
 }
@@ -80,6 +81,7 @@
 -(void)changeToAlbumController{
     if(albumController==nil){
         albumController=[[AlbumViewController alloc]initWithNibName:@"AlbumViewController" bundle:nil];
+        [albumController setTableViewWithMusicArray:musicByAlbum];
     }
     [self pushViewControllerWithLeftController:mainViewController RightController:albumController PushWay:ViewPushWayLeft];
 }

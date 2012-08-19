@@ -15,6 +15,7 @@
     DFMusicQuery *query=[[DFMusicQuery alloc]init];
     [query allSongsQuery];
     [query albumQuery];
+    [query artistQuery];
     [query release];
 }
 
