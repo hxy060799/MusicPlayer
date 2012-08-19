@@ -6,8 +6,10 @@
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "SongInformationViewController.h"
+#import "SongsTableViewController.h"
 
-@interface ArtistSongsViewController : SongInformationViewController
-
+@interface ArtistSongsViewController : SongsTableViewController{
+    IBOutlet UINavigationBar *navigationBar;
+}
+-(void)setItemsWithIndex:(int)index;
 @end

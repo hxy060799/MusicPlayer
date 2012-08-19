@@ -53,7 +53,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    [[[AppDelegate switchViewController]iPodLibrarySwitchViewController]changeToAlbumSongsViewWithIndex:indexPath.row];
+    [[[AppDelegate switchViewController]iPodLibrarySwitchViewController]changeToArtistSongsViewWithIndex:indexPath.row];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

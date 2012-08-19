@@ -126,6 +126,21 @@
     [self pushViewControllerWithLeftController:mainViewController RightController:coverFlowViewController PushWay:ViewPushWayLeft];
 }
 
+-(void)changeBackToArtistController{
+    if(artistViewController==nil){
+        artistViewController=[[ArtistViewController alloc]initWithNibName:@"ArtistViewController" bundle:nil];
+    }
+    [self pushViewControllerWithLeftController:artistViewController RightController:artistSongViewController PushWay:ViewPushWayRight];
+}
+
+-(void)changeToArtistSongsViewWithIndex:(int)index{
+    if(artistSongViewController==nil){
+        artistSongViewController=[[ArtistSongsViewController alloc]initWithNibName:@"ArtistSongsViewController" bundle:nil];
+        [artistSongViewController setItemsWithIndex:index];
+    }
+    [self pushViewControllerWithLeftController:artistViewController RightController:artistSongViewController PushWay:ViewPushWayLeft];
+}
+
 -(void)animationEnd{
     self.view.userInteractionEnabled=YES;
     if(viewToRemove){
@@ -133,6 +148,10 @@
         if(viewToRemove==albumSongsViewController){
             [albumSongsViewController release];
             albumSongsViewController=nil;
+        }
+        if(viewToRemove==artistSongViewController){
+            [artistSongViewController release];
+            artistSongViewController=nil;
         }
         viewToRemove=nil;
     }

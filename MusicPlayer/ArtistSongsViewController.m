@@ -7,10 +7,7 @@
 //
 
 #import "ArtistSongsViewController.h"
-
-@interface ArtistSongsViewController ()
-
-@end
+#import "AppDelegate.h"
 
 @implementation ArtistSongsViewController
 
@@ -18,7 +15,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+
     }
     return self;
 }
@@ -26,19 +23,37 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    navigationBar.delegate=self;
+    
+    UINavigationItem *item=[navigationBar.items objectAtIndex:0];
+    UINavigationItem *back=[[UINavigationItem alloc]initWithTitle:@"专辑"];
+    NSArray *items=[[NSArray alloc]initWithObjects:back,item,nil];
+    [navigationBar setItems:items];
+    [back release];
+    [items release];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return YES;
+}
+
+-(void)setItemsWithIndex:(int)index{
+    MPMediaItemCollection *collection=[musicByArtist objectAtIndex:index];
+    NSMutableArray *array=[[NSMutableArray alloc]initWithArray:collection.items];
+    [super setTableViewWithMusicArray:array];
+    [array release];
+    
+}
+
+-(BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item{
+    [[[AppDelegate switchViewController] iPodLibrarySwitchViewController]changeBackToArtistController];
+    return NO;
 }
 
 @end
