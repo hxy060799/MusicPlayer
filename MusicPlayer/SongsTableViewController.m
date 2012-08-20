@@ -32,9 +32,8 @@
     
     [self.view insertSubview:self.songsTableView atIndex:0];
     
-    
-    
     musicArray=[array copy];
+    [songsTableView reloadData];
 }
 
 -(void)viewDidLoad{

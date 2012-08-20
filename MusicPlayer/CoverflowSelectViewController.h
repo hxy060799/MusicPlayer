@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MediaPlayer/MediaPlayer.h"
+#import "Constents.h"
 
 @protocol CoverFlowSelectViewDelegate <NSObject>
 -(void)backButtonClicked;
@@ -20,6 +22,7 @@
     id<CoverFlowSelectViewDelegate>deleagte;
 }
 -(void)fallToPoint:(CGPoint)point;
+-(void)setItemsWithIndex:(int)index;
 @property(retain,nonatomic)id<CoverFlowSelectViewDelegate>deleagte;
 @end
 

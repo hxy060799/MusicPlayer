@@ -92,8 +92,8 @@
         cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
     
-    [cell.textLabel setText:[NSString stringWithFormat:@"第%@项",[tableViewItems objectAtIndex:[indexPath row]]]];
-    [cell.detailTextLabel setText:[NSString stringWithFormat:@"列表中的第%@项",[tableViewItems objectAtIndex:[indexPath row]]]];
+    [cell.textLabel setText:[[tableViewItems objectAtIndex:indexPath.row]valueForProperty:MPMediaItemPropertyTitle]];
+    [cell.detailTextLabel setText:[[tableViewItems objectAtIndex:indexPath.row]valueForProperty:MPMediaItemPropertyArtist]];
     
     return cell;
 }
@@ -112,5 +112,31 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+-(void)setTableViewWithMusicArray:(NSMutableArray*)array{
+    if(!songsTableView)songsTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 44, 320, 367) style:UITableViewStylePlain];
+    
+    songsTableView.delegate=self;
+    songsTableView.dataSource=self;
+    
+    [self.view insertSubview:songsTableView atIndex:0];
+    
+    
+    
+    tableViewItems=[array copy];
+}
+
+
+-(void)setItemsWithIndex:(int)index{
+    MPMediaItemCollection *collection=[musicByAlbum objectAtIndex:index];
+    NSMutableArray *array=[[NSMutableArray alloc]initWithArray:collection.items];
+    [navigationBar.topItem setTitle:[[array objectAtIndex:0]valueForProperty:MPMediaItemPropertyAlbumTitle]];
+    [self setTableViewWithMusicArray:array];
+    [array release];
+    [songsTableView reloadData];
+    
+}
+
+
 
 @end

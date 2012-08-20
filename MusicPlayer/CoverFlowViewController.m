@@ -88,11 +88,6 @@ UILabel *label;
     [self.view insertSubview:label atIndex:1];
     [label release];
     
-    controller=[[CoverflowSelectViewController alloc]initWithNibName:@"CoverflowSelectViewController" bundle:nil];
-    [self.view insertSubview:controller.view atIndex:1];
-    [controller.view setFrame:CGRectMake(-224, -224, 224, 224)];
-    
-    controller.deleagte=self;
 }
 
 -(BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item{
@@ -128,6 +123,15 @@ UILabel *label;
 	if(cover == nil){
         return;
     }
+    
+    if(!controller){
+        controller=[[CoverflowSelectViewController alloc]initWithNibName:@"CoverflowSelectViewController" bundle:nil];
+        [self.view insertSubview:controller.view atIndex:1];
+        [controller.view setFrame:CGRectMake(-224, -224, 224, 224)];
+        
+        controller.deleagte=self;
+    }
+    [controller setItemsWithIndex:index];
     //coverFlowView.userInteractionEnabled=NO;
     [controller fallToPoint:CGPointMake(48,82)];
     coverflowView.userInteractionEnabled=NO;
