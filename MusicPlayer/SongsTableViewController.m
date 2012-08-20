@@ -19,7 +19,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+        [self.view setFrame:CGRectMake(0, 0, 320, 480)];
     }
     return self;
 }
@@ -32,7 +32,7 @@
     
     [self.view insertSubview:self.songsTableView atIndex:0];
     
-    [self.view setFrame:CGRectMake(0, 0, 320, 480)];
+    
     
     musicArray=[array copy];
 }

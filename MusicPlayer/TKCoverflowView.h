@@ -59,8 +59,10 @@
 	// SPEED
 	int pos;
 	long velocity;
+    
 	
 }
+
 
 
 /** The delegate must adopt the `TKCoverflowViewDelegate` protocol. The delegate is not retained. */
@@ -101,7 +103,6 @@
 
 /** The index of the foremost cover */
 @property (nonatomic, assign) NSInteger currentIndex;
-
 
 @end
 

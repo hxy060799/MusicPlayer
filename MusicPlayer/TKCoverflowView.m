@@ -27,7 +27,7 @@
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  OTHER DEALINGS IN THE SOFTWARE.
  
-*/
+ */
 
 #import "TKCoverflowView.h"
 #import "TKCoverflowCoverView.h"
@@ -66,7 +66,7 @@
 
 #pragma mark Setup
 - (void) setupTransforms{
-
+    
 	leftTransform = CATransform3DMakeRotation(coverAngle, 0, 1, 0);
 	leftTransform = CATransform3DConcat(leftTransform,CATransform3DMakeTranslation(-spaceFromCurrent, 0, -300));
 	
@@ -89,8 +89,8 @@
 	coverSize = CGSizeMake(224, 224);
 	spaceFromCurrent = coverSize.width/2.4;
 	[self setupTransforms];
-
-
+    
+    
 	CATransform3D sublayerTransform = CATransform3DIdentity;
 	sublayerTransform.m34 = -0.001;
 	[self.layer setSublayerTransform:sublayerTransform];
@@ -100,7 +100,7 @@
 	
 }
 - (void) setup{
-
+    
 	currentIndex = -1;
 	for(UIView *v in views) [v removeFromSuperview];
 	[yard removeAllObjects];
@@ -122,13 +122,13 @@
 	self.contentSize = CGSizeMake( (coverSpacing) * (numberOfCovers-1) + (margin*2) , currentSize.height);
 	coverBuffer = (int) ((currentSize.width - coverSize.width) / coverSpacing) + 3;
 	
-
+    
 	movingRight = YES;
 	currentSize = self.frame.size;
 	currentIndex = 0;
 	self.contentOffset = CGPointZero;
-
-
+    
+    
 	[self newrange];
 	[self animateToIndex:currentIndex animated:NO];
 	
@@ -141,7 +141,7 @@
 	
 	for(int cnt=start;cnt<end;cnt++)
 		[self deplaceAlbumsAtIndex:cnt];
-
+    
 }
 - (void) deplaceAlbumsAtIndex:(int)cnt{
 	if(cnt >= [coverViews count]) return;
@@ -220,7 +220,7 @@
 				[self sendSubviewToBack:[coverViews objectAtIndex:i]];
 		}
 	}
-
+    
 	
 	i = currentIndex+1;
 	if(i<numberOfCovers-1){
@@ -230,7 +230,7 @@
 		}
 	}
 	
-			
+    
 	
 	UIView *v = [coverViews objectAtIndex:currentIndex];
 	if((NSObject*)v != [NSNull null])
@@ -264,7 +264,7 @@
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)]; 
 	}
-
+    
 	for(UIView *v in views){
 		int i = [coverViews indexOfObject:v];
 		if(i < index) v.layer.transform = leftTransform;
@@ -274,10 +274,10 @@
 	
 	if(animated) [UIView commitAnimations];
 	else [self.coverflowDelegate coverflowView:self coverAtIndexWasBroughtToFront:currentIndex];
-
+    
 }
 - (void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context{
-
+    
 	if([finished boolValue]) [self adjustViewHeirarchy];
 	
 	if([finished boolValue] && [animationID intValue] == currentIndex) [self.coverflowDelegate coverflowView:self coverAtIndexWasBroughtToFront:currentIndex];
@@ -295,8 +295,10 @@
 	if(!(self=[super initWithFrame:frame])) return nil;
 	[self load];
 	currentSize = frame.size;
+    
     return self;
 }
+
 
 
 - (void) layoutSubviews{
@@ -305,22 +307,22 @@
 	currentSize = self.frame.size;
 	
 	
-
+    
 	
 	margin = (self.frame.size.width / 2);
 	self.contentSize = CGSizeMake( (coverSpacing) * (numberOfCovers-1) + (margin*2) , self.frame.size.height);
 	coverBuffer = (int)((currentSize.width - coverSize.width) / coverSpacing) + 3;
 	
 	
-
+    
 	for(UIView *v in views){
 		v.layer.transform = CATransform3DIdentity;
 		CGRect r = v.frame;
 		r.origin.y = currentSize.height / 2 - (coverSize.height/2) - (coverSize.height/16);
 		v.frame = r;
-
+        
 	}
-
+    
 	for(int i= deck.location; i < deck.location + deck.length; i++){
 		
 		if([coverViews objectAtIndex:i] != [NSNull null]){
@@ -331,12 +333,12 @@
 		}
 	}
 	
-
-
+    
+    
 	[self newrange];
 	[self animateToIndex:currentIndex animated:NO];
 	
-
+    
 }
 
 
@@ -347,7 +349,7 @@
 }
 - (NSInteger) indexOfFrontCoverView{
 	return currentIndex;
-
+    
 }
 - (void) bringCoverAtIndexToFront:(int)index animated:(BOOL)animated{
 	
@@ -365,43 +367,42 @@
 	TKCoverflowCoverView *v = [yard lastObject];
 	v.layer.transform = CATransform3DIdentity;
 	[yard removeLastObject];
-
+    
 	return v;
 }
 
 #pragma mark Touch Events
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	UITouch *touch = [touches anyObject];
-	
-	if(touch.view != self &&  [touch locationInView:touch.view].y < coverSize.height){
-		currentTouch = touch.view;
-	}
-
+    UITouch *touch = [touches anyObject];
+    
+    if(touch.view != self &&  [touch locationInView:touch.view].y < coverSize.height){
+        currentTouch = touch.view;
+    }
+    
+    
 }
 - (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-
-	UITouch *touch = [touches anyObject];
-	
-	if(touch.view == currentTouch){
-		if(touch.tapCount == 1 && currentIndex == [coverViews indexOfObject:currentTouch]){
-
-			if([self.coverflowDelegate respondsToSelector:@selector(coverflowView:coverAtIndexWasDoubleTapped:)])
-				[self.coverflowDelegate coverflowView:self coverAtIndexWasDoubleTapped:currentIndex];
-			
-		}else{
-			int index = [coverViews indexOfObject:currentTouch];
-			[self setContentOffset:CGPointMake(coverSpacing*index, 0) animated:YES];
-		}
-		
-
-	}
-	
-
+    
+    UITouch *touch = [touches anyObject];
+    
+    if(touch.view == currentTouch){
+        if(touch.tapCount == 1 && currentIndex == [coverViews indexOfObject:currentTouch]){
+            
+            if([self.coverflowDelegate respondsToSelector:@selector(coverflowView:coverAtIndexWasDoubleTapped:)])
+                [self.coverflowDelegate coverflowView:self coverAtIndexWasDoubleTapped:currentIndex];
+            
+        }else{
+            int index = [coverViews indexOfObject:currentTouch];
+            [self setContentOffset:CGPointMake(coverSpacing*index, 0) animated:YES];
+        }
+    }
+    
 	
 	currentTouch = nil;
 }
 - (void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
-	if(currentTouch!= nil) currentTouch = nil;
+    if(currentTouch!= nil) currentTouch = nil;
+    
 }
 
 #pragma mark UIScrollView Delegate
@@ -413,7 +414,7 @@
 	pos = scrollView.contentOffset.x;
 	movingRight = self.contentOffset.x - origin > 0 ? YES : NO;
 	origin = self.contentOffset.x;
-
+    
 	CGFloat num = numberOfCovers;
 	CGFloat per = scrollView.contentOffset.x / (self.contentSize.width - currentSize.width);
 	CGFloat ind = num * per;
@@ -423,7 +424,7 @@
 	int index = (int)(ind+mi);
 	index = MIN(MAX(0,index),numberOfCovers-1);
 	
-
+    
 	if(index == currentIndex) return;
 	
 	currentIndex = index;

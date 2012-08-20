@@ -57,6 +57,27 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell=[super tableView:tableView cellForRowAtIndexPath:indexPath];
+    
+     NSArray *collection=[[groupArray objectAtIndex:indexPath.row]items];
+     
+     
+     NSString *cellText=[[collection objectAtIndex:0]valueForProperty:MPMediaItemPropertyAlbumTitle];
+     NSString *smallText=[[collection objectAtIndex:0]valueForProperty:MPMediaItemPropertyArtist];
+     
+     MPMediaItemArtwork *mia=[[collection objectAtIndex:0] valueForProperty:MPMediaItemPropertyArtwork];
+     UIImage *artworkImage=[mia imageWithSize:CGSizeMake(44, 44)];
+     
+     artworkImage=(artworkImage)?artworkImage:[UIImage imageNamed:@"no_album.png"];
+     
+     [cell.textLabel setText:cellText];
+     [cell.detailTextLabel setText:smallText];
+     [[cell imageView] setImage:artworkImage];
+     return cell;
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;

@@ -7,7 +7,7 @@
 //
 
 #import "CoverFlowViewController.h"
-#import "CoverflowSelectViewController.h"
+
 #import "AppDelegate.h"
 #import "DFMusicQuery.h"
 
@@ -16,7 +16,7 @@
 @synthesize coverFlowView;
 @synthesize covers;
 
-CoverflowSelectViewController *controller;
+
 
 UILabel *label;
 
@@ -91,6 +91,8 @@ UILabel *label;
     controller=[[CoverflowSelectViewController alloc]initWithNibName:@"CoverflowSelectViewController" bundle:nil];
     [self.view insertSubview:controller.view atIndex:1];
     [controller.view setFrame:CGRectMake(-224, -224, 224, 224)];
+    
+    controller.deleagte=self;
 }
 
 -(BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item{
@@ -101,6 +103,10 @@ UILabel *label;
 
 -(void)coverflowView:(TKCoverflowView *)coverflowView coverAtIndexWasBroughtToFront:(int)index{
     [label setText:[coversAlbumTitle objectAtIndex:index]];
+}
+
+-(void)backButtonClicked{
+    coverFlowView.userInteractionEnabled=YES;
 }
 
 -(TKCoverflowCoverView*) coverflowView:(TKCoverflowView*)coverflowView coverAtIndex:(int)index{
@@ -124,6 +130,7 @@ UILabel *label;
     }
     //coverFlowView.userInteractionEnabled=NO;
     [controller fallToPoint:CGPointMake(48,82)];
+    coverflowView.userInteractionEnabled=NO;
 
 	NSLog(@"Index: %d",index);
 }

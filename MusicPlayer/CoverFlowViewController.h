@@ -8,13 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "TapkuCoverFlow.h"
+#import "CoverflowSelectViewController.h"
 
 extern NSMutableArray *musicByAlbum;
 
-@interface CoverFlowViewController : UIViewController<TKCoverflowViewDelegate,TKCoverflowViewDataSource>{
+@interface CoverFlowViewController : UIViewController<TKCoverflowViewDelegate,TKCoverflowViewDataSource,CoverFlowSelectViewDelegate>{
     TKCoverflowView *coverFlowView;
     NSMutableArray *covers;
     NSMutableArray *coversAlbumTitle;
+    CoverflowSelectViewController *controller;
 }
 
 @property(retain,nonatomic)TKCoverflowView *coverFlowView;

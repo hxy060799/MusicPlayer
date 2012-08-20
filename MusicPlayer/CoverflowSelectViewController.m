@@ -10,6 +10,8 @@
 
 @implementation CoverflowSelectViewController
 
+@synthesize deleagte;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -54,13 +56,16 @@
 
 -(BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item{
     [self upToPoint:CGPointMake(self.view.frame.origin.x, -224)];
+    if(deleagte){
+        [deleagte backButtonClicked];
+    }else{
+        NSLog(@"nil");
+    }
     return NO;
 }
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -37,6 +37,7 @@
 -(void)setItemsWithIndex:(int)index{
     MPMediaItemCollection *collection=[musicByAlbum objectAtIndex:index];
     NSMutableArray *array=[[NSMutableArray alloc]initWithArray:collection.items];
+    [navigationBar.topItem setTitle:[[array objectAtIndex:0]valueForProperty:MPMediaItemPropertyAlbumTitle]];
     [super setTableViewWithMusicArray:array];
     [array release];
     

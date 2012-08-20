@@ -26,7 +26,7 @@
     navigationBar.delegate=self;
     
     UINavigationItem *item=[navigationBar.items objectAtIndex:0];
-    UINavigationItem *back=[[UINavigationItem alloc]initWithTitle:@"专辑"];
+    UINavigationItem *back=[[UINavigationItem alloc]initWithTitle:@"歌手"];
     NSArray *items=[[NSArray alloc]initWithObjects:back,item,nil];
     [navigationBar setItems:items];
     [back release];
@@ -46,6 +46,7 @@
 -(void)setItemsWithIndex:(int)index{
     MPMediaItemCollection *collection=[musicByArtist objectAtIndex:index];
     NSMutableArray *array=[[NSMutableArray alloc]initWithArray:collection.items];
+    [navigationBar.topItem setTitle:[[array objectAtIndex:0]valueForProperty:MPMediaItemPropertyArtist]];
     [super setTableViewWithMusicArray:array];
     [array release];
     

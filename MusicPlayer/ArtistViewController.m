@@ -41,6 +41,26 @@
     return NO;
 }
 
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell=[super tableView:tableView cellForRowAtIndexPath:indexPath];
+    
+    NSArray *collection=[[groupArray objectAtIndex:indexPath.row]items];
+    
+    NSString *cellText=[[collection objectAtIndex:0]valueForProperty:MPMediaItemPropertyArtist];
+    NSString *smallText=[NSString stringWithFormat:@"%i首歌曲",[collection count]];
+    
+    MPMediaItemArtwork *mia=[[collection objectAtIndex:0] valueForProperty:MPMediaItemPropertyArtwork];
+    UIImage *artworkImage=[mia imageWithSize:CGSizeMake(44, 44)];
+    
+    artworkImage=(artworkImage)?artworkImage:[UIImage imageNamed:@"no_album.png"];
+    
+    [cell.textLabel setText:cellText];
+    [cell.detailTextLabel setText:smallText];
+    [[cell imageView] setImage:artworkImage];
+    return cell;
+}
+
 -(void)dealloc{
     [super dealloc];
 }
