@@ -12,9 +12,8 @@
 @implementation SwitchViewController
 
 @synthesize lyricsViewController;
-//@synthesize iPodLibrarySwitchViewController_;
-//@synthesize iPodLibraryViewController;
 @synthesize iPodLibrarySwitchViewController;
+@synthesize mvSwitchViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,19 +30,25 @@
     
     lyricsViewController=[[LyricsViewController alloc] initWithNibName:@"LyricsView" bundle:nil];
     
-    
     iPodLibrarySwitchViewController=[[IPodLibrarySwitchViewController alloc]init];
+    
+    mvSwitchViewController=[[MVSwitchViewController alloc]initWithNibName:@"MVSwitchViewController" bundle:nil];
+    
     
     UITabBarItem *itemLibrary=[[UITabBarItem alloc]initWithTitle:@"音乐库" image:[UIImage imageNamed: @"MusicLibraryTabBarItem"] tag:2];
     
     UITabBarItem *itemPlaying=[[UITabBarItem alloc]initWithTitle:@"正在播放" image:[UIImage imageNamed:@"NowPlayingTabBarItem.png"] tag:1];
     
+    UITabBarItem *itemMV=[[UITabBarItem alloc]initWithTitle:@"MV" image:nil tag:3];
+    
     iPodLibrarySwitchViewController.tabBarItem=itemLibrary;
     
     lyricsViewController.tabBarItem=itemPlaying;
     
+    mvSwitchViewController.tabBarItem=itemMV;
+    
     self.delegate=self;
-    self.viewControllers=[NSArray arrayWithObjects:lyricsViewController,iPodLibrarySwitchViewController,nil];
+    self.viewControllers=[NSArray arrayWithObjects:lyricsViewController,iPodLibrarySwitchViewController,mvSwitchViewController,nil];
 }
 
 - (void)viewDidUnload
@@ -52,34 +57,8 @@
     // Release any retained subviews of the main view.
 }
 
--(void)showLyricsView{
-    if(lyricsViewController==nil){
-        lyricsViewController=[[LyricsViewController alloc] initWithNibName:@"LyricsView" bundle:nil];
-    }
-    [self removeAllView];
-    [self.view insertSubview:lyricsViewController.view atIndex:0];
-}
 
--(void)showiPodSelectShitchView{
-    //if(self.iPodLibrarySwitchViewController_==nil){
-    //    self.iPodLibrarySwitchViewController_=[[IPodLibrarySwitchViewController alloc]init];
-    //}
-    //[self removeAllView];
-    //[self.view insertSubview:iPodLibrarySwitchViewController_.view atIndex:0];
-}
 
--(void)showMainView{
-    [self showLyricsView];
-}
-
--(void)removeAllView{
-    if(lyricsViewController.view){
-        [lyricsViewController.view removeFromSuperview];
-    }
-    //if(iPodLibrarySwitchViewController_.view){
-    //    [iPodLibrarySwitchViewController_.view removeFromSuperview];
-    //}
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
