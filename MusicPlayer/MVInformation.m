@@ -13,5 +13,7 @@
 @synthesize title;
 @synthesize actor;
 @synthesize information;
+@synthesize picture;
+@synthesize playURL;
 
 @end

@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YCSearchController.h"
 
-@interface MVSwitchViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>{
+@interface MVSwitchViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,YCSearchControllerDelegete>{
     UITableView *mvTableView;
     NSMutableArray *tableViewArray;
+    IBOutlet UINavigationBar *navigationBar;
+    
+    UISearchDisplayController *searchDisplayController;
 }
+@property (nonatomic, retain) YCSearchController *searchController;
 
 @end

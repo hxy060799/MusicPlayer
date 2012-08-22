@@ -33,6 +33,10 @@
 		A90FF36015BE9D00002D8EA6 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A90FF35F15BE9D00002D8EA6 /* MediaPlayer.framework */; };
 		A910B5B315C40DE000C0C49A /* MusicLibraryTabBarItem.png in Resources */ = {isa = PBXBuildFile; fileRef = A910B5B215C40DE000C0C49A /* MusicLibraryTabBarItem.png */; };
 		A910B5B515C40E1200C0C49A /* NowPlayingTabBarItem.png in Resources */ = {isa = PBXBuildFile; fileRef = A910B5B415C40E1200C0C49A /* NowPlayingTabBarItem.png */; };
+		A918B74B15E4BB4E0095398A /* YCSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = A918B74815E4BB4E0095398A /* YCSearchController.m */; };
+		A918B74C15E4BB4E0095398A /* YCSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A918B74A15E4BB4E0095398A /* YCSearchBar.m */; };
+		A918B75115E4BD090095398A /* SearchBarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A918B75015E4BD090095398A /* SearchBarCell.m */; };
+		A918B75315E4BD1C0095398A /* SearchBarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A918B75215E4BD1C0095398A /* SearchBarCell.xib */; };
 		A919397F15CB7EB9001C48CE /* DFMusicQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = A919397E15CB7EB9001C48CE /* DFMusicQuery.m */; };
 		A919398315CB85D4001C48CE /* DFSongInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = A919398215CB85D3001C48CE /* DFSongInformation.m */; };
 		A91A4E1E15E3BBE2004AFD1C /* MVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A91A4E1D15E3BBE2004AFD1C /* MVCell.m */; };
@@ -50,6 +54,7 @@
 		A959F59A15DCBB7F00FBAF77 /* AlbumSongsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A959F59815DCBB7F00FBAF77 /* AlbumSongsViewController.m */; };
 		A95DF74015E327C700A7A223 /* MVSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A95DF73E15E327C700A7A223 /* MVSwitchViewController.m */; };
 		A95DF74115E327C700A7A223 /* MVSwitchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A95DF73F15E327C700A7A223 /* MVSwitchViewController.xib */; };
+		A961B18F15E4848800A8BBA2 /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A961B18E15E4848800A8BBA2 /* video.mp4 */; };
 		A96B2CAA15DA1F6500DC4B68 /* SongsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A96B2CA915DA1F6500DC4B68 /* SongsTableViewController.m */; };
 		A982CAC115D002AA00D51D5E /* pinyin.m in Sources */ = {isa = PBXBuildFile; fileRef = A982CABF15D002AA00D51D5E /* pinyin.m */; };
 		A9BE9CE915BD7B330004822D /* DFQianQianLyricsDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BE9CE815BD7B330004822D /* DFQianQianLyricsDownloader.m */; };
@@ -150,6 +155,13 @@
 		A90FF35F15BE9D00002D8EA6 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		A910B5B215C40DE000C0C49A /* MusicLibraryTabBarItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MusicLibraryTabBarItem.png; sourceTree = "<group>"; };
 		A910B5B415C40E1200C0C49A /* NowPlayingTabBarItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NowPlayingTabBarItem.png; sourceTree = "<group>"; };
+		A918B74715E4BB4E0095398A /* YCSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCSearchController.h; sourceTree = "<group>"; };
+		A918B74815E4BB4E0095398A /* YCSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCSearchController.m; sourceTree = "<group>"; };
+		A918B74915E4BB4E0095398A /* YCSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCSearchBar.h; sourceTree = "<group>"; };
+		A918B74A15E4BB4E0095398A /* YCSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCSearchBar.m; sourceTree = "<group>"; };
+		A918B74F15E4BD090095398A /* SearchBarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchBarCell.h; sourceTree = "<group>"; };
+		A918B75015E4BD090095398A /* SearchBarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchBarCell.m; sourceTree = "<group>"; };
+		A918B75215E4BD1C0095398A /* SearchBarCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchBarCell.xib; sourceTree = "<group>"; };
 		A919397D15CB7EB9001C48CE /* DFMusicQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFMusicQuery.h; sourceTree = "<group>"; };
 		A919397E15CB7EB9001C48CE /* DFMusicQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFMusicQuery.m; sourceTree = "<group>"; };
 		A919398115CB85D3001C48CE /* DFSongInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFSongInformation.h; sourceTree = "<group>"; };
@@ -179,6 +191,7 @@
 		A95DF73D15E327C700A7A223 /* MVSwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVSwitchViewController.h; sourceTree = "<group>"; };
 		A95DF73E15E327C700A7A223 /* MVSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVSwitchViewController.m; sourceTree = "<group>"; };
 		A95DF73F15E327C700A7A223 /* MVSwitchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MVSwitchViewController.xib; sourceTree = "<group>"; };
+		A961B18E15E4848800A8BBA2 /* video.mp4 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = video.mp4; sourceTree = "<group>"; };
 		A96B2CA815DA1F6500DC4B68 /* SongsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongsTableViewController.h; sourceTree = "<group>"; };
 		A96B2CA915DA1F6500DC4B68 /* SongsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongsTableViewController.m; sourceTree = "<group>"; };
 		A982CABF15D002AA00D51D5E /* pinyin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pinyin.m; sourceTree = "<group>"; };
@@ -308,6 +321,7 @@
 		A90BA74015D12FAE00A1B1AA /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				A918B74E15E4BB530095398A /* YCSearchBar */,
 				A93D2BA415D69BBD00E89316 /* UIGlossyButton */,
 				A90BA73F15D12FA100A1B1AA /* FPPopover */,
 				A9D4BCB915D8CBAC0021F406 /* Tkpku */,
@@ -387,6 +401,17 @@
 			name = SongInformationViewController;
 			sourceTree = "<group>";
 		};
+		A918B74E15E4BB530095398A /* YCSearchBar */ = {
+			isa = PBXGroup;
+			children = (
+				A918B74715E4BB4E0095398A /* YCSearchController.h */,
+				A918B74815E4BB4E0095398A /* YCSearchController.m */,
+				A918B74915E4BB4E0095398A /* YCSearchBar.h */,
+				A918B74A15E4BB4E0095398A /* YCSearchBar.m */,
+			);
+			name = YCSearchBar;
+			sourceTree = "<group>";
+		};
 		A929CA3115DCD37000E93CA5 /* ArtistViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -431,6 +456,9 @@
 				A91A4E1C15E3BBE2004AFD1C /* MVCell.h */,
 				A91A4E1D15E3BBE2004AFD1C /* MVCell.m */,
 				A91A4E2015E3BBF2004AFD1C /* MVCell.xib */,
+				A918B74F15E4BD090095398A /* SearchBarCell.h */,
+				A918B75015E4BD090095398A /* SearchBarCell.m */,
+				A918B75215E4BD1C0095398A /* SearchBarCell.xib */,
 				A91A4E2215E3C2D6004AFD1C /* HotMVGetter.h */,
 				A91A4E2315E3C2D6004AFD1C /* HotMVGetter.m */,
 				A91A4E2515E3C2F1004AFD1C /* MVInformation.h */,
@@ -488,6 +516,7 @@
 		A9C3637415BD20620027ACDB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A961B18E15E4848800A8BBA2 /* video.mp4 */,
 				A910B5B415C40E1200C0C49A /* NowPlayingTabBarItem.png */,
 				A910B5B215C40DE000C0C49A /* MusicLibraryTabBarItem.png */,
 				A9FEB8CC15BED69800D3C121 /* no_album.png */,
@@ -733,6 +762,8 @@
 				A9387BE515DE0146007B1386 /* ArtistSongsViewController.xib in Resources */,
 				A95DF74115E327C700A7A223 /* MVSwitchViewController.xib in Resources */,
 				A91A4E2115E3BBF2004AFD1C /* MVCell.xib in Resources */,
+				A961B18F15E4848800A8BBA2 /* video.mp4 in Resources */,
+				A918B75315E4BD1C0095398A /* SearchBarCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -785,6 +816,9 @@
 				A91A4E1E15E3BBE2004AFD1C /* MVCell.m in Sources */,
 				A91A4E2415E3C2D6004AFD1C /* HotMVGetter.m in Sources */,
 				A91A4E2715E3C2F1004AFD1C /* MVInformation.m in Sources */,
+				A918B74B15E4BB4E0095398A /* YCSearchController.m in Sources */,
+				A918B74C15E4BB4E0095398A /* YCSearchBar.m in Sources */,
+				A918B75115E4BD090095398A /* SearchBarCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

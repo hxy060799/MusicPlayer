@@ -49,28 +49,21 @@
             t4=[t4 stringByReplacingOccurrencesOfString:@"&gt" withString:@""];
             t4=[t4 stringByReplacingOccurrencesOfString:@"x0D" withString:@""];
             t4=[t4 stringByReplacingOccurrencesOfString:@"  " withString:@""];
-            
-            /*
-            NSArray *mainActor=[t2 componentsSeparatedByString:@"<main_actor>"];
-            if([mainActor count]>1){
-                t4=[mainActor objectAtIndex:1];
-                NSArray *temp=[t4 componentsSeparatedByString:@"</main_actor>"];
-                if([temp count]>0){
-                    t4=[temp objectAtIndex:0];
-                }
-                
-            }else{
-                NSArray *actor=[t2 componentsSeparatedByString:@"<actor>"];
-                if([actor count]>1){
-                    t4=[actor objectAtIndex:1];
-                    NSArray *temp=[t4 componentsSeparatedByString:@"</actor>"];
-                    if([temp count]>0){
-                        t4=[temp objectAtIndex:0];
-                    }
-                }
-            }
-             */
+            t4=[NSString stringWithFormat:@"    %@",t4];
             information.information=t4;
+            
+            NSString *t5=[[t2 componentsSeparatedByString:@"<tv_big_pic>"]objectAtIndex:1];
+            t5=[[t5 componentsSeparatedByString:@"</tv_big_pic>"]objectAtIndex:0];
+            if(![t5 isEqualToString:@""]){
+                UIImage *horBigPic=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:t5]]];
+                information.picture=horBigPic;
+            }
+            
+            NSString *t6=[[t2 componentsSeparatedByString:@"<vid>"]objectAtIndex:1];
+            t6=[[t6 componentsSeparatedByString:@"</vid>"]objectAtIndex:0];
+            NSString *theUrl=[NSString stringWithFormat:@"http://share.vrs.sohu.com/%@/v.m3u8&api_key=258715608945d9f401d8607e181dc7c3",t6];
+            information.playURL=theUrl;
+            
             
             [resultArray addObject:[information autorelease]];
         }

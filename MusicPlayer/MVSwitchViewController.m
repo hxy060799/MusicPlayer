@@ -10,6 +10,8 @@
 #import "MVCell.h"
 #import "HotMVGetter.h"
 #import "MVInformation.h"
+#import "MediaPlayer/MediaPlayer.h"
+#import "SearchBarCell.h"
 
 @implementation MVSwitchViewController
 
@@ -43,6 +45,7 @@
 -(void)dealloc{
     if(tableViewArray)[tableViewArray release];
     if(mvTableView)[tableViewArray release];
+    if(searchDisplayController)[searchDisplayController release];
     [super dealloc];
 }
 
@@ -63,37 +66,90 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [tableViewArray count];
+    return [tableViewArray count]+1;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if(indexPath.row>0){
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        
+        [navigationBar setHidden:YES];
+        
+        MVInformation *information=[tableViewArray objectAtIndex:indexPath.row-1];
+        NSLog(@"%@",information.playURL);
+        
+        
+        NSString *url = [[NSBundle mainBundle] pathForResource:@"video" ofType:@"mp4"];
+        
+        
+        MPMoviePlayerViewController *playerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:url]];  
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieFinishedCallback:)  
+                                                     name:MPMoviePlayerPlaybackDidFinishNotification  
+                                                   object:[playerViewController moviePlayer]];  
+        
+        [playerViewController.view setFrame:CGRectMake(0,-20,320, 480)];
+        [self presentModalViewController:playerViewController animated:YES];
+        
+        MPMoviePlayerController *player = [playerViewController moviePlayer];
+        //playerViewController.moviePlayer.movieSourceType=MPMovieSourceTypeStreaming;
+        [player play];
+        [player stop];
+        [player setContentURL:[NSURL URLWithString:information.playURL]];
+        [player play];
+    }
+    
+    
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellIdentifier=@"MVCellIdentifier";
-    
+    NSString *cellIdentifier=[NSString string];
     static BOOL nibRegistered=NO;
+    
     if(!nibRegistered){
         UINib *nib=[UINib nibWithNibName:@"MVCell" bundle:nil];
-        [tableView registerNib:nib forCellReuseIdentifier:cellIdentifier];
+        [tableView registerNib:nib forCellReuseIdentifier:@"MVCellIdentifier"];
+        nib=[UINib nibWithNibName:@"SearchBarCell" bundle:nil];
+        [tableView registerNib:nib forCellReuseIdentifier:@"SearchBarCellIdentifier"];
         nibRegistered=YES;
     }
     
-    MVCell *cell=[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-    MVInformation *information=[tableViewArray objectAtIndex:indexPath.row];
-    
-    [cell setTitle:[information title]];
-    [cell setInformation:[information information]];
-
-    return cell;
+    if(indexPath.row==0){
+        cellIdentifier=@"SearchBarCellIdentifier";
+        SearchBarCell *cell=[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        searchDisplayController=[[UISearchDisplayController alloc]initWithSearchBar:cell.searchBar contentsController:self];
+        self.searchController = [[YCSearchController alloc] initWithDelegate:self
+                                                                              searchDisplayController:searchDisplayController];
+        
+        return cell;
+    }else {
+        cellIdentifier=@"MVCellIdentifier";
+        
+        MVCell *cell=[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        MVInformation *information=[tableViewArray objectAtIndex:indexPath.row-1];
+        
+        [cell setTitle:[information title]];
+        [cell setInformation:[information information]];
+        [cell setPicture:[information picture]];
+        
+        return cell;
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 110.0f;
+    if(indexPath.row==0){
+        return 88.0f;
+    }else {
+        return 110.0f;
+    }
+    
+}
+
+-(NSArray*)searchController:(YCSearchController *)controller searchString:(NSString *)searchString{
+    return nil;
 }
 
 @end

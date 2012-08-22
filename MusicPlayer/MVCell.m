@@ -13,6 +13,8 @@
 @synthesize informationLabel;
 @synthesize title;
 @synthesize information;
+@synthesize imageView;
+@synthesize picture;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -42,6 +44,13 @@
     if (![inf isEqualToString:information]) {
         information=[inf copy];
         self.informationLabel.text=information;
+    }
+}
+
+-(void)setPicture:(UIImage *)pic{
+    if(![pic isEqual:picture]){
+        picture=[pic copy];
+        [self.imageView setImage:picture];
     }
 }
 
