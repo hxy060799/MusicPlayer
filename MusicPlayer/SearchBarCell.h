@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YCSearchBar.h"
 
 @interface SearchBarCell : UITableViewCell
 
-@property(retain,nonatomic)IBOutlet UISearchBar *searchBar;
+@property(retain,nonatomic)IBOutlet YCSearchBar *searchBar;
+@property(retain,nonatomic)IBOutlet UISegmentedControl *segmentedControl;
 @end
 

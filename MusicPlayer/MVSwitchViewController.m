@@ -28,6 +28,8 @@
 {
     [super viewDidLoad];
     
+    displaySearch=NO;
+    
     HotMVGetter *getter=[[HotMVGetter alloc]init];
     tableViewArray=[[NSMutableArray alloc] initWithArray:[getter getHotMV]];
     [getter release];
@@ -46,6 +48,7 @@
     if(tableViewArray)[tableViewArray release];
     if(mvTableView)[tableViewArray release];
     if(searchDisplayController)[searchDisplayController release];
+    if(searchArray)[searchArray release];
     [super dealloc];
 }
 
@@ -66,7 +69,11 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [tableViewArray count]+1;
+    if(displaySearch==NO){
+        return [tableViewArray count]+1;
+    }else{
+        return [searchArray count]+1;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -76,7 +83,12 @@
         
         [navigationBar setHidden:YES];
         
-        MVInformation *information=[tableViewArray objectAtIndex:indexPath.row-1];
+        MVInformation *information=nil;
+        if(displaySearch==NO){
+            information=[tableViewArray objectAtIndex:indexPath.row-1];
+        }else{
+            information=[searchArray objectAtIndex:indexPath.row-1];
+        }
         NSLog(@"%@",information.playURL);
         
         
@@ -118,8 +130,11 @@
     if(indexPath.row==0){
         cellIdentifier=@"SearchBarCellIdentifier";
         SearchBarCell *cell=[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        
+
         searchDisplayController=[[UISearchDisplayController alloc]initWithSearchBar:cell.searchBar contentsController:self];
+        
+        [cell.segmentedControl addTarget:self action:@selector(segmentedControlChanged:) forControlEvents:UIControlEventValueChanged];
+        
         self.searchController = [[YCSearchController alloc] initWithDelegate:self
                                                                               searchDisplayController:searchDisplayController];
         
@@ -129,13 +144,30 @@
         
         MVCell *cell=[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
-        MVInformation *information=[tableViewArray objectAtIndex:indexPath.row-1];
-        
-        [cell setTitle:[information title]];
-        [cell setInformation:[information information]];
-        [cell setPicture:[information picture]];
-        
+        if(displaySearch==NO){
+            MVInformation *information=[tableViewArray objectAtIndex:indexPath.row-1];
+            
+            [cell setTitle:[information title]];
+            [cell setInformation:[information information]];
+            [cell setPicture:[information picture]];
+        }else{
+            MVInformation *information=[searchArray objectAtIndex:indexPath.row-1];
+            
+            [cell setTitle:[information title]];
+            [cell setInformation:[information information]];
+            [cell setPicture:nil];
+        }
         return cell;
+    }
+}
+
+-(void)segmentedControlChanged:(UISegmentedControl*)segmentedControl{
+    int index = segmentedControl.selectedSegmentIndex;
+    NSLog(@"Seg.selectedSegmentIndex:%i",index);
+    if(index==1){
+        [self.searchController setActive:YES animated:YES];
+    }else{
+        [self.searchController setActive:NO animated:YES];
     }
 }
 
@@ -149,7 +181,27 @@
 }
 
 -(NSArray*)searchController:(YCSearchController *)controller searchString:(NSString *)searchString{
+    NSIndexPath *myIndexPath =[NSIndexPath indexPathForRow:0 inSection:0];
+    
+    SearchBarCell *cell =(SearchBarCell*)[mvTableView cellForRowAtIndexPath:myIndexPath];;
+    cell.segmentedControl.selectedSegmentIndex=1;
+    
+    
+    HotMVGetter *getter=[[HotMVGetter alloc]init];
+    searchArray=[[NSMutableArray alloc] initWithArray:[getter searchByString:searchString]];
+    [getter release];
+    displaySearch=YES;
+    
+    [mvTableView reloadData];
+    
     return nil;
+}
+
+-(void)searchEndedWithNothing{
+    NSIndexPath *myIndexPath =[NSIndexPath indexPathForRow:0 inSection:0];
+    
+    SearchBarCell *cell =(SearchBarCell*)[mvTableView cellForRowAtIndexPath:myIndexPath];;
+    cell.segmentedControl.selectedSegmentIndex=0;
 }
 
 @end

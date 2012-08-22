@@ -10,4 +10,5 @@
 
 @interface HotMVGetter : NSObject
 -(NSMutableArray*)getHotMV;
+-(NSMutableArray*)searchByString:(NSString*)theString;
 @end

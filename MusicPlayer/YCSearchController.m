@@ -335,7 +335,9 @@ searchDisplayController:(UISearchDisplayController*) theSearchDisplayController
 	if (self.lastSearchString !=nil && [self.lastSearchString length] >0) 
 	{
 		controller.searchBar.placeholder = lastSearchString;
-	}
+	}else{
+        [delegate searchEndedWithNothing];
+    }
 }
 
 - (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
@@ -397,8 +399,6 @@ searchDisplayController:(UISearchDisplayController*) theSearchDisplayController
 }
 //没有提示数据时候，隐藏搜索结果view
 /////////////////////////////////////
-
-
 
 
 

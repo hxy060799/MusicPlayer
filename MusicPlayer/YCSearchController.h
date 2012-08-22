@@ -15,6 +15,8 @@
  
 - (NSArray*)searchController:(YCSearchController *)controller searchString:(NSString *)searchString;
 
+-(void)searchEndedWithNothing;
+
 @end
 
 @interface YCSearchController : UIViewController 

@@ -12,10 +12,14 @@
 @interface MVSwitchViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,YCSearchControllerDelegete>{
     UITableView *mvTableView;
     NSMutableArray *tableViewArray;
+    NSMutableArray *searchArray;
     IBOutlet UINavigationBar *navigationBar;
     
     UISearchDisplayController *searchDisplayController;
+    BOOL displaySearch;
 }
 @property (nonatomic, retain) YCSearchController *searchController;
+
+-(void)segmentedControlChanged:(UISegmentedControl*)segmentedControl;
 
 @end

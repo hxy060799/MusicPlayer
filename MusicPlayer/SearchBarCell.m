@@ -10,6 +10,7 @@
 
 @implementation SearchBarCell
 @synthesize searchBar;
+@synthesize segmentedControl;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
