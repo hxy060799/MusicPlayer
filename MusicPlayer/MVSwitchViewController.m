@@ -81,7 +81,7 @@
     if(indexPath.row>0){
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
-        [navigationBar setHidden:YES];
+        //[navigationBar setHidden:YES];
         
         MVInformation *information=nil;
         if(displaySearch==NO){
@@ -89,28 +89,31 @@
         }else{
             information=[searchArray objectAtIndex:indexPath.row-1];
         }
-        NSLog(@"%@",information.playURL);
         
         
         NSString *url = [[NSBundle mainBundle] pathForResource:@"video" ofType:@"mp4"];
         
         
         MPMoviePlayerViewController *playerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:url]];  
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieFinishedCallback:)  
-                                                     name:MPMoviePlayerPlaybackDidFinishNotification  
-                                                   object:[playerViewController moviePlayer]];  
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieFinishedCallback:)  name:MPMoviePlayerPlaybackDidFinishNotification  object:[playerViewController moviePlayer]];  
         
         [playerViewController.view setFrame:CGRectMake(0,-20,320, 480)];
         [self presentModalViewController:playerViewController animated:YES];
+        
         
         MPMoviePlayerController *player = [playerViewController moviePlayer];
         //playerViewController.moviePlayer.movieSourceType=MPMovieSourceTypeStreaming;
         [player play];
         [player stop];
-        [player setContentURL:[NSURL URLWithString:information.playURL]];
+        NSURL *tempUrl=[NSURL URLWithString:information.playURL];
+        [player setContentURL:tempUrl];
         [player play];
+         
     }
     
+    
+}
+-(void)movieFinishedCallback:(MPMoviePlayerViewController*)controller{
     
 }
 
@@ -155,7 +158,7 @@
             
             [cell setTitle:[information title]];
             [cell setInformation:[information information]];
-            [cell setPicture:nil];
+            [cell setPicture:[information picture]];
         }
         return cell;
     }
