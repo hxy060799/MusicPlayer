@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "YCSearchController.h"
+#import "EGORefreshTableHeaderView.h"
 
-@interface MVSwitchViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,YCSearchControllerDelegete>{
+@interface MVSwitchViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,YCSearchControllerDelegete,EGORefreshTableHeaderDelegate>{
     UITableView *mvTableView;
     NSMutableArray *tableViewArray;
     NSMutableArray *searchArray;
@@ -17,6 +18,10 @@
     
     UISearchDisplayController *searchDisplayController;
     BOOL displaySearch;
+    
+    EGORefreshTableHeaderView *refreshHeaderView;
+    
+    BOOL reloading;
 }
 @property (nonatomic, retain) YCSearchController *searchController;
 

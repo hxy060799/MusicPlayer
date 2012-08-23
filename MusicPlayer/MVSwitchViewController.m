@@ -39,6 +39,16 @@
     mvTableView.delegate=self;
     mvTableView.dataSource=self;
     
+    if(refreshHeaderView==nil){
+		EGORefreshTableHeaderView *headerView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - mvTableView.bounds.size.height, self.view.frame.size.width, mvTableView.bounds.size.height)];
+        headerView.delegate=self;
+        [mvTableView addSubview:headerView];
+        refreshHeaderView=headerView;
+        [headerView release];
+    }
+    
+    [refreshHeaderView refreshLastUpdatedDate];
+    
     [self.view insertSubview:mvTableView atIndex:0];
     
 
@@ -52,36 +62,19 @@
     [super dealloc];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if(displaySearch==NO){
-        return [tableViewArray count]+1;
-    }else{
-        return [searchArray count]+1;
-    }
-}
+#pragma mark -
+#pragma mark UITableViewDelegate
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.row>0){
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        
-        //[navigationBar setHidden:YES];
         
         MVInformation *information=nil;
         if(displaySearch==NO){
@@ -113,7 +106,30 @@
     
     
 }
--(void)movieFinishedCallback:(MPMoviePlayerViewController*)controller{
+
+#pragma mark -
+#pragma mark UITableViewDataSource
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if(displaySearch==NO){
+        return [tableViewArray count]+1;
+    }else{
+        return [searchArray count]+1;
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.row==0){
+        return 88.0f;
+    }else {
+        return 110.0f;
+    }
     
 }
 
@@ -164,6 +180,16 @@
     }
 }
 
+#pragma mark -
+#pragma mark MPMoviePlayerViewController CallBack
+
+-(void)movieFinishedCallback:(MPMoviePlayerViewController*)controller{
+    
+}
+
+#pragma mark-
+#pragma mark UISegmentedControl CallBack
+
 -(void)segmentedControlChanged:(UISegmentedControl*)segmentedControl{
     int index = segmentedControl.selectedSegmentIndex;
     NSLog(@"Seg.selectedSegmentIndex:%i",index);
@@ -174,14 +200,9 @@
     }
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.row==0){
-        return 88.0f;
-    }else {
-        return 110.0f;
-    }
-    
-}
+
+#pragma mark-
+#pragma mark YCSearchBarDelegate
 
 -(NSArray*)searchController:(YCSearchController *)controller searchString:(NSString *)searchString{
     NSIndexPath *myIndexPath =[NSIndexPath indexPathForRow:0 inSection:0];
@@ -206,5 +227,75 @@
     SearchBarCell *cell =(SearchBarCell*)[mvTableView cellForRowAtIndexPath:myIndexPath];;
     cell.segmentedControl.selectedSegmentIndex=0;
 }
+
+#pragma mark-
+#pragma mark UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{	
+	
+	[refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+    
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+	
+	[refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+	
+}
+
+#pragma mark-
+#pragma mark EGORefreshTableHeaderViewDelegate
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+	
+	[self reloadTableViewDataSource];
+	
+}
+
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
+	
+	return reloading; // should return if data source model is reloading
+	
+}
+
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+	
+	return [NSDate date]; // should return date data source was last changed
+	
+}
+
+- (void)reloadTableViewDataSource{
+	
+    if(displaySearch==YES){
+        NSIndexPath *myIndexPath =[NSIndexPath indexPathForRow:0 inSection:0];
+        SearchBarCell *cell =(SearchBarCell*)[mvTableView cellForRowAtIndexPath:myIndexPath];
+        
+        
+        HotMVGetter *getter=[[HotMVGetter alloc]init];
+        searchArray=[[NSMutableArray alloc] initWithArray:[getter searchByString:cell.searchBar.text]];
+        [getter release];
+        
+        [mvTableView reloadData];
+    }else{
+        HotMVGetter *getter=[[HotMVGetter alloc]init];
+        tableViewArray=[[NSMutableArray alloc] initWithArray:[getter getHotMV]];
+        [getter release];
+        [mvTableView reloadData];
+        NSLog(@"Refresh Finished");
+    }
+	reloading = YES;
+    [self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:2.0];
+	
+}
+
+- (void)doneLoadingTableViewData{
+	
+	//  model should call this when its done loading
+	reloading = NO;
+	[refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:mvTableView];
+	
+}
+
+
 
 @end
