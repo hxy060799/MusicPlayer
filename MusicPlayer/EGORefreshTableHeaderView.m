@@ -24,6 +24,8 @@
 //  THE SOFTWARE.
 //
 
+#define RefreshHeaderHeight       65
+
 #import "EGORefreshTableHeaderView.h"
 
 
@@ -38,11 +40,15 @@
 @implementation EGORefreshTableHeaderView
 
 @synthesize delegate=_delegate;
+@synthesize footerRefresh = _footerRefresh;
+@synthesize backGroundView = _backGroundView;
 
 
-- (id)initWithFrame:(CGRect)frame {
+- (id)initWithFrame:(CGRect)frame AndIsFooterView:(BOOL)isFooterView{
     if (self = [super initWithFrame:frame]) {
 		
+        _footerRefresh=isFooterView;
+        
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		self.backgroundColor = [UIColor colorWithRed:226.0/255.0 green:231.0/255.0 blue:237.0/255.0 alpha:1.0];
 
@@ -71,9 +77,13 @@
 		[label release];
 		
 		CALayer *layer = [CALayer layer];
-		layer.frame = CGRectMake(25.0f, frame.size.height - 65.0f, 30.0f, 55.0f);
+		layer.frame = CGRectMake(25.0f, frame.size.height - RefreshHeaderHeight, 30.0f, 55.0f);
 		layer.contentsGravity = kCAGravityResizeAspect;
-		layer.contents = (id)[UIImage imageNamed:@"blueArrow.png"].CGImage;
+        if(!_footerRefresh){
+            layer.contents = (id)[UIImage imageNamed:@"blueArrow.png"].CGImage;
+        }else{
+            layer.contents = (id)[UIImage imageNamed:@"blueArrowUpsideDown.png"].CGImage;
+        }
 		
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 40000
 		if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
@@ -182,10 +192,17 @@
 - (void)egoRefreshScrollViewDidScroll:(UIScrollView *)scrollView {	
 	
 	if (_state == EGOOPullRefreshLoading) {
-		
-		CGFloat offset = MAX(scrollView.contentOffset.y * -1, 0);
-		offset = MIN(offset, 60);
-		scrollView.contentInset = UIEdgeInsetsMake(offset, 0.0f, 0.0f, 0.0f);
+        
+        if (_footerRefresh) {
+            CGFloat offset = MAX(scrollView.contentOffset.y + scrollView.frame.size.height - scrollView.contentSize.height, 0);
+            offset = MIN(offset, RefreshHeaderHeight);
+            scrollView.contentInset = UIEdgeInsetsMake(0.0, 0.0f, offset, 0.0f);
+        }
+        else {
+            CGFloat offset = MAX(scrollView.contentOffset.y * -1, 0);
+            offset = MIN(offset, RefreshHeaderHeight);
+            scrollView.contentInset = UIEdgeInsetsMake(offset, 0.0f, 0.0f, 0.0f);
+        }
 		
 	} else if (scrollView.isDragging) {
 		
@@ -194,16 +211,29 @@
 			_loading = [_delegate egoRefreshTableHeaderDataSourceIsLoading:self];
 		}
 		
-		if (_state == EGOOPullRefreshPulling && scrollView.contentOffset.y > -65.0f && scrollView.contentOffset.y < 0.0f && !_loading) {
-			[self setState:EGOOPullRefreshNormal];
-		} else if (_state == EGOOPullRefreshNormal && scrollView.contentOffset.y < -65.0f && !_loading) {
-			[self setState:EGOOPullRefreshPulling];
-		}
+        if (!_footerRefresh) {
+            if (_state == EGOOPullRefreshPulling && scrollView.contentOffset.y > -RefreshHeaderHeight && scrollView.contentOffset.y < 0.0f && !_loading) {
+                [self setState:EGOOPullRefreshNormal];
+            } else if (_state == EGOOPullRefreshNormal && scrollView.contentOffset.y < -RefreshHeaderHeight && !_loading) {
+                [self setState:EGOOPullRefreshPulling];
+            }
+        }
+        else
+        {
+            if (_state == EGOOPullRefreshPulling && scrollView.contentOffset.y + (scrollView.frame.size.height) < scrollView.contentSize.height + RefreshHeaderHeight && scrollView.contentOffset.y > 0.0f && !_loading) {
+                [self setState:EGOOPullRefreshNormal];
+            } else if (_state == EGOOPullRefreshNormal && scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height + RefreshHeaderHeight&& !_loading) {
+                [self setState:EGOOPullRefreshPulling];
+            }
+        }
 		
 		if (scrollView.contentInset.top != 0) {
 			scrollView.contentInset = UIEdgeInsetsZero;
 		}
 		
+        if (scrollView.contentInset.bottom != 0) {
+            scrollView.contentInset = UIEdgeInsetsZero;
+        }
 	}
 	
 }
@@ -215,20 +245,37 @@
 		_loading = [_delegate egoRefreshTableHeaderDataSourceIsLoading:self];
 	}
 	
-	if (scrollView.contentOffset.y <= - 65.0f && !_loading) {
-		
-		if ([_delegate respondsToSelector:@selector(egoRefreshTableHeaderDidTriggerRefresh:)]) {
-			[_delegate egoRefreshTableHeaderDidTriggerRefresh:self];
-		}
-		
-		[self setState:EGOOPullRefreshLoading];
-		[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:0.2];
-		scrollView.contentInset = UIEdgeInsetsMake(60.0f, 0.0f, 0.0f, 0.0f);
-		[UIView commitAnimations];
-		
-	}
-	
+    if (!_footerRefresh) {
+        if (scrollView.contentOffset.y <= -RefreshHeaderHeight && !_loading) {
+            
+            if ([_delegate respondsToSelector:@selector(egoRefreshTableHeaderDidTriggerRefresh:)]) {
+                [_delegate egoRefreshTableHeaderDidTriggerRefresh:self];
+            }
+            
+            [self setState:EGOOPullRefreshLoading];
+            [UIView beginAnimations:nil context:NULL];
+            [UIView setAnimationDuration:0.2];
+            scrollView.contentInset = UIEdgeInsetsMake(RefreshHeaderHeight, 0.0f, 0.0f, 0.0f);
+            [UIView commitAnimations];
+            
+        }
+    }
+	else
+    {
+        if (scrollView.contentOffset.y + (scrollView.frame.size.height) > scrollView.contentSize.height + RefreshHeaderHeight && !_loading) {
+            
+            if ([_delegate respondsToSelector:@selector(egoRefreshTableHeaderDidTriggerRefresh:)]) {
+                [_delegate egoRefreshTableHeaderDidTriggerRefresh:self];
+            }
+            
+            [self setState:EGOOPullRefreshLoading];
+            [UIView beginAnimations:nil context:NULL];
+            [UIView setAnimationDuration:0.2];
+            scrollView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, RefreshHeaderHeight, 0.0f);
+            [UIView commitAnimations];
+            
+        }
+    }
 }
 
 - (void)egoRefreshScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView {	
@@ -253,8 +300,29 @@
 	_statusLabel = nil;
 	_arrowImage = nil;
 	_lastUpdatedLabel = nil;
+    _backGroundView = nil;
     [super dealloc];
 }
 
+#pragma mark - BG VIEW
+- (void)setBackGroundView:(UIView *)backGroundView
+{
+    if (backGroundView == nil) {
+        return;
+    }
+    
+    if ((_backGroundView && ![backGroundView isEqual:_backGroundView]))
+    {
+        [_backGroundView removeFromSuperview];
+        
+        _backGroundView = backGroundView;
+        [self insertSubview:_backGroundView atIndex:0];
+    }
+    
+    if (_backGroundView == nil) {
+        _backGroundView = backGroundView;
+        [self insertSubview:_backGroundView atIndex:0];
+    }
+}
 
 @end

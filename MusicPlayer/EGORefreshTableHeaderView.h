@@ -44,15 +44,22 @@ typedef enum{
 	CALayer *_arrowImage;
 	UIActivityIndicatorView *_activityView;
 	
-
+    BOOL _footerRefresh;
+    
+    UIView *_backGroundView;
 }
 
 @property(nonatomic,assign) id <EGORefreshTableHeaderDelegate> delegate;
+
+@property(nonatomic) BOOL footerRefresh;
+@property(nonatomic,assign) UIView *backGroundView;
 
 - (void)refreshLastUpdatedDate;
 - (void)egoRefreshScrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)egoRefreshScrollViewDidEndDragging:(UIScrollView *)scrollView;
 - (void)egoRefreshScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView;
+
+- (id)initWithFrame:(CGRect)frame AndIsFooterView:(BOOL)isFooterView;
 
 @end
 @protocol EGORefreshTableHeaderDelegate
