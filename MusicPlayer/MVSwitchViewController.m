@@ -31,35 +31,19 @@
     displaySearch=NO;
     
     HotMVGetter *getter=[[HotMVGetter alloc]init];
-    tableViewArray=[[NSMutableArray alloc] initWithArray:[getter getHotMV]];
+    hotMVResult.tableViewArray=[[getter getHotMV]copy];
+    //tableViewArray=[[NSMutableArray alloc] initWithArray:[getter getHotMV]];
     [getter release];
     
-    if(!mvTableView)mvTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 44, 320, 367) style:UITableViewStylePlain];
+    if(!mvTableView)mvTableView=[[PullToRefreshTableView alloc]initWithFrame:CGRectMake(0, 44, 320, 367) style:UITableViewStylePlain];
     
     mvTableView.delegate=self;
     mvTableView.dataSource=self;
     
     [mvTableView reloadData];
     
-    if(!refreshHeaderView){
-        EGORefreshTableHeaderView *headerView=[[EGORefreshTableHeaderView alloc]initWithFrame:CGRectMake(0.0f, 0.0f-65, self.view.frame.size.width, 65) AndIsFooterView:NO];
-        headerView.delegate=self;
-        headerView.backgroundColor=[UIColor clearColor];
-        [headerView refreshLastUpdatedDate];
-        [mvTableView addSubview:headerView];
-        refreshHeaderView=headerView;
-        [headerView release];
-    }
-    
-    if((!refreshFooterView) && mvTableView.frame.size.height<mvTableView.contentSize.height){
-        EGORefreshTableHeaderView *footerView=[[EGORefreshTableHeaderView alloc]initWithFrame:CGRectMake(0, mvTableView.contentSize.height, 320, 65) AndIsFooterView:YES];
-        footerView.delegate=self;
-        footerView.backgroundColor=[UIColor clearColor];
-        [footerView refreshLastUpdatedDate];
-        [mvTableView addSubview:footerView];
-        refreshFooterView=footerView;
-        [footerView release];
-    }
+    [mvTableView addHeaderRefreshViewWithFrame:CGRectMake(0.0f, 0.0f-65, self.view.frame.size.width, 65) IsFooterView:NO Delegate:self];
+    [mvTableView addHeaderRefreshViewWithFrame:CGRectMake(0, mvTableView.contentSize.height, 320, 65) IsFooterView:YES Delegate:self];
     
     [self.view insertSubview:mvTableView atIndex:0];
     
@@ -67,10 +51,8 @@
 }
 
 -(void)dealloc{
-    if(tableViewArray)[tableViewArray release];
-    if(mvTableView)[tableViewArray release];
+    if(mvTableView)[mvTableView release];
     if(searchDisplayController)[searchDisplayController release];
-    if(searchArray)[searchArray release];
     [super dealloc];
 }
 
@@ -90,9 +72,9 @@
         
         MVInformation *information=nil;
         if(displaySearch==NO){
-            information=[tableViewArray objectAtIndex:indexPath.row-1];
+            information=[hotMVResult.tableViewArray objectAtIndex:indexPath.row-1];
         }else{
-            information=[searchArray objectAtIndex:indexPath.row-1];
+            information=[searchResult.tableViewArray objectAtIndex:indexPath.row-1];
         }
         
         
@@ -113,6 +95,7 @@
         NSURL *tempUrl=[NSURL URLWithString:information.playURL];
         [player setContentURL:tempUrl];
         [player play];
+        [playerViewController release];
         
     }
     
@@ -130,9 +113,9 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(displaySearch==NO){
-        return [tableViewArray count]+1;
+        return [hotMVResult.tableViewArray count]+1;
     }else{
-        return [searchArray count]+1;
+        return [searchResult.tableViewArray count]+1;
     }
 }
 
@@ -147,7 +130,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellIdentifier=[NSString string];
+    NSString *cellIdentifier=nil;
     static BOOL nibRegistered=NO;
     
     if(!nibRegistered){
@@ -166,7 +149,7 @@
         
         [cell.segmentedControl addTarget:self action:@selector(segmentedControlChanged:) forControlEvents:UIControlEventValueChanged];
         
-        self.searchController = [[YCSearchController alloc] initWithDelegate:self
+        searchController = [[YCSearchController alloc] initWithDelegate:self
                                                      searchDisplayController:searchDisplayController];
         
         return cell;
@@ -176,13 +159,13 @@
         MVCell *cell=[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
         if(displaySearch==NO){
-            MVInformation *information=[tableViewArray objectAtIndex:indexPath.row-1];
+            MVInformation *information=[hotMVResult.tableViewArray objectAtIndex:indexPath.row-1];
             
             [cell setTitle:[information title]];
             [cell setInformation:[information information]];
             [cell setPicture:[information picture]];
         }else{
-            MVInformation *information=[searchArray objectAtIndex:indexPath.row-1];
+            MVInformation *information=[searchResult.tableViewArray objectAtIndex:indexPath.row-1];
             
             [cell setTitle:[information title]];
             [cell setInformation:[information information]];
@@ -206,14 +189,14 @@
     int index = segmentedControl.selectedSegmentIndex;
     NSLog(@"Seg.selectedSegmentIndex:%i",index);
     if(index==1){
-        if([searchArray count]==0){
-            [self.searchController setActive:YES animated:YES];
+        if([searchResult.tableViewArray count]==0){
+            [searchController setActive:YES animated:YES];
         }else{
             displaySearch=YES;
             [mvTableView reloadData];
         }
     }else{
-        [self.searchController setActive:NO animated:YES];
+        [searchController setActive:NO animated:YES];
         displaySearch=NO;
         [mvTableView reloadData];
     }
@@ -231,7 +214,7 @@
     
     
     HotMVGetter *getter=[[HotMVGetter alloc]init];
-    searchArray=[[NSMutableArray alloc] initWithArray:[getter searchByString:searchString]];
+    searchResult.tableViewArray=[[getter searchByString:searchString]copy];
     [getter release];
     displaySearch=YES;
     
@@ -251,14 +234,35 @@
 }
 
 #pragma mark -
+#pragma mark UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (scrollView.contentOffset.y<-1){
+        if(mvTableView.headerRefreshView)[mvTableView.headerRefreshView egoRefreshScrollViewDidScroll:scrollView];
+    }else{
+        if(mvTableView.footerRefreshView)[mvTableView.footerRefreshView egoRefreshScrollViewDidScroll:scrollView];
+    }
+    
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    if (scrollView.contentOffset.y<-1) {
+        if(mvTableView.headerRefreshView)[mvTableView.headerRefreshView egoRefreshScrollViewDidEndDragging:scrollView];
+    }else{
+        if(mvTableView.footerRefreshView)[mvTableView.footerRefreshView egoRefreshScrollViewDidEndDragging:scrollView];
+    }
+	
+}
+
+#pragma mark -
 #pragma mark Refresh Methods
 
 - (void)doneLoadingTableViewData{
 	
 	//  model should call this when its done loading
 	reloading = NO;
-	[refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:mvTableView];
-    [refreshFooterView egoRefreshScrollViewDataSourceDidFinishedLoading:mvTableView];
+	[mvTableView.headerRefreshView egoRefreshScrollViewDataSourceDidFinishedLoading:mvTableView];
+    [mvTableView.footerRefreshView egoRefreshScrollViewDataSourceDidFinishedLoading:mvTableView];
 	
 }
 
@@ -266,7 +270,7 @@
 -(void)refreshTableView{
     if(!displaySearch){
         HotMVGetter *getter=[[HotMVGetter alloc]init];
-        tableViewArray=[[NSMutableArray alloc] initWithArray:[getter getHotMV]];
+        hotMVResult.tableViewArray=[[getter getHotMV]copy];
         [getter release];
         [mvTableView reloadData];
     }else{
@@ -275,46 +279,21 @@
         SearchBarCell *cell =(SearchBarCell*)[mvTableView cellForRowAtIndexPath:myIndexPath];;
         
         HotMVGetter *getter=[[HotMVGetter alloc]init];
-        searchArray=[[NSMutableArray alloc] initWithArray:[getter searchByString:cell.searchBar.text]];
+        searchResult.tableViewArray=[[getter searchByString:cell.searchBar.text]copy];
         [getter release];
         [mvTableView reloadData];
     }
     reloading = YES;
 }
 
-#pragma mark -
-#pragma mark UIScrollViewDelegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{	
-    if (scrollView.contentOffset.y < -1) {
-        [refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
-    }
-    
-    else if (refreshFooterView)
-    {
-        [refreshFooterView egoRefreshScrollViewDidScroll:scrollView];
-    }
-    
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    if (scrollView.contentOffset.y < -1) {
-        [refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
-    }
-    
-    else if (refreshFooterView)
-    {
-        [refreshFooterView egoRefreshScrollViewDidEndDragging:scrollView];
-    }
-	
-}
 
 #pragma mark -
 #pragma mark EGORefreshTableHeaderViewDelegade
 
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
 	
-    if(view==refreshHeaderView){
+    if(view==mvTableView.headerRefreshView){
         [self refreshTableView];
     }else{
         NSLog(@"Footer!");

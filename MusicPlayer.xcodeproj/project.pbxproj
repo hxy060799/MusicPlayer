@@ -21,6 +21,7 @@
 		A906B74215E662680076B13F /* blueArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A906B73A15E662680076B13F /* blueArrow@2x.png */; };
 		A906B74315E662680076B13F /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = A906B73B15E662680076B13F /* whiteArrow.png */; };
 		A906B74415E662680076B13F /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A906B73C15E662680076B13F /* whiteArrow@2x.png */; };
+		A909365B15E8BFEB00D11166 /* PullToRefreshTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A909365A15E8BFEB00D11166 /* PullToRefreshTableView.m */; };
 		A90BA73015D12F8000A1B1AA /* TKCoverflowCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = A90BA72715D12F8000A1B1AA /* TKCoverflowCoverView.m */; };
 		A90BA73115D12F8000A1B1AA /* TKCoverflowView.m in Sources */ = {isa = PBXBuildFile; fileRef = A90BA72915D12F8000A1B1AA /* TKCoverflowView.m */; };
 		A90BA73215D12F8000A1B1AA /* TKGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = A90BA72B15D12F8000A1B1AA /* TKGlobal.m */; };
@@ -140,6 +141,8 @@
 		A906B73A15E662680076B13F /* blueArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blueArrow@2x.png"; sourceTree = "<group>"; };
 		A906B73B15E662680076B13F /* whiteArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteArrow.png; sourceTree = "<group>"; };
 		A906B73C15E662680076B13F /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
+		A909365915E8BFEB00D11166 /* PullToRefreshTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefreshTableView.h; sourceTree = "<group>"; };
+		A909365A15E8BFEB00D11166 /* PullToRefreshTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshTableView.m; sourceTree = "<group>"; };
 		A90BA72515D12F8000A1B1AA /* TapkuCoverFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapkuCoverFlow.h; sourceTree = "<group>"; };
 		A90BA72615D12F8000A1B1AA /* TKCoverflowCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKCoverflowCoverView.h; sourceTree = "<group>"; };
 		A90BA72715D12F8000A1B1AA /* TKCoverflowCoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKCoverflowCoverView.m; sourceTree = "<group>"; };
@@ -504,6 +507,8 @@
 				A9048AFD15E76298002DE660 /* MVSwitchViewController.h */,
 				A9048AF415E76012002DE660 /* MVSwitchViewController.m */,
 				A95DF73F15E327C700A7A223 /* MVSwitchViewController.xib */,
+				A909365915E8BFEB00D11166 /* PullToRefreshTableView.h */,
+				A909365A15E8BFEB00D11166 /* PullToRefreshTableView.m */,
 				A91A4E1C15E3BBE2004AFD1C /* MVCell.h */,
 				A91A4E1D15E3BBE2004AFD1C /* MVCell.m */,
 				A91A4E2015E3BBF2004AFD1C /* MVCell.xib */,
@@ -881,6 +886,7 @@
 				A918B75115E4BD090095398A /* SearchBarCell.m in Sources */,
 				A9048AF515E76012002DE660 /* MVSwitchViewController.m in Sources */,
 				A9048AFC15E76278002DE660 /* EGORefreshTableHeaderView.m in Sources */,
+				A909365B15E8BFEB00D11166 /* PullToRefreshTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

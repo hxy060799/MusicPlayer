@@ -8,13 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "YCSearchController.h"
+#import "PullToRefreshTableView.h"
 
 #import "EGORefreshTableHeaderView.h"
 
-@interface MVSwitchViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,YCSearchControllerDelegete,EGORefreshTableHeaderDelegate>{
-    UITableView *mvTableView;
+struct tableViewPagesArray{
     NSMutableArray *tableViewArray;
-    NSMutableArray *searchArray;
+    int nowPageAt;
+};
+
+@interface MVSwitchViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,YCSearchControllerDelegete,EGORefreshTableHeaderDelegate>{
+    PullToRefreshTableView *mvTableView;
+    //NSMutableArray *tableViewArray;
+    //NSMutableArray *searchArray;
+    struct tableViewPagesArray hotMVResult;
+    struct tableViewPagesArray searchResult;
     IBOutlet UINavigationBar *navigationBar;
     
     UISearchDisplayController *searchDisplayController;
@@ -24,8 +32,9 @@
     
     EGORefreshTableHeaderView *refreshHeaderView;
     EGORefreshTableHeaderView *refreshFooterView;
+    
+    YCSearchController *searchController;
 }
-@property (nonatomic, retain) YCSearchController *searchController;
 
 -(void)segmentedControlChanged:(UISegmentedControl*)segmentedControl;
 
