@@ -49,9 +49,15 @@
             NSString *t5=[[t2 componentsSeparatedByString:@"<picUrl>"]objectAtIndex:1];
             t5=[[t5 componentsSeparatedByString:@"</picUrl>"]objectAtIndex:0];
             if(![t5 isEqualToString:@""]){
+<<<<<<< HEAD
                 NSURL *picDownloadURL=[[NSURL alloc]initWithString:t5];
                 UIImage *horBigPic=[[[UIImage alloc]initWithData:[NSData dataWithContentsOfURL:picDownloadURL]]autorelease];
                 [picDownloadURL release];
+=======
+                NSURL *imageURL=[NSURL URLWithString:t5];
+                
+                UIImage *horBigPic=[[UIImage alloc]initWithData:[NSData dataWithContentsOfURL:imageURL]];
+>>>>>>> SmallChange
                 information.picture=horBigPic;
             }
             
@@ -128,9 +134,15 @@
         t5=[[t5 componentsSeparatedByString:@"</picUrl>"]objectAtIndex:0];
         //NSLog(@"%@",t5);
         if(![t5 isEqualToString:@""]){
+<<<<<<< HEAD
             NSURL *picDownloadURL=[[NSURL alloc]initWithString:t5];
             UIImage *horBigPic=[[[UIImage alloc]initWithData:[NSData dataWithContentsOfURL:picDownloadURL]]autorelease];
             [picDownloadURL release];
+=======
+            NSURL *imageURL=[NSURL URLWithString:t5];
+            
+            UIImage *horBigPic=[[UIImage alloc]initWithData:[NSData dataWithContentsOfURL:imageURL]];
+>>>>>>> SmallChange
             information.picture=horBigPic;
         }
         
