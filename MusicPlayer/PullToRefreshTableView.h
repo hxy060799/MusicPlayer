@@ -13,7 +13,9 @@
 
 @property(retain,nonatomic)EGORefreshTableHeaderView *headerRefreshView;
 @property(retain,nonatomic)EGORefreshTableHeaderView *footerRefreshView;
+@property(assign,nonatomic)BOOL footerRefreshViewShowed;
 
 -(void)addHeaderRefreshViewWithFrame:(CGRect)frame IsFooterView:(BOOL)isFooterView Delegate:(id<EGORefreshTableHeaderDelegate>)delegate;
+-(void)setFooterRefreshViewHidden:(BOOL)hidden;
 
 @end

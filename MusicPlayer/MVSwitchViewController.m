@@ -198,11 +198,13 @@
             [searchController setActive:YES animated:YES];
         }else{
             displaySearch=YES;
+            [mvTableView setFooterRefreshViewHidden:YES];
             [mvTableView reloadData];
         }
     }else{
         [searchController setActive:NO animated:YES];
         displaySearch=NO;
+        [mvTableView setFooterRefreshViewHidden:NO];
         [mvTableView reloadData];
     }
 }
@@ -222,6 +224,7 @@
     searchResult.tableViewArray=[[getter searchByString:searchString]copy];
     [getter release];
     displaySearch=YES;
+    [mvTableView setFooterRefreshViewHidden:YES];
     
     [mvTableView reloadData];
     
@@ -234,6 +237,7 @@
     SearchBarCell *cell =(SearchBarCell*)[mvTableView cellForRowAtIndexPath:myIndexPath];;
     cell.segmentedControl.selectedSegmentIndex=0;
     displaySearch=NO;
+    [mvTableView setFooterRefreshViewHidden:NO];
     
     [mvTableView reloadData];
 }
@@ -245,7 +249,9 @@
     if (scrollView.contentOffset.y<-1){
         if(mvTableView.headerRefreshView)[mvTableView.headerRefreshView egoRefreshScrollViewDidScroll:scrollView];
     }else{
-        if(mvTableView.footerRefreshView)[mvTableView.footerRefreshView egoRefreshScrollViewDidScroll:scrollView];
+        if(!displaySearch){
+            if(mvTableView.footerRefreshView)[mvTableView.footerRefreshView egoRefreshScrollViewDidScroll:scrollView];
+        }
     }
     
 }
@@ -254,7 +260,9 @@
     if (scrollView.contentOffset.y<-1) {
         if(mvTableView.headerRefreshView)[mvTableView.headerRefreshView egoRefreshScrollViewDidEndDragging:scrollView];
     }else{
-        if(mvTableView.footerRefreshView)[mvTableView.footerRefreshView egoRefreshScrollViewDidEndDragging:scrollView];
+        if(!displaySearch){
+            if(mvTableView.footerRefreshView)[mvTableView.footerRefreshView egoRefreshScrollViewDidEndDragging:scrollView];
+        }
     }
 	
 }

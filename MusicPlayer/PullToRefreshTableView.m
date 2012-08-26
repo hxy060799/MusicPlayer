@@ -12,6 +12,7 @@
 
 @synthesize footerRefreshView;
 @synthesize headerRefreshView;
+@synthesize footerRefreshViewShowed;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -24,7 +25,20 @@
 
 -(void)reloadData{
     [super reloadData];
-    [self.footerRefreshView setFrame:CGRectMake(0, self.contentSize.height+10, 320, 65)];
+    
+    if(footerRefreshViewShowed)[self.footerRefreshView setFrame:CGRectMake(0, self.contentSize.height+10, 320, 65)];
+}
+
+-(void)setFooterRefreshViewHidden:(BOOL)hidden{
+    if(footerRefreshView){
+        if(hidden){
+            [self.footerRefreshView removeFromSuperview];
+            self.footerRefreshViewShowed=NO;
+        }else{
+            [self addSubview:footerRefreshView];
+            self.footerRefreshViewShowed=YES;
+        }
+    }
 }
 
 -(void)addHeaderRefreshViewWithFrame:(CGRect)frame IsFooterView:(BOOL)isFooterView Delegate:(id<EGORefreshTableHeaderDelegate>)delegate{
@@ -42,6 +56,7 @@
             footerRefreshView.delegate=delegate;
             footerRefreshView.backgroundColor=[UIColor clearColor];
             [footerRefreshView refreshLastUpdatedDate];
+            self.footerRefreshViewShowed=YES;
             [self addSubview:footerRefreshView];
         }
     }
