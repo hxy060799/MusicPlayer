@@ -22,12 +22,15 @@
     return self;
 }
 
-
+-(void)reloadData{
+    [super reloadData];
+    [self.footerRefreshView setFrame:CGRectMake(0, self.contentSize.height+10, 320, 65)];
+}
 
 -(void)addHeaderRefreshViewWithFrame:(CGRect)frame IsFooterView:(BOOL)isFooterView Delegate:(id<EGORefreshTableHeaderDelegate>)delegate{
     if(!isFooterView){
         if(!headerRefreshView){
-            self.headerRefreshView=[[EGORefreshTableHeaderView alloc]initWithFrame:frame AndIsFooterView:NO];
+            self.headerRefreshView=[[[EGORefreshTableHeaderView alloc]initWithFrame:frame AndIsFooterView:NO]autorelease];
             self.headerRefreshView.delegate=delegate;
             self.headerRefreshView.backgroundColor=[UIColor clearColor];
             [self.headerRefreshView refreshLastUpdatedDate];
@@ -35,7 +38,7 @@
         }
     }else{
         if((!footerRefreshView) && self.frame.size.height<self.contentSize.height){
-            footerRefreshView=[[EGORefreshTableHeaderView alloc]initWithFrame:CGRectMake(0, self.contentSize.height, 320, 65) AndIsFooterView:YES];
+            footerRefreshView=[[[EGORefreshTableHeaderView alloc]initWithFrame:CGRectMake(0, self.contentSize.height+10, 320, 65) AndIsFooterView:YES]autorelease];
             footerRefreshView.delegate=delegate;
             footerRefreshView.backgroundColor=[UIColor clearColor];
             [footerRefreshView refreshLastUpdatedDate];
@@ -45,8 +48,6 @@
 }
 
 -(void)dealloc{
-    if(self.headerRefreshView)[self.headerRefreshView release];
-    if(self.footerRefreshView)[self.footerRefreshView release];
     [super dealloc];
 }
 

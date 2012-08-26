@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface HotMVGetter : NSObject
--(NSMutableArray*)getHotMV;
+-(NSMutableArray*)getHotMVWithPage:(int)page;
 -(NSMutableArray*)searchByString:(NSString*)theString;
 @end

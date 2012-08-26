@@ -11,10 +11,10 @@
 
 @implementation HotMVGetter
 
--(NSMutableArray*)getHotMV{
+-(NSMutableArray*)getHotMVWithPage:(int)page{
     NSMutableArray *resultArray=[NSMutableArray array];
     
-    NSString *urlString=@"http://api.tudou.com/v3/gw?method=item.ranking&format=xml&appKey=1952e9844c5283d5&pageNo=1&pageSize=20&channelId=14&sort=v";
+    NSString *urlString=[NSString stringWithFormat:@"http://api.tudou.com/v3/gw?method=item.ranking&format=xml&appKey=1952e9844c5283d5&pageNo=%i&pageSize=20&channelId=14&sort=v",page];
     NSURL *url=[NSURL URLWithString:urlString];
     NSString *result=[[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
     //NSLog(@"%@",result);
@@ -33,7 +33,7 @@
             t3=[[t3 componentsSeparatedByString:@"</title>"]objectAtIndex:0];
             information.title=t3;
             
-            NSString *t4=[NSString string];
+            NSString *t4=nil;
             t4=[[t2 componentsSeparatedByString:@"<description>"]objectAtIndex:1];
             t4=[[t4 componentsSeparatedByString:@"</description>"]objectAtIndex:0];
             
@@ -49,7 +49,9 @@
             NSString *t5=[[t2 componentsSeparatedByString:@"<picUrl>"]objectAtIndex:1];
             t5=[[t5 componentsSeparatedByString:@"</picUrl>"]objectAtIndex:0];
             if(![t5 isEqualToString:@""]){
-                UIImage *horBigPic=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:t5]]];
+                NSURL *picDownloadURL=[[NSURL alloc]initWithString:t5];
+                UIImage *horBigPic=[[[UIImage alloc]initWithData:[NSData dataWithContentsOfURL:picDownloadURL]]autorelease];
+                [picDownloadURL release];
                 information.picture=horBigPic;
             }
             
@@ -101,7 +103,7 @@
         t3=[[t3 componentsSeparatedByString:@"</title>"]objectAtIndex:0];
         information.title=t3;
         
-        NSString *t4=[NSString string];
+        NSString *t4=nil;
         t4=[[t2 componentsSeparatedByString:@"<description>"]objectAtIndex:1];
         t4=[[t4 componentsSeparatedByString:@"</description>"]objectAtIndex:0];
         
@@ -126,7 +128,9 @@
         t5=[[t5 componentsSeparatedByString:@"</picUrl>"]objectAtIndex:0];
         //NSLog(@"%@",t5);
         if(![t5 isEqualToString:@""]){
-            UIImage *horBigPic=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:t5]]];
+            NSURL *picDownloadURL=[[NSURL alloc]initWithString:t5];
+            UIImage *horBigPic=[[[UIImage alloc]initWithData:[NSData dataWithContentsOfURL:picDownloadURL]]autorelease];
+            [picDownloadURL release];
             information.picture=horBigPic;
         }
         

@@ -30,9 +30,14 @@
     
     displaySearch=NO;
     
+    if(!hotMVResult.tableViewArray)hotMVResult.tableViewArray=[[NSMutableArray alloc]init];
+    hotMVResult.nowPageAt=1;
     HotMVGetter *getter=[[HotMVGetter alloc]init];
-    hotMVResult.tableViewArray=[[getter getHotMV]copy];
-    //tableViewArray=[[NSMutableArray alloc] initWithArray:[getter getHotMV]];
+    NSMutableArray *tempArray=[getter getHotMVWithPage:1];
+    [hotMVResult.tableViewArray removeAllObjects];
+    for(MVInformation *inf in tempArray){
+        [hotMVResult.tableViewArray addObject:inf];
+    }
     [getter release];
     
     if(!mvTableView)mvTableView=[[PullToRefreshTableView alloc]initWithFrame:CGRectMake(0, 44, 320, 367) style:UITableViewStylePlain];
@@ -150,7 +155,7 @@
         [cell.segmentedControl addTarget:self action:@selector(segmentedControlChanged:) forControlEvents:UIControlEventValueChanged];
         
         searchController = [[YCSearchController alloc] initWithDelegate:self
-                                                     searchDisplayController:searchDisplayController];
+                                                searchDisplayController:searchDisplayController];
         
         return cell;
     }else {
@@ -269,8 +274,13 @@
 
 -(void)refreshTableView{
     if(!displaySearch){
+        hotMVResult.nowPageAt=1;
         HotMVGetter *getter=[[HotMVGetter alloc]init];
-        hotMVResult.tableViewArray=[[getter getHotMV]copy];
+        NSMutableArray *tempArray=[getter getHotMVWithPage:1];
+        [hotMVResult.tableViewArray removeAllObjects];
+        for(MVInformation *inf in tempArray){
+            [hotMVResult.tableViewArray addObject:inf];
+        }
         [getter release];
         [mvTableView reloadData];
     }else{
@@ -286,6 +296,20 @@
     reloading = YES;
 }
 
+-(void)getMoreData{
+    if(!displaySearch){
+        if(hotMVResult.nowPageAt<10){
+            hotMVResult.nowPageAt+=1;
+            HotMVGetter *getter=[[HotMVGetter alloc]init];
+            NSMutableArray *tempArray=[getter getHotMVWithPage:hotMVResult.nowPageAt];
+            for(MVInformation *inf in tempArray){
+                [hotMVResult.tableViewArray addObject:inf];
+            }
+            [getter release];
+            [mvTableView reloadData];
+        }
+    }
+}
 
 
 #pragma mark -
@@ -296,10 +320,10 @@
     if(view==mvTableView.headerRefreshView){
         [self refreshTableView];
     }else{
-        NSLog(@"Footer!");
+        [self getMoreData];
     }
     [self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:2.0];
-
+    
 	
 }
 
