@@ -11,13 +11,14 @@
 #import "PullToRefreshTableView.h"
 
 #import "EGORefreshTableHeaderView.h"
+#import "HotMVGetter.h"
 
 struct tableViewPagesArray{
     NSMutableArray *tableViewArray;
     int nowPageAt;
 };
 
-@interface MVSwitchViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,YCSearchControllerDelegete,EGORefreshTableHeaderDelegate>{
+@interface MVSwitchViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,YCSearchControllerDelegete,EGORefreshTableHeaderDelegate,HotMVGetterDelegate>{
     PullToRefreshTableView *mvTableView;
     //NSMutableArray *tableViewArray;
     //NSMutableArray *searchArray;

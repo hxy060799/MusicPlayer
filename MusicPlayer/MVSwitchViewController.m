@@ -8,7 +8,6 @@
 
 #import "MVSwitchViewController.h"
 #import "MVCell.h"
-#import "HotMVGetter.h"
 #import "MVInformation.h"
 #import "MediaPlayer/MediaPlayer.h"
 #import "SearchBarCell.h"
@@ -30,29 +29,34 @@
     
     displaySearch=NO;
     
-    if(!hotMVResult.tableViewArray)hotMVResult.tableViewArray=[[NSMutableArray alloc]init];
-    hotMVResult.nowPageAt=1;
-    HotMVGetter *getter=[[HotMVGetter alloc]init];
-    NSMutableArray *tempArray=[getter getHotMVWithPage:1];
-    [hotMVResult.tableViewArray removeAllObjects];
-    for(MVInformation *inf in tempArray){
-        [hotMVResult.tableViewArray addObject:inf];
-    }
-    [getter release];
+    [self loadHotMVData];
     
     if(!mvTableView)mvTableView=[[PullToRefreshTableView alloc]initWithFrame:CGRectMake(0, 44, 320, 367) style:UITableViewStylePlain];
     
     mvTableView.delegate=self;
     mvTableView.dataSource=self;
     
-    [mvTableView reloadData];
-    
-    [mvTableView addHeaderRefreshViewWithFrame:CGRectMake(0.0f, 0.0f-65, self.view.frame.size.width, 65) IsFooterView:NO Delegate:self];
-    [mvTableView addHeaderRefreshViewWithFrame:CGRectMake(0, mvTableView.contentSize.height, 320, 65) IsFooterView:YES Delegate:self];
+    [mvTableView addFooterRefreshViewWithDelegate:self];
     
     [self.view insertSubview:mvTableView atIndex:0];
     
-    
+}
+
+-(void)loadHotMVData{
+    if(!hotMVResult.tableViewArray)hotMVResult.tableViewArray=[[NSMutableArray alloc]init];
+    hotMVResult.nowPageAt=1;
+    HotMVGetter *getter=[[HotMVGetter alloc]init];
+    getter.delegate=self;
+    [getter getHotMVWithPage:1];
+    [getter release];
+}
+
+-(void)downloadFinishedWithResult:(NSMutableArray *)result{
+    [hotMVResult.tableViewArray removeAllObjects];
+    for(MVInformation *inf in result){
+        [hotMVResult.tableViewArray addObject:inf];
+    }
+    [mvTableView reloadData];
 }
 
 -(void)dealloc{
@@ -246,9 +250,7 @@
 #pragma mark UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (scrollView.contentOffset.y<-1){
-        if(mvTableView.headerRefreshView)[mvTableView.headerRefreshView egoRefreshScrollViewDidScroll:scrollView];
-    }else{
+    if (scrollView.contentOffset.y>-1){
         if(!displaySearch){
             if(mvTableView.footerRefreshView)[mvTableView.footerRefreshView egoRefreshScrollViewDidScroll:scrollView];
         }
@@ -257,9 +259,7 @@
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    if (scrollView.contentOffset.y<-1) {
-        if(mvTableView.headerRefreshView)[mvTableView.headerRefreshView egoRefreshScrollViewDidEndDragging:scrollView];
-    }else{
+    if (scrollView.contentOffset.y>-1) {
         if(!displaySearch){
             if(mvTableView.footerRefreshView)[mvTableView.footerRefreshView egoRefreshScrollViewDidEndDragging:scrollView];
         }
@@ -271,37 +271,9 @@
 #pragma mark Refresh Methods
 
 - (void)doneLoadingTableViewData{
-	
-	//  model should call this when its done loading
 	reloading = NO;
-	[mvTableView.headerRefreshView egoRefreshScrollViewDataSourceDidFinishedLoading:mvTableView];
     [mvTableView.footerRefreshView egoRefreshScrollViewDataSourceDidFinishedLoading:mvTableView];
 	
-}
-
-
--(void)refreshTableView{
-    if(!displaySearch){
-        hotMVResult.nowPageAt=1;
-        HotMVGetter *getter=[[HotMVGetter alloc]init];
-        NSMutableArray *tempArray=[getter getHotMVWithPage:1];
-        [hotMVResult.tableViewArray removeAllObjects];
-        for(MVInformation *inf in tempArray){
-            [hotMVResult.tableViewArray addObject:inf];
-        }
-        [getter release];
-        [mvTableView reloadData];
-    }else{
-        NSIndexPath *myIndexPath =[NSIndexPath indexPathForRow:0 inSection:0];
-        
-        SearchBarCell *cell =(SearchBarCell*)[mvTableView cellForRowAtIndexPath:myIndexPath];;
-        
-        HotMVGetter *getter=[[HotMVGetter alloc]init];
-        searchResult.tableViewArray=[[getter searchByString:cell.searchBar.text]copy];
-        [getter release];
-        [mvTableView reloadData];
-    }
-    reloading = YES;
 }
 
 -(void)getMoreData{
@@ -309,10 +281,10 @@
         if(hotMVResult.nowPageAt<10){
             hotMVResult.nowPageAt+=1;
             HotMVGetter *getter=[[HotMVGetter alloc]init];
-            NSMutableArray *tempArray=[getter getHotMVWithPage:hotMVResult.nowPageAt];
-            for(MVInformation *inf in tempArray){
-                [hotMVResult.tableViewArray addObject:inf];
-            }
+            [getter getHotMVWithPage:hotMVResult.nowPageAt];
+            //for(MVInformation *inf in tempArray){
+            //    [hotMVResult.tableViewArray addObject:inf];
+            //}
             [getter release];
             [mvTableView reloadData];
         }
@@ -324,10 +296,8 @@
 #pragma mark EGORefreshTableHeaderViewDelegade
 
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
-	
-    if(view==mvTableView.headerRefreshView){
-        [self refreshTableView];
-    }else{
+
+    if(view==mvTableView.footerRefreshView){
         [self getMoreData];
     }
     [self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:2.0];
@@ -335,15 +305,13 @@
 	
 }
 
-- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
-	
-	return reloading; // should return if data source model is reloading
+-(BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
+	return reloading;
 	
 }
 
 - (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
-	
-	return [NSDate date]; // should return date data source was last changed
+	return [NSDate date];
 	
 }
 

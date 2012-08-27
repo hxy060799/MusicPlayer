@@ -11,7 +11,6 @@
 @implementation PullToRefreshTableView
 
 @synthesize footerRefreshView;
-@synthesize headerRefreshView;
 @synthesize footerRefreshViewShowed;
 
 - (id)initWithFrame:(CGRect)frame
@@ -41,24 +40,14 @@
     }
 }
 
--(void)addHeaderRefreshViewWithFrame:(CGRect)frame IsFooterView:(BOOL)isFooterView Delegate:(id<EGORefreshTableHeaderDelegate>)delegate{
-    if(!isFooterView){
-        if(!headerRefreshView){
-            self.headerRefreshView=[[[EGORefreshTableHeaderView alloc]initWithFrame:frame AndIsFooterView:NO]autorelease];
-            self.headerRefreshView.delegate=delegate;
-            self.headerRefreshView.backgroundColor=[UIColor clearColor];
-            [self.headerRefreshView refreshLastUpdatedDate];
-            [self addSubview:self.headerRefreshView];
-        }
-    }else{
-        if((!footerRefreshView) && self.frame.size.height<self.contentSize.height){
-            footerRefreshView=[[[EGORefreshTableHeaderView alloc]initWithFrame:CGRectMake(0, self.contentSize.height+10, 320, 65) AndIsFooterView:YES]autorelease];
-            footerRefreshView.delegate=delegate;
-            footerRefreshView.backgroundColor=[UIColor clearColor];
-            [footerRefreshView refreshLastUpdatedDate];
-            self.footerRefreshViewShowed=YES;
-            [self addSubview:footerRefreshView];
-        }
+-(void)addFooterRefreshViewWithDelegate:(id<EGORefreshTableHeaderDelegate>)delegate{
+    if((!footerRefreshView) && self.frame.size.height<self.contentSize.height){
+        footerRefreshView=[[[EGORefreshTableHeaderView alloc]initWithFrame:CGRectMake(0, self.contentSize.height+10, 320, 65) AndIsFooterView:YES]autorelease];
+        footerRefreshView.delegate=delegate;
+        footerRefreshView.backgroundColor=[UIColor clearColor];
+        [footerRefreshView refreshLastUpdatedDate];
+        self.footerRefreshViewShowed=YES;
+        [self addSubview:footerRefreshView];
     }
 }
 

@@ -7,8 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DFDownloader.h"
 
-@interface HotMVGetter : NSObject
--(NSMutableArray*)getHotMVWithPage:(int)page;
+@protocol HotMVGetterDelegate <NSObject>
+-(void)downloadFinishedWithResult:(NSMutableArray*)result;
+@end
+
+@interface HotMVGetter : NSObject<DFDownloaderDelegate>
+-(void)getHotMVWithPage:(int)page;
 -(NSMutableArray*)searchByString:(NSString*)theString;
+@property(retain,nonatomic)id<HotMVGetterDelegate>delegate;
 @end

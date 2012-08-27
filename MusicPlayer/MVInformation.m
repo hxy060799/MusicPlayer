@@ -16,4 +16,10 @@
 @synthesize picture;
 @synthesize playURL;
 
+-(void)setPicture:(UIImage *)thePicture{
+    if(![picture isEqual:thePicture]){
+        picture=[thePicture copy];
+    }
+}
+
 @end

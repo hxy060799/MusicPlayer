@@ -51,6 +51,10 @@
     self.viewControllers=[NSArray arrayWithObjects:lyricsViewController,iPodLibrarySwitchViewController,mvSwitchViewController,nil];
 }
 
+-(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
+    NSLog(@"%i",item.tag);//1开头
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];

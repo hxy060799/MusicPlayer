@@ -14,11 +14,6 @@
 
 int main(int argc, char *argv[])
 {
-    
-    DFMusicQuery *query=[[DFMusicQuery alloc]init];
-    //[query albumQuery];
-    [query release];
-    
     @autoreleasepool {
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
