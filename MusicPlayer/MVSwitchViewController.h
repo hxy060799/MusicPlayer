@@ -12,10 +12,12 @@
 
 #import "EGORefreshTableHeaderView.h"
 #import "HotMVGetter.h"
+#import "SVProgressHUD.h"
 
 struct tableViewPagesArray{
     NSMutableArray *tableViewArray;
     int nowPageAt;
+    int pagesCount;
 };
 
 @interface MVSwitchViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,YCSearchControllerDelegete,EGORefreshTableHeaderDelegate,HotMVGetterDelegate>{
@@ -27,14 +29,15 @@ struct tableViewPagesArray{
     IBOutlet UINavigationBar *navigationBar;
     
     UISearchDisplayController *searchDisplayController;
-    BOOL displaySearch;
     
-    BOOL reloading;
+    BOOL displaySearch;
+    BOOL gettingMore;    
     
     EGORefreshTableHeaderView *refreshHeaderView;
     EGORefreshTableHeaderView *refreshFooterView;
     
     YCSearchController *searchController;
+    NSString *lastSearchString;
 }
 
 -(void)segmentedControlChanged:(UISegmentedControl*)segmentedControl;

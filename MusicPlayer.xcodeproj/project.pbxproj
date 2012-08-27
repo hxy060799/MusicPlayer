@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A903C23B15D0CB34004609F2 /* POAPinyin.m in Sources */ = {isa = PBXBuildFile; fileRef = A903C23A15D0CB34004609F2 /* POAPinyin.m */; };
-		A9048AF515E76012002DE660 /* MVSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9048AF415E76012002DE660 /* MVSwitchViewController.m */; };
+		A90422F115EBB82100637211 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A90422EF15EBB82100637211 /* SVProgressHUD.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		A90422F215EBB82100637211 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A90422F015EBB82100637211 /* SVProgressHUD.bundle */; };
 		A9048AF815E76259002DE660 /* blueArrowUpsideDown.png in Resources */ = {isa = PBXBuildFile; fileRef = A9048AF615E76259002DE660 /* blueArrowUpsideDown.png */; };
 		A9048AF915E76259002DE660 /* blueArrowUpsideDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9048AF715E76259002DE660 /* blueArrowUpsideDown@2x.png */; };
 		A9048AFC15E76278002DE660 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9048AFB15E76278002DE660 /* EGORefreshTableHeaderView.m */; };
@@ -21,6 +22,7 @@
 		A906B74215E662680076B13F /* blueArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A906B73A15E662680076B13F /* blueArrow@2x.png */; };
 		A906B74315E662680076B13F /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = A906B73B15E662680076B13F /* whiteArrow.png */; };
 		A906B74415E662680076B13F /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A906B73C15E662680076B13F /* whiteArrow@2x.png */; };
+		A906EEAF15EBADDC0016A910 /* MVSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A906EEAE15EBADDC0016A910 /* MVSwitchViewController.m */; };
 		A909365B15E8BFEB00D11166 /* PullToRefreshTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A909365A15E8BFEB00D11166 /* PullToRefreshTableView.m */; };
 		A90BA73015D12F8000A1B1AA /* TKCoverflowCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = A90BA72715D12F8000A1B1AA /* TKCoverflowCoverView.m */; };
 		A90BA73115D12F8000A1B1AA /* TKCoverflowView.m in Sources */ = {isa = PBXBuildFile; fileRef = A90BA72915D12F8000A1B1AA /* TKCoverflowView.m */; };
@@ -126,7 +128,9 @@
 /* Begin PBXFileReference section */
 		A903C23915D0CB34004609F2 /* POAPinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POAPinyin.h; sourceTree = "<group>"; };
 		A903C23A15D0CB34004609F2 /* POAPinyin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POAPinyin.m; sourceTree = "<group>"; };
-		A9048AF415E76012002DE660 /* MVSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVSwitchViewController.m; sourceTree = "<group>"; };
+		A90422EE15EBB82100637211 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		A90422EF15EBB82100637211 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		A90422F015EBB82100637211 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		A9048AF615E76259002DE660 /* blueArrowUpsideDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrowUpsideDown.png; sourceTree = "<group>"; };
 		A9048AF715E76259002DE660 /* blueArrowUpsideDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blueArrowUpsideDown@2x.png"; sourceTree = "<group>"; };
 		A9048AFA15E76278002DE660 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
@@ -141,6 +145,7 @@
 		A906B73A15E662680076B13F /* blueArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blueArrow@2x.png"; sourceTree = "<group>"; };
 		A906B73B15E662680076B13F /* whiteArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteArrow.png; sourceTree = "<group>"; };
 		A906B73C15E662680076B13F /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
+		A906EEAE15EBADDC0016A910 /* MVSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVSwitchViewController.m; sourceTree = "<group>"; };
 		A909365915E8BFEB00D11166 /* PullToRefreshTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefreshTableView.h; sourceTree = "<group>"; };
 		A909365A15E8BFEB00D11166 /* PullToRefreshTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshTableView.m; sourceTree = "<group>"; };
 		A90BA72515D12F8000A1B1AA /* TapkuCoverFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapkuCoverFlow.h; sourceTree = "<group>"; };
@@ -335,6 +340,16 @@
 			name = EGORefreshTableHeaderView;
 			sourceTree = "<group>";
 		};
+		A906EEAD15EBADB20016A910 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				A90422EE15EBB82100637211 /* SVProgressHUD.h */,
+				A90422EF15EBB82100637211 /* SVProgressHUD.m */,
+				A90422F015EBB82100637211 /* SVProgressHUD.bundle */,
+			);
+			name = SVProgressHUD;
+			sourceTree = "<group>";
+		};
 		A90BA72315D12F6C00A1B1AA /* PinYin */ = {
 			isa = PBXGroup;
 			children = (
@@ -374,6 +389,7 @@
 		A90BA74015D12FAE00A1B1AA /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				A906EEAD15EBADB20016A910 /* SVProgressHUD */,
 				A906B74E15E662B20076B13F /* EGORefreshTableHeaderView */,
 				A918B74E15E4BB530095398A /* YCSearchBar */,
 				A93D2BA415D69BBD00E89316 /* UIGlossyButton */,
@@ -505,7 +521,7 @@
 			isa = PBXGroup;
 			children = (
 				A9048AFD15E76298002DE660 /* MVSwitchViewController.h */,
-				A9048AF415E76012002DE660 /* MVSwitchViewController.m */,
+				A906EEAE15EBADDC0016A910 /* MVSwitchViewController.m */,
 				A95DF73F15E327C700A7A223 /* MVSwitchViewController.xib */,
 				A909365915E8BFEB00D11166 /* PullToRefreshTableView.h */,
 				A909365A15E8BFEB00D11166 /* PullToRefreshTableView.m */,
@@ -830,6 +846,7 @@
 				A906B74415E662680076B13F /* whiteArrow@2x.png in Resources */,
 				A9048AF815E76259002DE660 /* blueArrowUpsideDown.png in Resources */,
 				A9048AF915E76259002DE660 /* blueArrowUpsideDown@2x.png in Resources */,
+				A90422F215EBB82100637211 /* SVProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -884,9 +901,10 @@
 				A918B74B15E4BB4E0095398A /* YCSearchController.m in Sources */,
 				A918B74C15E4BB4E0095398A /* YCSearchBar.m in Sources */,
 				A918B75115E4BD090095398A /* SearchBarCell.m in Sources */,
-				A9048AF515E76012002DE660 /* MVSwitchViewController.m in Sources */,
 				A9048AFC15E76278002DE660 /* EGORefreshTableHeaderView.m in Sources */,
 				A909365B15E8BFEB00D11166 /* PullToRefreshTableView.m in Sources */,
+				A906EEAF15EBADDC0016A910 /* MVSwitchViewController.m in Sources */,
+				A90422F115EBB82100637211 /* SVProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

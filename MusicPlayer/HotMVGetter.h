@@ -10,11 +10,11 @@
 #import "DFDownloader.h"
 
 @protocol HotMVGetterDelegate <NSObject>
--(void)downloadFinishedWithResult:(NSMutableArray*)result;
+-(void)downloadFinishedWithResult:(NSMutableArray*)result AndKey:(NSString*)key;
 @end
 
 @interface HotMVGetter : NSObject<DFDownloaderDelegate>
 -(void)getHotMVWithPage:(int)page;
--(NSMutableArray*)searchByString:(NSString*)theString;
+-(void)searchByString:(NSString *)theString;
 @property(retain,nonatomic)id<HotMVGetterDelegate>delegate;
 @end
