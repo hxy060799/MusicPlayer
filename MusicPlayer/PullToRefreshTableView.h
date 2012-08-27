@@ -17,5 +17,5 @@
 
 -(void)addFooterRefreshViewWithDelegate:(id<EGORefreshTableHeaderDelegate>)delegate;
 -(void)setFooterRefreshViewHidden:(BOOL)hidden;
-
+-(void)setFooterRefreshViewToCorrentFrame;
 @end

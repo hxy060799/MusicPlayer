@@ -10,10 +10,10 @@
 #import "LyricsRow.h"
 #import <AVFoundation/AVFoundation.h>
 #import "DFDownloader.h"
+#import "Constents.h"
 
 @implementation LyricsViewController
 
-DFLyricsMusicPlayer *manager;
 
 -(void)updateSliderWithValue:(float)value TimeGoes:(NSString *)goesTime readyTime:(NSString *)readyTime{
     slider.value=value;

@@ -22,6 +22,7 @@
     
     IBOutlet UILabel *goesTimeL;
     IBOutlet UILabel *readyTimeL;
+    IBOutlet UINavigationBar *navigationBar;
 }
 
 -(IBAction)addButtonClicked:(id)sender;

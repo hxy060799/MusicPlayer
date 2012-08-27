@@ -66,7 +66,7 @@
         //储存结果
         [resultArray addObject:[information autorelease]];
     }
-    
+    [self autorelease];
     if(delegate){
         [delegate downloadFinishedWithResult:resultArray];
     }

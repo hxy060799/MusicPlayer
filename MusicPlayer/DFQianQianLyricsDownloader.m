@@ -12,11 +12,23 @@
 
 @synthesize delegate;
 
+-(id)init{
+    if(self=[super init]){
+        artistToUse=[NSString string];
+        titleToUse=[NSString string];
+    }
+    return self;
+}
+
 -(void)downLoadLyricsByArtist:(NSString*)theArtist AndTitle:(NSString*)theTitle{
     NSString *urlS=[NSString stringWithFormat:@"http://ttlrccnc.qianqian.com/dll/lyricsvr.dll?sh?Artist=%@&Title=%@&Flags=0",[self stringToUnicode:theArtist],[self stringToUnicode:theTitle]];
     
-    artistToUse=[NSString stringWithString:theArtist];
-    titleToUse=[NSString stringWithString:theTitle];
+    
+    
+    artistToUse=[NSString stringWithString:artistToUse];
+    titleToUse=[NSString stringWithString:artistToUse];
+    
+    NSLog(@"%@",artistToUse);
     
     DFDownloader *downloader=[[DFDownloader alloc]init];
     downloader.delegate=self;
@@ -25,6 +37,7 @@
 }
 
 -(void)searchFinishedWithResult:(NSString*)result{
+    NSLog(@"%@",artistToUse);
 
     NSArray *tempArray = [result componentsSeparatedByString:@"<lrc"];
     

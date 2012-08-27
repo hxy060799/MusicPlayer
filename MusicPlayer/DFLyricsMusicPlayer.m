@@ -99,6 +99,7 @@ NSTimer *lyricsTimer;
 }
 
 -(void)findLyricsWithArtist:(NSString*)artist Title:(NSString*)title{
+    NSLog(@"%@",artist);
     isDownloading=YES;
     if(delegate){
         [delegate updateLyrics:@"寻找歌词..."];
@@ -153,6 +154,7 @@ NSTimer *lyricsTimer;
     [self.player setQueueWithItemCollection:collection];
     [self.player play];
     
+    NSLog(@"%@",theArtist);
     [self findLyricsWithArtist:theArtist Title:theTitle];
     endTimer=[NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerGoes:) userInfo:nil repeats:YES];
 }

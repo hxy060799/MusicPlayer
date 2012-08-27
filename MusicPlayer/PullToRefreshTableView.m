@@ -25,7 +25,15 @@
 -(void)reloadData{
     [super reloadData];
     
-    if(footerRefreshViewShowed)[self.footerRefreshView setFrame:CGRectMake(0, self.contentSize.height+10, 320, 65)];
+    if(!footerRefreshViewShowed){
+        if(self.frame.size.height<self.contentSize.height){
+            [self setFooterRefreshViewHidden:NO];
+        }
+    }
+}
+
+-(void)setFooterRefreshViewToCorrentFrame{
+    [self.footerRefreshView setFrame:CGRectMake(0, self.contentSize.height+10, 320, 65)];
 }
 
 -(void)setFooterRefreshViewHidden:(BOOL)hidden{
@@ -41,18 +49,22 @@
 }
 
 -(void)addFooterRefreshViewWithDelegate:(id<EGORefreshTableHeaderDelegate>)delegate{
-    if((!footerRefreshView) && self.frame.size.height<self.contentSize.height){
-        footerRefreshView=[[[EGORefreshTableHeaderView alloc]initWithFrame:CGRectMake(0, self.contentSize.height+10, 320, 65) AndIsFooterView:YES]autorelease];
-        footerRefreshView.delegate=delegate;
-        footerRefreshView.backgroundColor=[UIColor clearColor];
-        [footerRefreshView refreshLastUpdatedDate];
+    
+    footerRefreshView=[[EGORefreshTableHeaderView alloc]initWithFrame:CGRectMake(0, self.contentSize.height+10, 320, 65) AndIsFooterView:YES];
+    footerRefreshView.delegate=delegate;
+    footerRefreshView.backgroundColor=[UIColor clearColor];
+    [footerRefreshView refreshLastUpdatedDate];
+    if(self.frame.size.height<self.contentSize.height){
         self.footerRefreshViewShowed=YES;
         [self addSubview:footerRefreshView];
+    }else{
+        self.footerRefreshViewShowed=NO;
     }
 }
 
 -(void)dealloc{
     [super dealloc];
+    if(footerRefreshView)[footerRefreshView release];
 }
 
 @end

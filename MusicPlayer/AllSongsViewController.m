@@ -8,6 +8,7 @@
 
 #import "AllSongsViewController.h"
 #import "AppDelegate.h"
+#import "Constents.h"
 
 @implementation AllSongsViewController
 
@@ -49,6 +50,15 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    MPMediaItem *selectedItem=[musicByTitle objectAtIndex:indexPath.row];
+    NSString *theTitle=[selectedItem valueForProperty:MPMediaItemPropertyTitle];
+    NSString *theArtist=[selectedItem valueForProperty:MPMediaItemPropertyArtist];
+    NSLog(@"%@",theArtist);
+    [manager startPlayWithMusicCollection:[MPMediaItemCollection collectionWithItems:[NSArray arrayWithObject:selectedItem]] Artist:theArtist Title:theTitle];
 }
 
 -(void)dealloc{

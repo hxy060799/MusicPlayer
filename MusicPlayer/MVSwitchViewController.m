@@ -45,20 +45,22 @@
 -(void)loadHotMVData{
     if(!hotMVResult.tableViewArray)hotMVResult.tableViewArray=[[NSMutableArray alloc]init];
     hotMVResult.nowPageAt=1;
-    HotMVGetter *getter=[[HotMVGetter alloc]init];
+    HotMVGetter *getter=[[[HotMVGetter alloc]init]autorelease];
     getter.delegate=self;
     [getter getHotMVWithPage:1];
-    [getter release];
 }
 
 -(void)downloadFinishedWithResult:(NSMutableArray *)result{
-    [hotMVResult.tableViewArray removeAllObjects];
     for(MVInformation *inf in result){
         [hotMVResult.tableViewArray addObject:inf];
     }
     [mvTableView reloadData];
-}
+    [mvTableView setFooterRefreshViewToCorrentFrame];
+    if(reloading==YES){
+        [self performSelector:@selector(doneLoadingTableViewData)];
+    }
 
+}
 -(void)dealloc{
     if(mvTableView)[mvTableView release];
     if(searchDisplayController)[searchDisplayController release];
@@ -252,7 +254,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (scrollView.contentOffset.y>-1){
         if(!displaySearch){
-            if(mvTableView.footerRefreshView)[mvTableView.footerRefreshView egoRefreshScrollViewDidScroll:scrollView];
+            if(mvTableView.footerRefreshViewShowed)[mvTableView.footerRefreshView egoRefreshScrollViewDidScroll:scrollView];
         }
     }
     
@@ -261,7 +263,7 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     if (scrollView.contentOffset.y>-1) {
         if(!displaySearch){
-            if(mvTableView.footerRefreshView)[mvTableView.footerRefreshView egoRefreshScrollViewDidEndDragging:scrollView];
+            if(mvTableView.footerRefreshViewShowed)[mvTableView.footerRefreshView egoRefreshScrollViewDidEndDragging:scrollView];
         }
     }
 	
@@ -278,15 +280,14 @@
 
 -(void)getMoreData{
     if(!displaySearch){
+        if(!hotMVResult.tableViewArray)hotMVResult.tableViewArray=[[NSMutableArray alloc]init];
         if(hotMVResult.nowPageAt<10){
             hotMVResult.nowPageAt+=1;
-            HotMVGetter *getter=[[HotMVGetter alloc]init];
+            HotMVGetter *getter=[[[HotMVGetter alloc]init]autorelease];
+            getter.delegate=self;
             [getter getHotMVWithPage:hotMVResult.nowPageAt];
-            //for(MVInformation *inf in tempArray){
-            //    [hotMVResult.tableViewArray addObject:inf];
-            //}
-            [getter release];
-            [mvTableView reloadData];
+        }else{
+            [self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:2.0];
         }
     }
 }
@@ -299,9 +300,9 @@
 
     if(view==mvTableView.footerRefreshView){
         [self getMoreData];
+        reloading=YES;
     }
-    [self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:2.0];
-    
+        
 	
 }
 

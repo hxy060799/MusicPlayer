@@ -6,6 +6,8 @@
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
+@class DFLyricsMusicPlayer;
+
 #ifndef MusicPlayer_Constents_h
 #define MusicPlayer_Constents_h
 
@@ -14,6 +16,7 @@
 NSMutableArray *musicByTitle;
 NSMutableArray *musicByArtist;
 NSMutableArray *musicByAlbum;
+DFLyricsMusicPlayer *manager;
 
 BOOL musicSynced;
 
