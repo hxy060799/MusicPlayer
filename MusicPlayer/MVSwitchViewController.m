@@ -9,7 +9,7 @@
 #import "MVSwitchViewController.h"
 #import "MVCell.h"
 #import "MVInformation.h"
-#import "MediaPlayer/MediaPlayer.h"
+
 #import "SearchBarCell.h"
 #import "Constents.h"
 #import "DFLyricsMusicPlayer.h"
@@ -129,16 +129,16 @@
         
         NSString *url = [[NSBundle mainBundle] pathForResource:@"video" ofType:@"mp4"];
         
-        
         MPMoviePlayerViewController *playerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:url]];  
+        
+
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieFinishedCallback:)  name:MPMoviePlayerPlaybackDidFinishNotification  object:[playerViewController moviePlayer]];  
         
         [playerViewController.view setFrame:CGRectMake(0,-20,320, 480)];
         [self presentModalViewController:playerViewController animated:YES];
         
-        
         MPMoviePlayerController *player = [playerViewController moviePlayer];
-        //playerViewController.moviePlayer.movieSourceType=MPMovieSourceTypeStreaming;
         [player play];
         [player stop];
         NSURL *tempUrl=[NSURL URLWithString:information.playURL];

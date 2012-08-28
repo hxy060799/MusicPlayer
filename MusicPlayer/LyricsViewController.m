@@ -30,44 +30,30 @@
     return self;
 }
 
--(void)mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection
-{
-    [self dismissModalViewControllerAnimated: YES];
+-(void)musicChanged{
+    MPMediaItem *item=manager.player.nowPlayingItem;
+    NSString *sel_title=[item valueForProperty:MPMediaItemPropertyTitle];
+    NSString *sel_artist=[item valueForProperty:MPMediaItemPropertyArtist];
+    NSString *sel_album=[item valueForProperty:MPMediaItemPropertyAlbumTitle];
     
-    for(MPMediaItem *mi in mediaItemCollection.items){
-        NSString *sel_title=[mi valueForProperty:MPMediaItemPropertyTitle];
-        NSString *sel_artist=[mi valueForProperty:MPMediaItemPropertyArtist];
-        NSString *sel_album=[mi valueForProperty:MPMediaItemPropertyAlbumTitle];
-        
-        
-        [manager startPlayWithMusicCollection:mediaItemCollection Artist:sel_artist Title:sel_title];
-        
-        [songTitle setText:sel_title];
-        [songArtist setText:sel_artist];
-        [songAlbum setText:sel_album];
-        
-        MPMediaItemArtwork *mia=[mi valueForProperty:MPMediaItemPropertyArtwork];
-        UIImage *artworkImage=[mia imageWithSize:CGSizeMake(135, 135)];
-        if(artworkImage){
-            [albumImageView setImage:artworkImage];
-        }else{
-            [albumImageView setImage:[UIImage imageNamed:@"no_album.png"]];
-        }
-
+    [[navigationBar.items objectAtIndex:0]setTitle:[NSString stringWithFormat:@"%@-%@-%@",sel_title,sel_artist,sel_album]];
+    
+    MPMediaItemArtwork *artwork=[item valueForProperty:MPMediaItemPropertyArtwork];
+    UIImage *artworkImage=[artwork imageWithSize:CGSizeMake(135, 135)];
+    if(artworkImage){
+        [albumImageView setImage:artworkImage];
+    }else{
+        [albumImageView setImage:[UIImage imageNamed:@"no_album.png"]];
     }
 }
 
 -(void)dealloc{
     [label release];
     [albumImageView release];
-    [songTitle release];
-    [songArtist release];
-    [songAlbum release];
     [super dealloc];
 }
 
 -(void)updateLyrics:(NSString *)lyric{
-    NSLog(@"~~!%@",lyric);
     [label setText:lyric];
 }
 
@@ -85,17 +71,10 @@
 }
 
 -(IBAction)stopButtonClicked{
-    //这里只用把音乐停下来，其他所有的事情都交给管理器完成
     [manager.player stop];
-}
-
--(IBAction)addButtonClicked:(id)sender{
-    MPMediaPickerController *picker=[[MPMediaPickerController alloc]initWithMediaTypes:MPMediaTypeMusic];
-    picker.delegate=self;
-    picker.allowsPickingMultipleItems=NO;
-    picker.prompt=@"添加歌曲";
-    [self presentModalViewController:picker animated:YES];
-    [picker release];
+    
+    [[navigationBar.items objectAtIndex:0]setTitle:@"正在播放"];
+    [albumImageView setImage:[UIImage imageNamed:@"no_album.png"]];
 }
 
 - (void)viewDidLoad
@@ -108,6 +87,7 @@
     //DFDownloader *d=[[DFDownloader alloc]init];
     //[d startDownloadWithURLString:@"http://ttlrccnc.qianqian.com/dll/lyricsvr.dll?sh?Artist=0F5C4E861F96&Title=3172&Flags=0"];
     //[d release];
+    
 }
 
 - (void)viewDidUnload

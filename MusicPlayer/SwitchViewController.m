@@ -14,6 +14,7 @@
 @synthesize lyricsViewController;
 @synthesize iPodLibrarySwitchViewController;
 @synthesize mvSwitchViewController;
+@synthesize musicSearchViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,6 +34,7 @@
     iPodLibrarySwitchViewController=[[IPodLibrarySwitchViewController alloc]init];
     
     mvSwitchViewController=[[MVSwitchViewController alloc]initWithNibName:@"MVSwitchViewController" bundle:nil];
+    musicSearchViewController=[[MusicSearchViewController alloc]initWithNibName:@"MusicSearchViewController" bundle:nil];
     
     
     UITabBarItem *itemLibrary=[[UITabBarItem alloc]initWithTitle:@"音乐库" image:[UIImage imageNamed: @"MusicLibraryTabBarItem"] tag:2];
@@ -41,14 +43,18 @@
     
     UITabBarItem *itemMV=[[UITabBarItem alloc]initWithTitle:@"MV" image:nil tag:3];
     
+    UITabBarItem *itemSearch=[[UITabBarItem alloc]initWithTitle:@"在线搜索" image:nil tag:4];
+    
     iPodLibrarySwitchViewController.tabBarItem=itemLibrary;
     
     lyricsViewController.tabBarItem=itemPlaying;
     
     mvSwitchViewController.tabBarItem=itemMV;
     
+    musicSearchViewController.tabBarItem=itemSearch;
+    
     self.delegate=self;
-    self.viewControllers=[NSArray arrayWithObjects:lyricsViewController,iPodLibrarySwitchViewController,mvSwitchViewController,nil];
+    self.viewControllers=[NSArray arrayWithObjects:lyricsViewController,iPodLibrarySwitchViewController,mvSwitchViewController,musicSearchViewController,nil];
 }
 
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{

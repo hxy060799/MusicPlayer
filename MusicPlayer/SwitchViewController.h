@@ -10,12 +10,14 @@
 #import "LyricsViewController.h"
 #import "IPodLibrarySwitchViewController.h"
 #import "MVSwitchViewController.h"
+#import "MusicSearchViewController.h"
 
 @interface SwitchViewController : UITabBarController<UITabBarControllerDelegate>
 
 @property(retain,nonatomic)LyricsViewController *lyricsViewController;
 @property(retain,nonatomic)MVSwitchViewController *mvSwitchViewController;
 @property(retain,nonatomic)IPodLibrarySwitchViewController *iPodLibrarySwitchViewController;
+@property(retain,nonatomic)MusicSearchViewController *musicSearchViewController;
 
 
 @end

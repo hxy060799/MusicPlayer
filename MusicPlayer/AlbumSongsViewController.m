@@ -58,4 +58,14 @@
     return YES;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    MPMediaItem *selectedItem=[musicArray objectAtIndex:indexPath.row];
+    NSString *theTitle=[selectedItem valueForProperty:MPMediaItemPropertyTitle];
+    NSString *theArtist=[selectedItem valueForProperty:MPMediaItemPropertyArtist];
+    NSLog(@"%@",theArtist);
+    [manager startPlayWithMusicCollection:[MPMediaItemCollection collectionWithItems:[NSArray arrayWithObject:selectedItem]] Artist:theArtist Title:theTitle];
+    [songsTableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 @end

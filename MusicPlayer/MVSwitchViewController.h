@@ -13,6 +13,7 @@
 #import "EGORefreshTableHeaderView.h"
 #import "HotMVGetter.h"
 #import "SVProgressHUD.h"
+#import "MediaPlayer/MediaPlayer.h"
 
 struct tableViewPagesArray{
     NSMutableArray *tableViewArray;
@@ -38,6 +39,8 @@ struct tableViewPagesArray{
     
     YCSearchController *searchController;
     NSString *lastSearchString;
+    
+
     
     BOOL firstLoaded;
 }

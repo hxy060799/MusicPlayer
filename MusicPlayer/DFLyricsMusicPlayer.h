@@ -18,6 +18,7 @@
 
 //测试中
 -(void)updateLyrics:(NSString*)lyric;
+-(void)musicChanged;
 @end
 
 @interface DFLyricsMusicPlayer : NSObject<DFLycirsReaderDelegete,DFQianQianLyricsDownloaderDelegate>{

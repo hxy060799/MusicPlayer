@@ -157,6 +157,8 @@ NSTimer *lyricsTimer;
     NSLog(@"%@",theArtist);
     [self findLyricsWithArtist:theArtist Title:theTitle];
     endTimer=[NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerGoes:) userInfo:nil repeats:YES];
+    
+    [delegate musicChanged];
 }
 
 -(void)saveLyricsWithArtist:(NSString*)artist Title:(NSString*)title{

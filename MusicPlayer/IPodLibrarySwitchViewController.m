@@ -122,7 +122,9 @@
 -(void)changeToCoverFlowView{
     if(coverFlowViewController==nil){
         coverFlowViewController=[[CoverFlowViewController alloc]init];
+        [coverFlowViewController.coverFlowView setUserInteractionEnabled:YES];
     }
+    [coverFlowViewController.view setUserInteractionEnabled:YES];
     [self pushViewControllerWithLeftController:mainViewController RightController:coverFlowViewController PushWay:ViewPushWayLeft];
 }
 

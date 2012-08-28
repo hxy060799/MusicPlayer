@@ -15,9 +15,6 @@
 @interface LyricsViewController : UIViewController<MPMediaPickerControllerDelegate,DFLyricsMusicPlayerDelegate>{
     IBOutlet UILabel *label;
     IBOutlet UIImageView *albumImageView;
-    IBOutlet UILabel *songTitle;
-    IBOutlet UILabel *songArtist;
-    IBOutlet UILabel *songAlbum;
     IBOutlet UISlider *slider;
     
     IBOutlet UILabel *goesTimeL;
@@ -25,6 +22,5 @@
     IBOutlet UINavigationBar *navigationBar;
 }
 
--(IBAction)addButtonClicked:(id)sender;
 -(IBAction)stopButtonClicked;
 @end

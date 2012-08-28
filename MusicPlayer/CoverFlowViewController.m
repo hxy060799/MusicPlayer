@@ -80,7 +80,7 @@ UILabel *label;
     }
     
     
-    label=[[UILabel alloc]initWithFrame:CGRectMake(100, 370, 120, 21)];
+    label=[[UILabel alloc]initWithFrame:CGRectMake(0, 370, 320, 21)];
     [label setText:@"0"];
     [label setTextColor:[UIColor whiteColor]];
     [label setTextAlignment:UITextAlignmentCenter];

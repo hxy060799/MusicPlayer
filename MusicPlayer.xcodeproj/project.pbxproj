@@ -48,6 +48,11 @@
 		A90FF36015BE9D00002D8EA6 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A90FF35F15BE9D00002D8EA6 /* MediaPlayer.framework */; };
 		A910B5B315C40DE000C0C49A /* MusicLibraryTabBarItem.png in Resources */ = {isa = PBXBuildFile; fileRef = A910B5B215C40DE000C0C49A /* MusicLibraryTabBarItem.png */; };
 		A910B5B515C40E1200C0C49A /* NowPlayingTabBarItem.png in Resources */ = {isa = PBXBuildFile; fileRef = A910B5B415C40E1200C0C49A /* NowPlayingTabBarItem.png */; };
+		A913B20415EC9015006EF745 /* MusicSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A913B20215EC9015006EF745 /* MusicSearchViewController.m */; };
+		A913B20515EC9015006EF745 /* MusicSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A913B20315EC9015006EF745 /* MusicSearchViewController.xib */; };
+		A913B20915EC94F9006EF745 /* BaiduMP3Searcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A913B20815EC94F9006EF745 /* BaiduMP3Searcher.m */; };
+		A913B21015EC9EAD006EF745 /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = A913B20F15EC9EAD006EF745 /* AudioStreamer.m */; };
+		A913B21415EC9ED6006EF745 /* DFOnlinePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A913B21315EC9ED6006EF745 /* DFOnlinePlayer.m */; };
 		A918B74B15E4BB4E0095398A /* YCSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = A918B74815E4BB4E0095398A /* YCSearchController.m */; };
 		A918B74C15E4BB4E0095398A /* YCSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A918B74A15E4BB4E0095398A /* YCSearchBar.m */; };
 		A918B75115E4BD090095398A /* SearchBarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A918B75015E4BD090095398A /* SearchBarCell.m */; };
@@ -188,6 +193,15 @@
 		A90FF35F15BE9D00002D8EA6 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		A910B5B215C40DE000C0C49A /* MusicLibraryTabBarItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MusicLibraryTabBarItem.png; sourceTree = "<group>"; };
 		A910B5B415C40E1200C0C49A /* NowPlayingTabBarItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NowPlayingTabBarItem.png; sourceTree = "<group>"; };
+		A913B20115EC9015006EF745 /* MusicSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicSearchViewController.h; sourceTree = "<group>"; };
+		A913B20215EC9015006EF745 /* MusicSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicSearchViewController.m; sourceTree = "<group>"; };
+		A913B20315EC9015006EF745 /* MusicSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MusicSearchViewController.xib; sourceTree = "<group>"; };
+		A913B20715EC94F9006EF745 /* BaiduMP3Searcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaiduMP3Searcher.h; sourceTree = "<group>"; };
+		A913B20815EC94F9006EF745 /* BaiduMP3Searcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaiduMP3Searcher.m; sourceTree = "<group>"; };
+		A913B20E15EC9EAD006EF745 /* AudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioStreamer.h; sourceTree = "<group>"; };
+		A913B20F15EC9EAD006EF745 /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStreamer.m; sourceTree = "<group>"; };
+		A913B21215EC9ED6006EF745 /* DFOnlinePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFOnlinePlayer.h; sourceTree = "<group>"; };
+		A913B21315EC9ED6006EF745 /* DFOnlinePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFOnlinePlayer.m; sourceTree = "<group>"; };
 		A918B74715E4BB4E0095398A /* YCSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCSearchController.h; sourceTree = "<group>"; };
 		A918B74815E4BB4E0095398A /* YCSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCSearchController.m; sourceTree = "<group>"; };
 		A918B74915E4BB4E0095398A /* YCSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCSearchBar.h; sourceTree = "<group>"; };
@@ -389,6 +403,7 @@
 		A90BA74015D12FAE00A1B1AA /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				A913B21115EC9EC0006EF745 /* AudioStreamer */,
 				A906EEAD15EBADB20016A910 /* SVProgressHUD */,
 				A906B74E15E662B20076B13F /* EGORefreshTableHeaderView */,
 				A918B74E15E4BB530095398A /* YCSearchBar */,
@@ -469,6 +484,25 @@
 				A90BA76415D132DA00A1B1AA /* SongInformationViewController.xib */,
 			);
 			name = SongInformationViewController;
+			sourceTree = "<group>";
+		};
+		A913B20615EC901D006EF745 /* MusicSearch */ = {
+			isa = PBXGroup;
+			children = (
+				A913B20115EC9015006EF745 /* MusicSearchViewController.h */,
+				A913B20215EC9015006EF745 /* MusicSearchViewController.m */,
+				A913B20315EC9015006EF745 /* MusicSearchViewController.xib */,
+			);
+			name = MusicSearch;
+			sourceTree = "<group>";
+		};
+		A913B21115EC9EC0006EF745 /* AudioStreamer */ = {
+			isa = PBXGroup;
+			children = (
+				A913B20E15EC9EAD006EF745 /* AudioStreamer.h */,
+				A913B20F15EC9EAD006EF745 /* AudioStreamer.m */,
+			);
+			name = AudioStreamer;
 			sourceTree = "<group>";
 		};
 		A918B74E15E4BB530095398A /* YCSearchBar */ = {
@@ -574,6 +608,7 @@
 			children = (
 				A9FEB8CA15BED29600D3C121 /* Entitlement.plist */,
 				A9B17C2E15D15DFD00E53367 /* Constents.h */,
+				A913B20615EC901D006EF745 /* MusicSearch */,
 				A95DF73B15E3279700A7A223 /* MV */,
 				A90BA74015D12FAE00A1B1AA /* Libraries */,
 				A9D4BD1115D8DD3A0021F406 /* AppDelegate */,
@@ -613,6 +648,10 @@
 		A9C819A715C4E28B002B3A7A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A913B21215EC9ED6006EF745 /* DFOnlinePlayer.h */,
+				A913B21315EC9ED6006EF745 /* DFOnlinePlayer.m */,
+				A913B20715EC94F9006EF745 /* BaiduMP3Searcher.h */,
+				A913B20815EC94F9006EF745 /* BaiduMP3Searcher.m */,
 				A919397D15CB7EB9001C48CE /* DFMusicQuery.h */,
 				A919397E15CB7EB9001C48CE /* DFMusicQuery.m */,
 				A9BE9CE715BD7B330004822D /* DFQianQianLyricsDownloader.h */,
@@ -847,6 +886,7 @@
 				A9048AF815E76259002DE660 /* blueArrowUpsideDown.png in Resources */,
 				A9048AF915E76259002DE660 /* blueArrowUpsideDown@2x.png in Resources */,
 				A90422F215EBB82100637211 /* SVProgressHUD.bundle in Resources */,
+				A913B20515EC9015006EF745 /* MusicSearchViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -905,6 +945,10 @@
 				A909365B15E8BFEB00D11166 /* PullToRefreshTableView.m in Sources */,
 				A906EEAF15EBADDC0016A910 /* MVSwitchViewController.m in Sources */,
 				A90422F115EBB82100637211 /* SVProgressHUD.m in Sources */,
+				A913B20415EC9015006EF745 /* MusicSearchViewController.m in Sources */,
+				A913B20915EC94F9006EF745 /* BaiduMP3Searcher.m in Sources */,
+				A913B21015EC9EAD006EF745 /* AudioStreamer.m in Sources */,
+				A913B21415EC9ED6006EF745 /* DFOnlinePlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

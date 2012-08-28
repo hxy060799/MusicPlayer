@@ -7,6 +7,8 @@
 //
 
 #import "CoverflowSelectViewController.h"
+#import "Constents.h"
+#import "DFLyricsMusicPlayer.h"
 
 @implementation CoverflowSelectViewController
 
@@ -111,6 +113,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    MPMediaItem *selectedItem=[tableViewItems objectAtIndex:indexPath.row];
+    NSString *theTitle=[selectedItem valueForProperty:MPMediaItemPropertyTitle];
+    NSString *theArtist=[selectedItem valueForProperty:MPMediaItemPropertyArtist];
+    NSLog(@"%@",theArtist);
+    [manager startPlayWithMusicCollection:[MPMediaItemCollection collectionWithItems:[NSArray arrayWithObject:selectedItem]] Artist:theArtist Title:theTitle];
+    [songsTableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(void)setTableViewWithMusicArray:(NSMutableArray*)array{
