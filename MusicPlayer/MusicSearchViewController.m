@@ -7,6 +7,8 @@
 //
 
 #import "MusicSearchViewController.h"
+#import "Constents.h"
+#import "DFOnlinePlayer.h"
 
 @implementation MusicSearchViewController
 
@@ -30,6 +32,8 @@
     tableViewItems=[[NSMutableArray alloc]init];
     
     lastSearchString=[NSString string];
+    
+    onlinePlayer=[[DFOnlinePlayer alloc]init];
 }
 
 
@@ -79,6 +83,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if(tableViewItems.count>0){
         NSLog(@"%@",[tableViewItems objectAtIndex:indexPath.row]);
+        [onlinePlayer stop];
+        [onlinePlayer createStreamerWithURL:[tableViewItems objectAtIndex:indexPath.row]];
     }
 }
 
@@ -95,6 +101,7 @@
 }
 
 -(void)searchFinishedWithResult:(NSMutableArray *)result{
+    [tableViewItems removeAllObjects];
     for(NSString *url in result){
         [tableViewItems addObject:url];
     }

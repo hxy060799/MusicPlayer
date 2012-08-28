@@ -13,6 +13,7 @@
 #import "SearchBarCell.h"
 #import "Constents.h"
 #import "DFLyricsMusicPlayer.h"
+#import "DFOnlinePlayer.h"
 
 @implementation MVSwitchViewController
 
@@ -118,6 +119,7 @@
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
         [manager stopMusic];
+        [onlinePlayer stop];
         
         MVInformation *information=nil;
         if(displaySearch==NO){

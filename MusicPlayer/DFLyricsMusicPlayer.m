@@ -7,6 +7,8 @@
 //
 
 #import "DFLyricsMusicPlayer.h"
+#import "Constents.h"
+#import "DFOnlinePlayer.h"
 
 @implementation DFLyricsMusicPlayer
 
@@ -150,6 +152,8 @@ NSTimer *lyricsTimer;
 }
 
 -(void)startPlayWithMusicCollection:(MPMediaItemCollection*)collection Artist:(NSString*)theArtist Title:(NSString*)theTitle{
+    [onlinePlayer stop];
+    
     [self.player stop];
     [self.player setQueueWithItemCollection:collection];
     [self.player play];
@@ -239,8 +243,6 @@ NSTimer *lyricsTimer;
         }
     }
 }
-
-
 
 -(void)readLyricsWithString:(NSString *)string{
     DFLyricsReader *reader=[[DFLyricsReader alloc] init];

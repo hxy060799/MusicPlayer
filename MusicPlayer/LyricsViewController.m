@@ -11,6 +11,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "DFDownloader.h"
 #import "Constents.h"
+#import "DFOnlinePlayer.h"
 
 @implementation LyricsViewController
 
@@ -75,6 +76,8 @@
     
     [[navigationBar.items objectAtIndex:0]setTitle:@"正在播放"];
     [albumImageView setImage:[UIImage imageNamed:@"no_album.png"]];
+    
+    [onlinePlayer stop];
 }
 
 - (void)viewDidLoad

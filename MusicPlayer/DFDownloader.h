@@ -17,6 +17,8 @@
     NSURLConnection *downloadConnection;
     NSString *key;
     
+    NSStringEncoding usingEncoding;
+    
     id<DFDownloaderDelegate> delegate;
 }
 
@@ -26,7 +28,7 @@
 @property(retain,nonatomic)id<DFDownloaderDelegate> delegate;
 
 -(id)init;
--(void)startDownloadWithURLString:(NSString *)urlString Key:(NSString*)theKey;
+-(void)startDownloadWithURLString:(NSString *)urlString Key:(NSString*)theKey Encoding:(NSStringEncoding)encoding;
 -(void)cancelDownload;
 
 @end

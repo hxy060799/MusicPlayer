@@ -32,7 +32,7 @@
     
     DFDownloader *downloader=[[DFDownloader alloc]init];
     downloader.delegate=self;
-    [downloader startDownloadWithURLString:urlS Key:@"Search"];
+    [downloader startDownloadWithURLString:urlS Key:@"Search" Encoding:NSUTF8StringEncoding];
     //[downloader autrelease];
 }
 
@@ -103,7 +103,7 @@
     
     DFDownloader *downloader=[[DFDownloader alloc]init];
     downloader.delegate=self;
-    [downloader startDownloadWithURLString:finalUrl Key:@"Download"];
+    [downloader startDownloadWithURLString:finalUrl Key:@"Download" Encoding:NSUTF8StringEncoding];
     //[downloader release];
 }
 

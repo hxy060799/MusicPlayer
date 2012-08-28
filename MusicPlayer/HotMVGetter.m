@@ -17,7 +17,7 @@
     
     DFDownloader *downloader=[[DFDownloader alloc]init];
     downloader.delegate=self;
-    [downloader startDownloadWithURLString:urlString Key:@"hotMVXML"];
+    [downloader startDownloadWithURLString:urlString Key:@"hotMVXML" Encoding:NSUTF8StringEncoding];
     [downloader release];
 }
 
@@ -93,7 +93,7 @@
     downloader.delegate=self;
     NSLog(@"%i",page);
     NSString *theKey=(page==1)?@"searchXML":@"searchMoreXML";
-    [downloader startDownloadWithURLString:urlString Key:theKey];
+    [downloader startDownloadWithURLString:urlString Key:theKey Encoding:NSUTF8StringEncoding];
     [downloader release];
 }
 

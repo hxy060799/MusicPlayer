@@ -53,6 +53,8 @@
 		A913B20915EC94F9006EF745 /* BaiduMP3Searcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A913B20815EC94F9006EF745 /* BaiduMP3Searcher.m */; };
 		A913B21015EC9EAD006EF745 /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = A913B20F15EC9EAD006EF745 /* AudioStreamer.m */; };
 		A913B21415EC9ED6006EF745 /* DFOnlinePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A913B21315EC9ED6006EF745 /* DFOnlinePlayer.m */; };
+		A913B21615ECA185006EF745 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A913B21515ECA185006EF745 /* AudioToolbox.framework */; };
+		A913B21815ECA190006EF745 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A913B21715ECA18F006EF745 /* CFNetwork.framework */; };
 		A918B74B15E4BB4E0095398A /* YCSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = A918B74815E4BB4E0095398A /* YCSearchController.m */; };
 		A918B74C15E4BB4E0095398A /* YCSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A918B74A15E4BB4E0095398A /* YCSearchBar.m */; };
 		A918B75115E4BD090095398A /* SearchBarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A918B75015E4BD090095398A /* SearchBarCell.m */; };
@@ -202,6 +204,8 @@
 		A913B20F15EC9EAD006EF745 /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStreamer.m; sourceTree = "<group>"; };
 		A913B21215EC9ED6006EF745 /* DFOnlinePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFOnlinePlayer.h; sourceTree = "<group>"; };
 		A913B21315EC9ED6006EF745 /* DFOnlinePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFOnlinePlayer.m; sourceTree = "<group>"; };
+		A913B21515ECA185006EF745 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		A913B21715ECA18F006EF745 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		A918B74715E4BB4E0095398A /* YCSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCSearchController.h; sourceTree = "<group>"; };
 		A918B74815E4BB4E0095398A /* YCSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCSearchController.m; sourceTree = "<group>"; };
 		A918B74915E4BB4E0095398A /* YCSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCSearchBar.h; sourceTree = "<group>"; };
@@ -315,6 +319,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A913B21815ECA190006EF745 /* CFNetwork.framework in Frameworks */,
+				A913B21615ECA185006EF745 /* AudioToolbox.framework in Frameworks */,
 				A90BA76915D1330200A1B1AA /* QuartzCore.framework in Frameworks */,
 				A90FF36015BE9D00002D8EA6 /* MediaPlayer.framework in Frameworks */,
 				A904D65515BE829A00588F92 /* AVFoundation.framework in Frameworks */,
@@ -593,6 +599,8 @@
 		A9C3636C15BD20620027ACDB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A913B21715ECA18F006EF745 /* CFNetwork.framework */,
+				A913B21515ECA185006EF745 /* AudioToolbox.framework */,
 				A90BA76815D1330200A1B1AA /* QuartzCore.framework */,
 				A90FF35F15BE9D00002D8EA6 /* MediaPlayer.framework */,
 				A904D65415BE829A00588F92 /* AVFoundation.framework */,

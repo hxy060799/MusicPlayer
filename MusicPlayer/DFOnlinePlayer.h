@@ -13,5 +13,6 @@
     AudioStreamer *streamer;
 }
 -(void)destroyStreamer;
--(void)createStreamer;
+-(void)createStreamerWithURL:(NSString*)url;
+-(void)stop;
 @end

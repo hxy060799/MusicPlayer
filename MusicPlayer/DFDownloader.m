@@ -26,11 +26,13 @@
     [super dealloc];
 }
 
--(void)startDownloadWithURLString:(NSString *)urlString Key:(NSString*)theKey{
+-(void)startDownloadWithURLString:(NSString *)urlString Key:(NSString*)theKey Encoding:(NSStringEncoding)encoding{
     if(self.downloadConnection==nil){
+        
+        usingEncoding=encoding;
+        
         self.receivedData=[NSMutableData data];
         self.key=[NSString stringWithString:theKey];
-        
         
         NSURLConnection *connection=[[NSURLConnection alloc]initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]] delegate:self];
         self.downloadConnection=connection;
@@ -64,7 +66,7 @@
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{
-    NSString *string=[[NSString alloc]initWithData:receivedData encoding:NSUTF8StringEncoding];
+    NSString *string=[[NSString alloc]initWithData:receivedData encoding:usingEncoding];
     
 
     [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];

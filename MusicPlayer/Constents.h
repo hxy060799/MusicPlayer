@@ -7,6 +7,7 @@
 //
 
 @class DFLyricsMusicPlayer;
+@class DFOnlinePlayer;
 
 #ifndef MusicPlayer_Constents_h
 #define MusicPlayer_Constents_h
@@ -17,6 +18,8 @@ NSMutableArray *musicByTitle;
 NSMutableArray *musicByArtist;
 NSMutableArray *musicByAlbum;
 DFLyricsMusicPlayer *manager;
+
+DFOnlinePlayer *onlinePlayer;
 
 BOOL musicSynced;
 
