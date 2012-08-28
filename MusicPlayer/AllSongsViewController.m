@@ -9,6 +9,7 @@
 #import "AllSongsViewController.h"
 #import "AppDelegate.h"
 #import "Constents.h"
+#import "SongInformationViewController.h"
 
 @implementation AllSongsViewController
 
@@ -35,6 +36,12 @@
     
     [super setTableViewWithMusicArray:musicByTitle];
     
+    /*
+    UILongPressGestureRecognizer *longPressReger=[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPress:)];
+    longPressReger.minimumPressDuration = 1.0;
+    [self.songsTableView addGestureRecognizer:longPressReger];
+    [longPressReger release];
+    */
 }
 
 -(BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item{
@@ -46,7 +53,29 @@
 {
     [super viewDidUnload];
 }
+/*
+-(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer{
+    CGPoint point = [gestureRecognizer locationInView:songsTableView];
+    if(gestureRecognizer.state == UIGestureRecognizerStateBegan){
+        NSIndexPath *indexPath = [songsTableView indexPathForRowAtPoint:point];
+        if (indexPath == nil){
+            //NSLog(@"not tableView");
+        }else{
+            NSLog(@"%i",indexPath.row);
+            
+            SongInformationViewController *controller = [[SongInformationViewController alloc]initWithNibName:@"SongInformationViewController" bundle:nil];
+            [controller setInformationWithItem:[musicByTitle objectAtIndex:indexPath.row]];
+            
+            FPPopoverController *popover = [[FPPopoverController alloc] initWithViewController:controller];
+            [controller release];
+            popover.tint = FPPopoverDefaultTint;
+            popover.arrowDirection = FPPopoverArrowDirectionAny;
+            [popover presentPopoverFromView:[songsTableView cellForRowAtIndexPath:indexPath]];
 
+        }
+    }
+}
+*/
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;

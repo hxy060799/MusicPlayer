@@ -118,8 +118,8 @@
     if(indexPath.row>0){
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
-        [manager stopMusic];
-        [onlinePlayer stop];
+        //[manager stopMusic];
+        //[onlinePlayer stop];
         
         MVInformation *information=nil;
         if(displaySearch==NO){
@@ -131,22 +131,23 @@
         
         NSString *url = [[NSBundle mainBundle] pathForResource:@"video" ofType:@"mp4"];
         
-        MPMoviePlayerViewController *playerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:url]];  
+        MPMoviePlayerViewController *playerViewController = [[MPMoviePlayerViewController alloc]initWithContentURL:[NSURL URLWithString:url]];  
         
 
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieFinishedCallback:)  name:MPMoviePlayerPlaybackDidFinishNotification  object:[playerViewController moviePlayer]];  
         
         [playerViewController.view setFrame:CGRectMake(0,-20,320, 480)];
-        [self presentModalViewController:playerViewController animated:YES];
+
         
-        MPMoviePlayerController *player = [playerViewController moviePlayer];
+        MPMoviePlayerController *player=[playerViewController moviePlayer];
+        NSURL *tempUrl=[NSURL URLWithString:information.playURL];
         [player play];
         [player stop];
-        NSURL *tempUrl=[NSURL URLWithString:information.playURL];
         [player setContentURL:tempUrl];
         [player play];
-        [playerViewController release];
+        
+        [self presentModalViewController:playerViewController animated:YES];
         
     }
     

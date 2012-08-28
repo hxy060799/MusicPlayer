@@ -35,5 +35,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
+	<key>CFBundleIconFile</key>
+	<string>icon.png</string>
 </dict>
 </plist>

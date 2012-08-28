@@ -41,9 +41,9 @@
     
     UITabBarItem *itemPlaying=[[UITabBarItem alloc]initWithTitle:@"正在播放" image:[UIImage imageNamed:@"NowPlayingTabBarItem.png"] tag:1];
     
-    UITabBarItem *itemMV=[[UITabBarItem alloc]initWithTitle:@"MV" image:nil tag:3];
+    UITabBarItem *itemMV=[[UITabBarItem alloc]initWithTitle:@"MV" image:[UIImage imageNamed:@"MVTabBarItem"] tag:3];
     
-    UITabBarItem *itemSearch=[[UITabBarItem alloc]initWithTitle:@"在线搜索" image:nil tag:4];
+    UITabBarItem *itemSearch=[[UITabBarItem alloc]initWithTitle:@"在线搜索" image:[UIImage imageNamed:@"OnlineSearchTabBarIcon"] tag:4];
     
     iPodLibrarySwitchViewController.tabBarItem=itemLibrary;
     
