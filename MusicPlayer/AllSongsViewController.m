@@ -59,6 +59,7 @@
     NSString *theArtist=[selectedItem valueForProperty:MPMediaItemPropertyArtist];
     NSLog(@"%@",theArtist);
     [manager startPlayWithMusicCollection:[MPMediaItemCollection collectionWithItems:[NSArray arrayWithObject:selectedItem]] Artist:theArtist Title:theTitle];
+    [songsTableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(void)dealloc{

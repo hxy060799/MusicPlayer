@@ -52,7 +52,12 @@
 }
 
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
-    NSLog(@"%i",item.tag);//1开头
+    //NSLog(@"%i",item.tag);
+    if(item.tag==3){//tabBar的选中项,1开头
+        if(mvSwitchViewController.firstLoaded==NO){
+            [mvSwitchViewController loadHotMVData];
+        }
+    }
 }
 
 - (void)viewDidUnload

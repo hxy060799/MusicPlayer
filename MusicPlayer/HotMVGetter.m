@@ -23,6 +23,7 @@
 
 -(void)downloadFinishedWithResult:(NSString *)result Key:(NSString *)theKey{
     NSMutableArray *resultArray=[NSMutableArray array];
+    int pages=0;
     NSArray *r=[result componentsSeparatedByString:@"<ItemInfo>"];
     for(int i=1;i<[r count];i++){
         MVInformation *information=[[MVInformation alloc]init];
@@ -66,19 +67,33 @@
         //储存结果
         [resultArray addObject:[information autorelease]];
     }
-    [self autorelease];
-    if(delegate){
-        [delegate downloadFinishedWithResult:resultArray AndKey:theKey];
+    //总页数
+    if([theKey isEqualToString:@"searchXML"]||[theKey isEqualToString:@"hotMVXML"]){
+        NSString *count=[[result componentsSeparatedByString:@"<page>"]objectAtIndex:1];
+        count=[[count componentsSeparatedByString:@"<totalCount>"]objectAtIndex:1];
+        count=[[count componentsSeparatedByString:@"</totalCount>"]objectAtIndex:0];
+        if([count intValue]>0){
+            pages=[count intValue]/20;
+        }
     }
+    if(delegate){
+        struct mvInformation information;
+        information.pagesCount=pages;
+        information.information=resultArray;
+        [delegate downloadFinishedWithResult:information AndKey:theKey];
+    }
+    [self autorelease];
 }
 
--(void)searchByString:(NSString *)theString{
-    NSString *urlString=[NSString stringWithFormat:@"http://api.tudou.com/v3/gw?method=item.search&appKey=1952e9844c5283d5&format=xml&kw=%@&pageNo=1&pageSize=20&channelId=14&sort=v",theString];
+-(void)searchByString:(NSString *)theString AndPage:(int)page{
+    NSString *urlString=[NSString stringWithFormat:@"http://api.tudou.com/v3/gw?method=item.search&appKey=1952e9844c5283d5&format=xml&kw=%@&pageNo=%i&pageSize=20&channelId=14&sort=v",theString,page];
     urlString=[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]; 
     
     DFDownloader *downloader=[[DFDownloader alloc]init];
     downloader.delegate=self;
-    [downloader startDownloadWithURLString:urlString Key:@"searchXML"];
+    NSLog(@"%i",page);
+    NSString *theKey=(page==1)?@"searchXML":@"searchMoreXML";
+    [downloader startDownloadWithURLString:urlString Key:theKey];
     [downloader release];
 }
 

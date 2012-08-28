@@ -9,12 +9,17 @@
 #import <Foundation/Foundation.h>
 #import "DFDownloader.h"
 
+struct mvInformation{
+    NSMutableArray *information;
+    int pagesCount;
+};
+
 @protocol HotMVGetterDelegate <NSObject>
--(void)downloadFinishedWithResult:(NSMutableArray*)result AndKey:(NSString*)key;
+-(void)downloadFinishedWithResult:(struct mvInformation)result AndKey:(NSString*)key;
 @end
 
 @interface HotMVGetter : NSObject<DFDownloaderDelegate>
 -(void)getHotMVWithPage:(int)page;
--(void)searchByString:(NSString *)theString;
+-(void)searchByString:(NSString *)theString AndPage:(int)page;
 @property(retain,nonatomic)id<HotMVGetterDelegate>delegate;
 @end

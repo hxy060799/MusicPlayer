@@ -38,8 +38,13 @@ struct tableViewPagesArray{
     
     YCSearchController *searchController;
     NSString *lastSearchString;
+    
+    BOOL firstLoaded;
 }
 
+@property(assign,nonatomic)BOOL firstLoaded;
+
 -(void)segmentedControlChanged:(UISegmentedControl*)segmentedControl;
+-(void)loadHotMVData;
 
 @end

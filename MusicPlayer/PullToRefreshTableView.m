@@ -25,10 +25,11 @@
 -(void)reloadData{
     [super reloadData];
     
-    if(!footerRefreshViewShowed){
-        if(self.frame.size.height<self.contentSize.height){
-            [self setFooterRefreshViewHidden:NO];
-        }
+
+    if(self.frame.size.height<self.contentSize.height){
+        [self setFooterRefreshViewHidden:NO];
+    }else{
+        [self setFooterRefreshViewHidden:YES];
     }
 }
 

@@ -276,4 +276,8 @@ NSTimer *lyricsTimer;
 
 }
 
+-(void)stopMusic{
+    [player stop];
+}
+
 @end

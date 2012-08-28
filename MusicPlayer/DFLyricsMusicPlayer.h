@@ -46,5 +46,6 @@
 -(void)saveLyricsWithArtist:(NSString*)artist Title:(NSString*)title;
 -(void)findLyricsWithArtist:(NSString*)artist Title:(NSString*)title;
 -(void)startPlayWithMusicCollection:(MPMediaItemCollection*)collection Artist:(NSString*)theArtist Title:(NSString*)theTitle;
+-(void)stopMusic;
 
 @end

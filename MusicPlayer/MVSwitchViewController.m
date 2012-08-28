@@ -11,8 +11,12 @@
 #import "MVInformation.h"
 #import "MediaPlayer/MediaPlayer.h"
 #import "SearchBarCell.h"
+#import "Constents.h"
+#import "DFLyricsMusicPlayer.h"
 
 @implementation MVSwitchViewController
+
+@synthesize firstLoaded;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,8 +33,6 @@
     
     displaySearch=NO;
     
-    [self loadHotMVData];
-    
     if(!mvTableView)mvTableView=[[PullToRefreshTableView alloc]initWithFrame:CGRectMake(0, 44, 320, 367) style:UITableViewStylePlain];
     
     mvTableView.delegate=self;
@@ -42,6 +44,7 @@
     
     lastSearchString=[NSString string];
     
+    firstLoaded=NO;
 }
 
 -(void)loadHotMVData{
@@ -50,27 +53,46 @@
     HotMVGetter *getter=[[[HotMVGetter alloc]init]autorelease];
     getter.delegate=self;
     [getter getHotMVWithPage:1];
+    firstLoaded=YES;
+    [SVProgressHUD showWithStatus:@"Getting Data..."];
+    [mvTableView setUserInteractionEnabled:NO];
 }
 
--(void)downloadFinishedWithResult:(NSMutableArray *)result AndKey:(NSString *)key{
+-(void)downloadFinishedWithResult:(struct mvInformation)result AndKey:(NSString *)key{
+    static BOOL firstGetted=NO;
     if([key isEqualToString:@"hotMVXML"]){
-        for(MVInformation *inf in result){
+        for(MVInformation *inf in result.information){
             [hotMVResult.tableViewArray addObject:inf];
         }
+        hotMVResult.pagesCount=result.pagesCount;
+        NSLog(@"%i",hotMVResult.pagesCount);
         [mvTableView reloadData];
         [mvTableView setFooterRefreshViewToCorrentFrame];
         if(gettingMore==YES){
             [self performSelector:@selector(doneLoadingTableViewData)];
         }
+        if(!firstGetted){
+            [mvTableView setUserInteractionEnabled:YES];
+            [SVProgressHUD showSuccessWithStatus:@"Finished"];
+        }
+        firstGetted=YES;
     }else if([key isEqualToString:@"searchXML"]){
         [searchResult.tableViewArray removeAllObjects];
-        for(MVInformation *inf in result){
+        for(MVInformation *inf in result.information){
             [searchResult.tableViewArray addObject:inf];
-            NSLog(@"%@",inf.title);
+        }
+        searchResult.pagesCount=result.pagesCount;
+        [mvTableView reloadData];
+        [mvTableView setFooterRefreshViewToCorrentFrame];
+        [mvTableView setUserInteractionEnabled:YES];
+        [SVProgressHUD showSuccessWithStatus:@"Finished"];
+    }else if([key isEqualToString:@"searchMoreXML"]){
+        for(MVInformation *inf in result.information){
+            [searchResult.tableViewArray addObject:inf];
         }
         [mvTableView reloadData];
         [mvTableView setFooterRefreshViewToCorrentFrame];
-        [SVProgressHUD showSuccessWithStatus:@"Finished"];
+        [self performSelector:@selector(doneLoadingTableViewData)];
     }
 }
 -(void)dealloc{
@@ -94,6 +116,8 @@
 {
     if(indexPath.row>0){
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        
+        [manager stopMusic];
         
         MVInformation *information=nil;
         if(displaySearch==NO){
@@ -216,7 +240,6 @@
         if([searchResult.tableViewArray count]==0){
             [searchController setActive:YES animated:YES];
         }else{
-            lastSearchString=lastSearchString;
             displaySearch=YES;
             [mvTableView setFooterRefreshViewHidden:YES];
             [mvTableView reloadData];
@@ -239,13 +262,15 @@
     SearchBarCell *cell =(SearchBarCell*)[mvTableView cellForRowAtIndexPath:myIndexPath];
     cell.segmentedControl.selectedSegmentIndex=1;
     
-    lastSearchString=cell.searchBar.text;
+    lastSearchString=[NSString stringWithString:searchString];
     if(!searchResult.tableViewArray)searchResult.tableViewArray=[[NSMutableArray alloc]init];
+    searchResult.nowPageAt=1;
     HotMVGetter *getter=[[[HotMVGetter alloc]init]autorelease];
     getter.delegate=self;
-    [getter searchByString:searchString];
+    [getter searchByString:searchString AndPage:1];
     displaySearch=YES;
     [cell.searchBar resignFirstResponder];
+    [mvTableView setUserInteractionEnabled:NO];
     [SVProgressHUD showWithStatus:@"Getting Data..."];
     return nil;
 }
@@ -266,18 +291,14 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (scrollView.contentOffset.y>-1){
-        if(!displaySearch){
-            if(mvTableView.footerRefreshViewShowed)[mvTableView.footerRefreshView egoRefreshScrollViewDidScroll:scrollView];
-        }
+        if(mvTableView.footerRefreshViewShowed)[mvTableView.footerRefreshView egoRefreshScrollViewDidScroll:scrollView];
     }
     
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     if (scrollView.contentOffset.y>-1) {
-        if(!displaySearch){
-            if(mvTableView.footerRefreshViewShowed)[mvTableView.footerRefreshView egoRefreshScrollViewDidEndDragging:scrollView];
-        }
+        if(mvTableView.footerRefreshViewShowed)[mvTableView.footerRefreshView egoRefreshScrollViewDidEndDragging:scrollView];
     }
 	
 }
@@ -294,11 +315,21 @@
 -(void)getMoreData{
     if(!displaySearch){
         if(!hotMVResult.tableViewArray)hotMVResult.tableViewArray=[[NSMutableArray alloc]init];
-        if(hotMVResult.nowPageAt<10){
+        if(hotMVResult.nowPageAt<hotMVResult.pagesCount){
             hotMVResult.nowPageAt+=1;
             HotMVGetter *getter=[[[HotMVGetter alloc]init]autorelease];
             getter.delegate=self;
             [getter getHotMVWithPage:hotMVResult.nowPageAt];
+        }else{
+            [self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:2.0];
+        }
+    }else{
+        if(!searchResult.tableViewArray)searchResult.tableViewArray=[[NSMutableArray alloc]init];
+        if(searchResult.nowPageAt<searchResult.pagesCount){
+            searchResult.nowPageAt+=1;
+            HotMVGetter *getter=[[[HotMVGetter alloc]init]autorelease];
+            getter.delegate=self;
+            [getter searchByString:lastSearchString AndPage:searchResult.nowPageAt];
         }else{
             [self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:2.0];
         }

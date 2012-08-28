@@ -282,10 +282,10 @@
     
     CGFloat activeHeight = orientationFrame.size.height;
     
-    if(keyboardHeight > 0)
-        activeHeight += statusBarFrame.size.height*2;
+    //if(keyboardHeight > 0)
+    //    activeHeight += statusBarFrame.size.height*2;
     
-    activeHeight -= keyboardHeight;
+    //activeHeight -= keyboardHeight;
     CGFloat posY = floor(activeHeight*0.45);
     CGFloat posX = orientationFrame.size.width/2;
     
