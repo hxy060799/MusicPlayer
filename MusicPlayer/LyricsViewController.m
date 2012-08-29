@@ -12,6 +12,7 @@
 #import "DFDownloader.h"
 #import "Constents.h"
 #import "DFOnlinePlayer.h"
+#import "QQMusicSearcher.h"
 
 @implementation LyricsViewController
 
@@ -86,6 +87,13 @@
     manager=[[DFLyricsMusicPlayer alloc]init];
     manager.delegate=self;
     slider.enabled=NO;
+    
+    
+    QQMusicSearcher *musicSearcher=[[QQMusicSearcher alloc]init];
+    [musicSearcher searchMusicWithTitle:@"不得不爱" Artist:@"潘玮柏"];
+    [musicSearcher getLyricsWithMusicID:612212];
+    [musicSearcher getAlbumArtworkWithMusicId:612212];
+    //[musicSearcher autorelease];
     
     //DFDownloader *d=[[DFDownloader alloc]init];
     //[d startDownloadWithURLString:@"http://ttlrccnc.qianqian.com/dll/lyricsvr.dll?sh?Artist=0F5C4E861F96&Title=3172&Flags=0"];
