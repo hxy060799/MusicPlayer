@@ -35,13 +35,12 @@
     [items release];
     
     [super setTableViewWithMusicArray:musicByTitle];
-    
     /*
     UILongPressGestureRecognizer *longPressReger=[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPress:)];
     longPressReger.minimumPressDuration = 1.0;
     [self.songsTableView addGestureRecognizer:longPressReger];
     [longPressReger release];
-    */
+     */
 }
 
 -(BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item{
@@ -67,11 +66,11 @@
             [controller setInformationWithItem:[musicByTitle objectAtIndex:indexPath.row]];
             
             FPPopoverController *popover = [[FPPopoverController alloc] initWithViewController:controller];
-            [controller release];
             popover.tint = FPPopoverDefaultTint;
             popover.arrowDirection = FPPopoverArrowDirectionAny;
             [popover presentPopoverFromView:[songsTableView cellForRowAtIndexPath:indexPath]];
-
+            [controller release];
+            [popover release];
         }
     }
 }

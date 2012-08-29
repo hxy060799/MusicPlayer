@@ -100,6 +100,9 @@
 		_activityView = view;
 		[view release];
 		
+        pullToRefreshString=[NSString string];
+        releaseToRefreshString=[NSString string];
+        loadingString=[NSString string];
 		
 		[self setState:EGOOPullRefreshNormal];
 		
@@ -113,20 +116,11 @@
 #pragma mark -
 #pragma mark Setters
 
-- (void)refreshLastUpdatedDate {
+- (void)setPromptWithString:(NSString*)string{
 	
 	if ([_delegate respondsToSelector:@selector(egoRefreshTableHeaderDataSourceLastUpdated:)]) {
 		
-		NSDate *date = [_delegate egoRefreshTableHeaderDataSourceLastUpdated:self];
-		
-		NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-		[formatter setAMSymbol:@"AM"];
-		[formatter setPMSymbol:@"PM"];
-		[formatter setDateFormat:@"MM/dd/yyyy hh:mm:a"];
-		_lastUpdatedLabel.text = [NSString stringWithFormat:@"Last Updated: %@", [formatter stringFromDate:date]];
-		[[NSUserDefaults standardUserDefaults] setObject:_lastUpdatedLabel.text forKey:@"EGORefreshTableView_LastRefresh"];
-		[[NSUserDefaults standardUserDefaults] synchronize];
-		[formatter release];
+        [_lastUpdatedLabel setText:string];
 		
 	} else {
 		
@@ -141,7 +135,7 @@
 	switch (aState) {
 		case EGOOPullRefreshPulling:
 			
-			_statusLabel.text = NSLocalizedString(@"Release to refresh...", @"Release to refresh status");
+			_statusLabel.text = releaseToRefreshString;
 			[CATransaction begin];
 			[CATransaction setAnimationDuration:FLIP_ANIMATION_DURATION];
 			_arrowImage.transform = CATransform3DMakeRotation((M_PI / 180.0) * 180.0f, 0.0f, 0.0f, 1.0f);
@@ -157,7 +151,7 @@
 				[CATransaction commit];
 			}
 			
-			_statusLabel.text = NSLocalizedString(@"Pull down to refresh...", @"Pull down to refresh status");
+			_statusLabel.text = pullToRefreshString;
 			[_activityView stopAnimating];
 			[CATransaction begin];
 			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
@@ -165,12 +159,10 @@
 			_arrowImage.transform = CATransform3DIdentity;
 			[CATransaction commit];
 			
-			[self refreshLastUpdatedDate];
-			
 			break;
 		case EGOOPullRefreshLoading:
 			
-			_statusLabel.text = NSLocalizedString(@"Loading...", @"Loading Status");
+			_statusLabel.text = loadingString;
 			[_activityView startAnimating];
 			[CATransaction begin];
 			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
@@ -183,6 +175,12 @@
 	}
 	
 	_state = aState;
+}
+
+- (void)setStringWithPullToRefreshString:(NSString*)thePullString ReleaseToRefreshString:(NSString*)theReleaseString LoadingString:(NSString*)theLoadingString{
+    pullToRefreshString=[NSString stringWithString:thePullString];
+    releaseToRefreshString=[NSString stringWithString:theReleaseString];
+    loadingString=theLoadingString;
 }
 
 

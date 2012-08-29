@@ -767,8 +767,8 @@
 		A9D4BD0F15D8DCD60021F406 /* iPodLibrary */ = {
 			isa = PBXGroup;
 			children = (
-				A929CA3115DCD37000E93CA5 /* ArtistViewController */,
 				A935B4F015DCAD22003DDA32 /* TableView */,
+				A929CA3115DCD37000E93CA5 /* ArtistViewController */,
 				A90BA74915D131B300A1B1AA /* SwitchViewController */,
 				A90BA74A15D131BD00A1B1AA /* MainViewController */,
 				A90BA75115D1326D00A1B1AA /* AllSongsViewController */,

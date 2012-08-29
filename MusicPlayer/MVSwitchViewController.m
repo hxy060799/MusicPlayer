@@ -46,6 +46,8 @@
     lastSearchString=[NSString string];
     
     firstLoaded=NO;
+    
+    [mvTableView.footerRefreshView setStringWithPullToRefreshString:@"上拉获取更多" ReleaseToRefreshString:@"松开获取更多" LoadingString:@"正在加载"];
 }
 
 -(void)loadHotMVData{
@@ -149,6 +151,7 @@
         
         [self presentModalViewController:playerViewController animated:YES];
         
+        
     }
     
     
@@ -231,7 +234,7 @@
 #pragma mark MPMoviePlayerViewController CallBack
 
 -(void)movieFinishedCallback:(MPMoviePlayerViewController*)controller{
-    
+
 }
 
 #pragma mark -

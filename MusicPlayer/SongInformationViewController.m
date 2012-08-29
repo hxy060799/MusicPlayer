@@ -28,6 +28,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    songTitle=[[UILabel alloc]init];
+    songAlbum=[[UILabel alloc]init];
+    songArtist=[[UILabel alloc]init];
+    artworkView=[[UIImageView alloc]init];
 }
 
 -(void)setInformationWithItem:(MPMediaItem*)theItem{
@@ -51,6 +55,13 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+-(void)dealloc{
+    [songTitle release];
+    [songArtist release];
+    [songAlbum release];
+    [super dealloc];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

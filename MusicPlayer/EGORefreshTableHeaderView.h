@@ -47,6 +47,10 @@ typedef enum{
     BOOL _footerRefresh;
     
     UIView *_backGroundView;
+    
+    NSString *pullToRefreshString;
+    NSString *releaseToRefreshString;
+    NSString *loadingString;
 }
 
 @property(nonatomic,assign) id <EGORefreshTableHeaderDelegate> delegate;
@@ -54,12 +58,14 @@ typedef enum{
 @property(nonatomic) BOOL footerRefresh;
 @property(nonatomic,assign) UIView *backGroundView;
 
-- (void)refreshLastUpdatedDate;
+- (void)setPromptWithString:(NSString*)string;
 - (void)egoRefreshScrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)egoRefreshScrollViewDidEndDragging:(UIScrollView *)scrollView;
 - (void)egoRefreshScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView;
 
 - (id)initWithFrame:(CGRect)frame AndIsFooterView:(BOOL)isFooterView;
+
+- (void)setStringWithPullToRefreshString:(NSString*)thePullString ReleaseToRefreshString:(NSString*)theReleaseString LoadingString:(NSString*)theLoadingString;
 
 @end
 @protocol EGORefreshTableHeaderDelegate

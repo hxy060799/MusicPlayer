@@ -24,7 +24,6 @@
 
 -(void)reloadData{
     [super reloadData];
-    
 
     if(self.frame.size.height<self.contentSize.height){
         [self setFooterRefreshViewHidden:NO];
@@ -54,7 +53,7 @@
     footerRefreshView=[[EGORefreshTableHeaderView alloc]initWithFrame:CGRectMake(0, self.contentSize.height+10, 320, 65) AndIsFooterView:YES];
     footerRefreshView.delegate=delegate;
     footerRefreshView.backgroundColor=[UIColor clearColor];
-    [footerRefreshView refreshLastUpdatedDate];
+    [footerRefreshView setPromptWithString:@""];
     if(self.frame.size.height<self.contentSize.height){
         self.footerRefreshViewShowed=YES;
         [self addSubview:footerRefreshView];
