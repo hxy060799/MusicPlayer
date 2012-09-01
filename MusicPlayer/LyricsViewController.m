@@ -38,20 +38,22 @@
     NSString *sel_artist=[item valueForProperty:MPMediaItemPropertyArtist];
     NSString *sel_album=[item valueForProperty:MPMediaItemPropertyAlbumTitle];
     
-    [[navigationBar.items objectAtIndex:0]setTitle:[NSString stringWithFormat:@"%@-%@-%@",sel_title,sel_artist,sel_album]];
+    //[titleLabel setText:sel_title];
+    //[artistLabel setText:sel_artist];
+    //[albumLabel setText:sel_album];
     
     MPMediaItemArtwork *artwork=[item valueForProperty:MPMediaItemPropertyArtwork];
     UIImage *artworkImage=[artwork imageWithSize:CGSizeMake(135, 135)];
     if(artworkImage){
-        [albumImageView setImage:artworkImage];
+        [lyricsAlbumViewController setAlbumArtwork:artworkImage];
     }else{
-        [albumImageView setImage:[UIImage imageNamed:@"no_album.png"]];
+        [lyricsAlbumViewController setAlbumArtwork:[UIImage imageNamed:@"no_album.png"]];
     }
 }
 
 -(void)dealloc{
     [label release];
-    [albumImageView release];
+    [lyricsAlbumViewController release];
     [super dealloc];
 }
 
@@ -76,7 +78,7 @@
     [manager.player stop];
     
     [[navigationBar.items objectAtIndex:0]setTitle:@"正在播放"];
-    [albumImageView setImage:[UIImage imageNamed:@"no_album.png"]];
+    [lyricsAlbumViewController setAlbumArtwork:[UIImage imageNamed:@"no_album.png"]];
     
     [onlinePlayer stop];
 }
@@ -88,11 +90,17 @@
     manager.delegate=self;
     slider.enabled=NO;
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+    
+    lyricsAlbumViewController=[[DFLyricsAlbumViewController alloc]initWithNibName:@"DFLyricsAlbumViewController" bundle:nil];
+    [lyricsAlbumViewController.view setFrame:CGRectMake(0, 44, 320, 320)];
+    [self.view addSubview:lyricsAlbumViewController.view];
+    
     
     QQMusicSearcher *musicSearcher=[[QQMusicSearcher alloc]init];
-    [musicSearcher searchMusicWithTitle:@"不得不爱" Artist:@"潘玮柏"];
-    [musicSearcher getLyricsWithMusicID:612212];
-    [musicSearcher getAlbumArtworkWithMusicId:612212];
+    [musicSearcher searchMusicWithTitle:@"不得不爱" Artist:@""];
+    //[musicSearcher getLyricsWithMusicID:612212];
+    //[musicSearcher getAlbumArtworkWithMusicId:612212];
     //[musicSearcher autorelease];
     
     //DFDownloader *d=[[DFDownloader alloc]init];

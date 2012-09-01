@@ -16,5 +16,6 @@
 -(void)searchMusicWithTitle:(NSString*)title Artist:(NSString*)artist;
 -(void)getLyricsWithMusicID:(NSInteger)songID;
 -(void)getAlbumArtworkWithMusicId:(NSInteger)songID;
+-(NSString*)formatJsonWithJsonString:(NSString*)jsonString;
 
 @end
