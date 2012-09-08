@@ -1,13 +1,13 @@
 //
-//  QQMusicLyricsDownloader.h
+//  QQLyricsGetter.h
 //  MusicPlayer
 //
-//  Created by Bill on 12-8-29.
+//  Created by Bill on 12-9-8.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface QQMusicLyricsDownloader : NSObject
+@interface QQLyricsGetter : NSObject
 
 @end
