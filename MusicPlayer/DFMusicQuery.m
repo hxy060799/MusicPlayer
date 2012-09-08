@@ -7,7 +7,6 @@
 //
 
 #import "DFMusicQuery.h"
-#import "DFSongInformation.h"
 
 @implementation DFMusicQuery
 

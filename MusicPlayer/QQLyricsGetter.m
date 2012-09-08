@@ -10,4 +10,43 @@
 
 @implementation QQLyricsGetter
 
+@synthesize delegate;
+
+-(id)init{
+    if(self==[super init]){
+        songTitle=[NSString string];
+        songArtist=[NSString string];
+        musicSearcher=[[QQMusicSearcher alloc]init];
+        musicSearcher.delegate=self;
+    }
+    return self;
+}
+
+-(void)startGetLyricsWithTitle:(NSString*)title Artist:(NSString*)artist{
+    songTitle=title;
+    songArtist=artist;
+    musicSearcher.delegate=self;
+    [musicSearcher searchMusicWithTitle:title Artist:artist];
+}
+
+-(void)searchFinishedWithResult:(NSMutableArray *)result{
+    NSInteger songIDResult=[QQMusicSearcher chooseLyricsWithLyricsResult:result Artist:songArtist];
+    
+    [musicSearcher getLyricsWithMusicID:songIDResult];
+}
+
+-(void)getLyricsFinishedWithResult:(NSString *)result{
+    musicSearcher.delegate=nil;
+    [musicSearcher autorelease];
+    musicSearcher=nil;
+    if(delegate){
+        [delegate getLyrcsFinishedWithLyrics:result Getter:self];
+    }
+}
+
+-(void)dealloc{
+    if(musicSearcher)[musicSearcher release];
+    [super dealloc];
+}
+
 @end

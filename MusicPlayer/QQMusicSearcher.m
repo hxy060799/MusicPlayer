@@ -11,8 +11,10 @@
 
 @implementation QQMusicSearcher
 
+@synthesize delegate;
+
 -(void)searchMusicWithTitle:(NSString*)title Artist:(NSString*)artist{
-    NSString *searchURL=[NSString stringWithFormat:@"http://shopcgi.qqmusic.qq.com/fcgi-bin/shopsearch.fcg?out=json&value=%@=qry_song&page_no=1&page_record_num=10&uin=0&artist=%@",title,artist];
+    NSString *searchURL=[NSString stringWithFormat:@"http://shopcgi.qqmusic.qq.com/fcgi-bin/shopsearch.fcg?out=json&value=%@=qry_song&page_no=1&page_record_num=20&uin=0&artist=%@",title,artist];
     searchURL=[searchURL stringByAddingPercentEscapesUsingEncoding:NSGB2312StringEncoding];
     
     ASIHTTPRequest *request=[ASIHTTPRequest requestWithURL:[NSURL URLWithString:searchURL]];
@@ -41,39 +43,68 @@
 
 -(void)requestFinished:(ASIHTTPRequest *)request{
     if([[request.requestHeaders valueForKey:@"RequestType"] isEqualToString:@"search"]){
-        NSData *responseData=[request responseData];
-        NSString *result=[[[NSString alloc] initWithData:responseData encoding:NSGB2312StringEncoding]autorelease];
-        result=[self formatJsonWithJsonString:result];
-        
-        NSMutableDictionary *jsonResult=[[CJSONDeserializer deserializer]deserialize:[result dataUsingEncoding:NSUTF8StringEncoding] error:nil];
-        NSArray *songsArray=[jsonResult objectForKey:@"songlist"];
-        
-        NSLog(@"SongsCount:%i",[songsArray count]);
-        for(int i=0;i<[songsArray count];i++){
-            NSLog(@"-----------------");
-            NSDictionary *songDictrionary=[songsArray objectAtIndex:i];
-            NSLog(@"SongName:%@",[songDictrionary objectForKey:@"song_name"]);
-            NSLog(@"SingerName:%@",[songDictrionary objectForKey:@"singer_name"]);
-            NSLog(@"AlbumName:%@",[songDictrionary objectForKey:@"album_name"]);
-        }
+        [self parseWithSearchResultRequest:request];
         
     }else if([[request.requestHeaders valueForKey:@"RequestType"] isEqualToString:@"getLyrics"]){
-        NSData *responseData=[request responseData];
-        NSString *result=[[NSString alloc] initWithData:responseData encoding:NSGB2312StringEncoding];
-        NSLog(@"%@",result);
-        //[result autorelease];
+        [self parseWithLyricsGetRequest:request];
     }else if([[request.requestHeaders valueForKey:@"RequstType"] isEqualToString:@"getArtwork"]){
         NSData *responseData=[request responseData];
         UIImage *result=[[UIImage alloc] initWithData:responseData];
         NSLog(@"插图下载完成");
-        //[result autorelease];
+        [result autorelease];
     }
-    [self autorelease];
 }
-                                          
+
 -(void)requestFailed:(ASIHTTPRequest *)request{
     NSError *error=[request error];
     NSLog(@"%@",error.description);
+}
+
+-(void)parseWithSearchResultRequest:(ASIHTTPRequest*)request{
+    NSData *responseData=[request responseData];
+    NSString *result=[[[NSString alloc] initWithData:responseData encoding:NSGB2312StringEncoding]autorelease];
+    result=[self formatJsonWithJsonString:result];
+    //NSLog(@"%@",result);
+    
+    NSMutableDictionary *jsonResult=[[CJSONDeserializer deserializer]deserialize:[result dataUsingEncoding:NSUTF8StringEncoding] error:nil];
+    NSArray *songsArray=[jsonResult objectForKey:@"songlist"];
+    
+    NSMutableArray *resultArray=[NSMutableArray array];
+    
+    NSLog(@"SongsCount:%i",[songsArray count]);
+    for(int i=0;i<[songsArray count];i++){
+        NSDictionary *songDictrionary=[songsArray objectAtIndex:i];
+        
+        //发现返回的歌曲price属性如果是250就没有歌词
+        if([[songDictrionary objectForKey:@"price"]intValue]!=250){
+            NSMutableDictionary *songInformation=[[[NSMutableDictionary alloc]init]autorelease];
+            [songInformation setObject:[songDictrionary objectForKey:@"song_name"] forKey:@"songName"];
+            [songInformation setObject:[songDictrionary objectForKey:@"singer_name"] forKey:@"songArtist"];
+            [songInformation setObject:[songDictrionary objectForKey:@"album_name"] forKey:@"songAlbum"];
+            //[songInformation setObject:[songDictrionary objectForKey:@"price"] forKey:@"songPrice"];
+            [songInformation setObject:[songDictrionary objectForKey:@"song_id"] forKey:@"songID"];
+            
+            //NSLog(@"%@",songDictrionary);
+            
+            [resultArray addObject:songInformation];
+        }
+        
+    }
+    if(self.delegate){
+        [delegate searchFinishedWithResult:resultArray];
+    }
+}
+
+-(void)parseWithLyricsGetRequest:(ASIHTTPRequest *)request{
+    NSData *responseData=[request responseData];
+    NSString *result=[[[NSString alloc] initWithData:responseData encoding:NSGB2312StringEncoding]autorelease];
+    
+    result=[[result componentsSeparatedByString:@"<![CDATA["]objectAtIndex:1];
+    result=[[result componentsSeparatedByString:@"]]>"]objectAtIndex:0];
+    
+    if(delegate){
+        [delegate getLyricsFinishedWithResult:result];
+    }
 }
 
 -(NSString*)formatJsonWithJsonString:(NSString *)jsonString{
@@ -86,6 +117,23 @@
     jsonString=[jsonString stringByReplacingOccurrencesOfString:@":\"" withString:@"\":\""];
     jsonString=[jsonString stringByReplacingOccurrencesOfString:@":[" withString:@"\":["];
     return jsonString;
+}
+
++(NSInteger)chooseLyricsWithLyricsResult:(NSMutableArray *)result Artist:(NSString *)artist{
+    if([result count]>0){
+        for(NSDictionary *songInformation in result){
+            NSString *songArtist=[songInformation valueForKey:@"songArtist"];
+            NSInteger songID=[[songInformation valueForKey:@"songID"]intValue];
+            NSLog(@"%@",[songInformation valueForKey:@"songName"]);
+            NSLog(@"%@",songArtist);
+            NSLog(@"%i",songID);
+            if([songArtist rangeOfString:artist].length>0){
+                return songID;
+            }
+        }
+        return [[[result objectAtIndex:0]valueForKey:@"songID"]intValue];
+    }
+    return 0;
 }
 
 @end

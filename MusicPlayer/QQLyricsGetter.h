@@ -7,7 +7,25 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "QQMusicSearcher.h"
 
-@interface QQLyricsGetter : NSObject
+@class QQLyricsGetter;
+
+@protocol QQLyricsGetterDelegate <NSObject>
+-(void)getLyrcsFinishedWithLyrics:(NSString*)lyrics Getter:(QQLyricsGetter*)getter;
+@end
+
+@interface QQLyricsGetter : NSObject<QQMusicSearcherDelegate>{
+    NSString *songTitle;
+    NSString *songArtist;
+    id<QQLyricsGetterDelegate>delegate;
+    QQMusicSearcher *musicSearcher;
+}
+
+-(id)init;
+
+-(void)startGetLyricsWithTitle:(NSString*)title Artist:(NSString*)artist;
+
+@property(retain,nonatomic)id<QQLyricsGetterDelegate>delegate;
 
 @end

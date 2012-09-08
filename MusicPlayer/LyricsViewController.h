@@ -12,8 +12,9 @@
 #import "DFLyricsMusicPlayer.h"
 #import "DFQianQianLyricsDownloader.h"
 #import "DFLyricsAlbumViewController.h"
+#import "QQLyricsGetter.h"
 
-@interface LyricsViewController : UIViewController<MPMediaPickerControllerDelegate,DFLyricsMusicPlayerDelegate>{
+@interface LyricsViewController : UIViewController<DFLyricsMusicPlayerDelegate,QQLyricsGetterDelegate>{
     IBOutlet UILabel *label;
     IBOutlet UISlider *slider;
     

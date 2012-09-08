@@ -144,7 +144,8 @@
 #pragma mark - Managing data
 
 - (void)reloadData {
-	[self reloadDataRemovingCurrentPage:YES];
+    #warning
+	//[self reloadDataRemovingCurrentPage:YES];
 }
 
 
