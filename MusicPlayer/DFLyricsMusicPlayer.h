@@ -9,7 +9,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "LyricsRow.h"
 #import "DFLyricsReader.h"
-#import "DFQianQianLyricsDownloader.h"
+#import "QQLyricsGetter.h"
 
 @protocol DFLyricsMusicPlayerDelegate <NSObject>
 -(void)loadingFinished;
@@ -17,11 +17,11 @@
 -(void)updateSliderWithValue:(float)value TimeGoes:(NSString*)goesTime readyTime:(NSString*)readyTime;
 
 //测试中
--(void)updateLyrics:(NSString*)lyric;
+-(void)updateLyrics:(NSMutableArray*)lyric;
 -(void)musicChanged;
 @end
 
-@interface DFLyricsMusicPlayer : NSObject<DFLycirsReaderDelegete,DFQianQianLyricsDownloaderDelegate>{
+@interface DFLyricsMusicPlayer : NSObject<DFLycirsReaderDelegete,QQLyricsGetterDelegate>{
     MPMusicPlayerController *player;
     NSMutableArray *lyrics;
     id<DFLyricsMusicPlayerDelegate>delegate;

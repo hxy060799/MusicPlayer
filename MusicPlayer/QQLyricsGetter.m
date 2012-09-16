@@ -23,8 +23,8 @@
 }
 
 -(void)startGetLyricsWithTitle:(NSString*)title Artist:(NSString*)artist{
-    songTitle=title;
-    songArtist=artist;
+    songTitle=[title retain];
+    songArtist=[artist retain];
     musicSearcher.delegate=self;
     [musicSearcher searchMusicWithTitle:title Artist:artist];
 }
@@ -38,6 +38,8 @@
 -(void)getLyricsFinishedWithResult:(NSString *)result{
     musicSearcher.delegate=nil;
     [musicSearcher autorelease];
+    [songTitle autorelease];
+    [songArtist autorelease];
     musicSearcher=nil;
     if(delegate){
         [delegate getLyrcsFinishedWithLyrics:result Getter:self];

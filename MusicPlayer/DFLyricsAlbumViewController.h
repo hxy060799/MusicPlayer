@@ -21,5 +21,6 @@
 }
 
 -(void)setAlbumArtwork:(UIImage*)albumArtwork;
+-(void)updateTheLyricsWithLyrics:(NSMutableArray*)lyrics;
 
 @end

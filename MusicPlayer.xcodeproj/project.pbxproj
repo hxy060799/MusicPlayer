@@ -128,7 +128,6 @@
 		A98A6EA215ECB28500C479C8 /* MVTabBarItem.png in Resources */ = {isa = PBXBuildFile; fileRef = A98A6EA015ECB28500C479C8 /* MVTabBarItem.png */; };
 		A98A6EA615ECB2CC00C479C8 /* OnlineSearchTabBarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A98A6EA415ECB2CC00C479C8 /* OnlineSearchTabBarIcon@2x.png */; };
 		A98A6EA715ECB2CC00C479C8 /* OnlineSearchTabBarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A98A6EA515ECB2CC00C479C8 /* OnlineSearchTabBarIcon.png */; };
-		A9BE9CE915BD7B330004822D /* DFQianQianLyricsDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BE9CE815BD7B330004822D /* DFQianQianLyricsDownloader.m */; };
 		A9BE9CED15BD806D0004822D /* DFLyricsReader.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BE9CEC15BD806D0004822D /* DFLyricsReader.m */; };
 		A9BE9CF015BD86E00004822D /* LyricsRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BE9CEF15BD86E00004822D /* LyricsRow.m */; };
 		A9C3636E15BD20620027ACDB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C3636D15BD20620027ACDB /* UIKit.framework */; };
@@ -141,6 +140,7 @@
 		A9C3638815BD20EC0027ACDB /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C3638715BD20EC0027ACDB /* MainWindow.xib */; };
 		A9C3639115BD22070027ACDB /* LyricsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C3639015BD22070027ACDB /* LyricsView.xib */; };
 		A9C819A015C4DC7C002B3A7A /* DFDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C8199F15C4DC7C002B3A7A /* DFDownloader.m */; };
+		A9CFFB911605914000F2F6B3 /* GlowLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9CFFB901605914000F2F6B3 /* GlowLabel.m */; };
 		A9D4BCBF15D8CBF40021F406 /* TKEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D4BCBC15D8CBF40021F406 /* TKEmptyView.m */; };
 		A9D4BCC015D8CBF40021F406 /* TKGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D4BCBE15D8CBF40021F406 /* TKGradientView.m */; };
 		A9D4BCE215D8CC3B0021F406 /* chatbubble.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D4BCC215D8CC3B0021F406 /* chatbubble.png */; };
@@ -387,8 +387,6 @@
 		A98A6EA415ECB2CC00C479C8 /* OnlineSearchTabBarIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OnlineSearchTabBarIcon@2x.png"; sourceTree = "<group>"; };
 		A98A6EA515ECB2CC00C479C8 /* OnlineSearchTabBarIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OnlineSearchTabBarIcon.png; sourceTree = "<group>"; };
 		A9B17C2E15D15DFD00E53367 /* Constents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constents.h; sourceTree = "<group>"; };
-		A9BE9CE715BD7B330004822D /* DFQianQianLyricsDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFQianQianLyricsDownloader.h; sourceTree = "<group>"; };
-		A9BE9CE815BD7B330004822D /* DFQianQianLyricsDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFQianQianLyricsDownloader.m; sourceTree = "<group>"; };
 		A9BE9CEB15BD806D0004822D /* DFLyricsReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFLyricsReader.h; sourceTree = "<group>"; };
 		A9BE9CEC15BD806D0004822D /* DFLyricsReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFLyricsReader.m; sourceTree = "<group>"; };
 		A9BE9CEE15BD86E00004822D /* LyricsRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyricsRow.h; sourceTree = "<group>"; };
@@ -410,6 +408,8 @@
 		A9C3639015BD22070027ACDB /* LyricsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LyricsView.xib; sourceTree = "<group>"; };
 		A9C8199E15C4DC7C002B3A7A /* DFDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFDownloader.h; sourceTree = "<group>"; };
 		A9C8199F15C4DC7C002B3A7A /* DFDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFDownloader.m; sourceTree = "<group>"; };
+		A9CFFB8F1605914000F2F6B3 /* GlowLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlowLabel.h; sourceTree = "<group>"; };
+		A9CFFB901605914000F2F6B3 /* GlowLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlowLabel.m; sourceTree = "<group>"; };
 		A9D4BCBB15D8CBF40021F406 /* TKEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKEmptyView.h; sourceTree = "<group>"; };
 		A9D4BCBC15D8CBF40021F406 /* TKEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKEmptyView.m; sourceTree = "<group>"; };
 		A9D4BCBD15D8CBF40021F406 /* TKGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKGradientView.h; sourceTree = "<group>"; };
@@ -938,6 +938,8 @@
 		A9C819A715C4E28B002B3A7A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A9CFFB8F1605914000F2F6B3 /* GlowLabel.h */,
+				A9CFFB901605914000F2F6B3 /* GlowLabel.m */,
 				A9D4BD0815D8D1050021F406 /* Loading.h */,
 				A9D4BD0915D8D1050021F406 /* Loading.m */,
 				A915C78E15FB68720009D097 /* QQLyricsGetter.h */,
@@ -950,8 +952,6 @@
 				A913B20815EC94F9006EF745 /* BaiduMP3Searcher.m */,
 				A919397D15CB7EB9001C48CE /* DFMusicQuery.h */,
 				A919397E15CB7EB9001C48CE /* DFMusicQuery.m */,
-				A9BE9CE715BD7B330004822D /* DFQianQianLyricsDownloader.h */,
-				A9BE9CE815BD7B330004822D /* DFQianQianLyricsDownloader.m */,
 				A9BE9CEB15BD806D0004822D /* DFLyricsReader.h */,
 				A9BE9CEC15BD806D0004822D /* DFLyricsReader.m */,
 				A9EAA9D015C0D55300D4CBE7 /* DFLyricsMusicPlayer.h */,
@@ -1200,7 +1200,6 @@
 				A9C3637A15BD20620027ACDB /* main.m in Sources */,
 				A9C3637E15BD20620027ACDB /* AppDelegate.m in Sources */,
 				A9C3638615BD20C30027ACDB /* SwitchViewController.m in Sources */,
-				A9BE9CE915BD7B330004822D /* DFQianQianLyricsDownloader.m in Sources */,
 				A9BE9CED15BD806D0004822D /* DFLyricsReader.m in Sources */,
 				A9BE9CF015BD86E00004822D /* LyricsRow.m in Sources */,
 				A9EAA9D215C0D55300D4CBE7 /* DFLyricsMusicPlayer.m in Sources */,
@@ -1285,6 +1284,7 @@
 				A912BEE315F25D9A000CAEA8 /* NSDictionary_JSONExtensions.m in Sources */,
 				A915C78815FB68460009D097 /* LyricsViewController.m in Sources */,
 				A915C79015FB68720009D097 /* QQLyricsGetter.m in Sources */,
+				A9CFFB911605914000F2F6B3 /* GlowLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -57,8 +57,8 @@
     [super dealloc];
 }
 
--(void)updateLyrics:(NSString *)lyric{
-    [label setText:lyric];
+-(void)updateLyrics:(NSMutableArray*)lyric{
+    [lyricsAlbumViewController updateTheLyricsWithLyrics:lyric];
 }
 
 -(void)musicEnded{
@@ -68,11 +68,6 @@
 -(void)loadingFinished{
     NSLog(@"歌词处理结束回调");
     [label setText:@"歌词处理完成，即将显示"];
-}
-
--(void)getLyrcsFinishedWithLyrics:(NSString *)lyrics Getter:(QQLyricsGetter *)getter{
-    NSLog(@"%@",lyrics);
-    [getter release];
 }
 
 -(IBAction)stopButtonClicked{
@@ -97,9 +92,7 @@
     [lyricsAlbumViewController.view setFrame:CGRectMake(0, 44, 320, 320)];
     [self.view addSubview:lyricsAlbumViewController.view];
     
-    QQLyricsGetter *lyricsGetter=[[QQLyricsGetter alloc]init];
-    lyricsGetter.delegate=self;
-    [lyricsGetter startGetLyricsWithTitle:@"风度" Artist:@"汪苏泷"];
+
     
     //[musicSearcher getLyricsWithMusicID:612212];
     //[musicSearcher getAlbumArtworkWithMusicId:612212];

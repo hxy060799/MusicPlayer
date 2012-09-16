@@ -7,6 +7,7 @@
 //
 
 #import "DFLyricsAlbumViewController.h"
+#import "GlowLabel.h"
 
 @implementation DFLyricsAlbumViewController
 
@@ -28,14 +29,29 @@
     labelArray=[[NSMutableArray alloc] initWithCapacity:9];
     
     for(int i=0;i<7;i++){
-        UILabel *lyricLabel=[[UILabel alloc]initWithFrame:CGRectMake(139, 20+21*2*i, 42, 21)];
+        GlowLabel *lyricLabel=[[GlowLabel alloc]initWithFrame:CGRectMake(0, (20+40*i)-(100/2)+(20/2), 320, 100)];
         [lyricLabel setTextColor:[UIColor whiteColor]];
-        [lyricLabel setBackgroundColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0]];
+        [lyricLabel setFont:[UIFont systemFontOfSize:20]];
+        [lyricLabel setBackgroundColor:[UIColor clearColor]];
         [lyricLabel setText:@"Hello"];
         [lyricLabel setTextAlignment:UITextAlignmentCenter];
+        if(i==3){
+            lyricLabel.redValue=1;
+            lyricLabel.greenValue=0;
+            lyricLabel.blueValue=0;
+            //lyricLabel.textColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+            [lyricLabel setNeedsDisplay];
+        }
         
         [lyricsPageView addSubview:lyricLabel];
+        [labelArray addObject:lyricLabel];
         //[lyricLabel autorelease];
+    }
+}
+
+-(void)updateTheLyricsWithLyrics:(NSMutableArray*)lyrics{
+    for(int i=0;i<[lyrics count];i++){
+        [[labelArray objectAtIndex:i]setText:[lyrics objectAtIndex:i]];
     }
 }
 

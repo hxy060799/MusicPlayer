@@ -75,7 +75,7 @@ NSTimer *lyricsTimer;
             
             //音乐结束事件的响应会比歌词开始寻找略迟一点，从而导致状态显示出现问题
             if(isDownloading==NO){
-                [delegate updateLyrics:@"歌词"];
+                //[delegate updateLyrics:@"歌词"];
             }
             
             [delegate updateSliderWithValue:0.0f TimeGoes:@"00:00" readyTime:@"-00:00"];
@@ -96,35 +96,30 @@ NSTimer *lyricsTimer;
     }
 }
 
--(void)searchFinished{
-    [delegate updateLyrics:@"下载歌词..."];
-}
-
 -(void)findLyricsWithArtist:(NSString*)artist Title:(NSString*)title{
     NSLog(@"%@",artist);
     isDownloading=YES;
     if(delegate){
-        [delegate updateLyrics:@"寻找歌词..."];
+        //[delegate updateLyrics:@"寻找歌词..."];
     }else{
         NSLog(@"Nil~");
     }
-    DFQianQianLyricsDownloader *d=[[DFQianQianLyricsDownloader alloc]init];
-    d.delegate=self;
-    [d downLoadLyricsByArtist:artist AndTitle:title];
-    [d release];
+    QQLyricsGetter *lyricsGetter=[[QQLyricsGetter alloc]init];
+    lyricsGetter.delegate=self;
+    [lyricsGetter startGetLyricsWithTitle:title Artist:artist];
 }
 
--(void)downloadFinishedWithString:(NSString *)lyricsString{
+-(void)getLyrcsFinishedWithLyrics:(NSString *)lyricsReturn Getter:(QQLyricsGetter *)getter{
     isDownloading=NO;
-    if(![lyricsString isEqualToString:@"NoLyrics"]){
-        [delegate updateLyrics:@"处理歌词..."];
-        [self readLyricsWithString:lyricsString];
+    if(![lyricsReturn isEqualToString:@"NoLyrics"]){
+        //[delegate updateLyrics:@"处理歌词..."];
+        [self readLyricsWithString:lyricsReturn];
     }else {
-        [delegate updateLyrics:@"没有找到歌词！"];
+        //[delegate updateLyrics:@"没有找到歌词！"];
         NSLog(@"没有找到歌词");
     }
+    [getter release];
 }
-
 
 -(void)timerGoes:(NSTimer*)sender{
     
@@ -237,9 +232,20 @@ NSTimer *lyricsTimer;
     if(nowAt!=t){
         nowAt=t;
         if(t!=-1){
-            LyricsRow *row=(LyricsRow*)[self.lyrics objectAtIndex:t];
-            [delegate updateLyrics:row.content];
-            NSLog(@"%@",row.content);
+            
+            NSMutableArray *lyricsRowsArray=[NSMutableArray array];
+            for(int i=t-3;i<=t+3;i++){
+                if(i>=0){
+                    LyricsRow *row=(LyricsRow*)[self.lyrics objectAtIndex:i];
+                    [lyricsRowsArray addObject:row.content];
+                    if(i==t){
+                        NSLog(@"%@",row.content);
+                    }
+                }else{
+                    [lyricsRowsArray addObject:@"***"];
+                }
+            }
+            [delegate updateLyrics:lyricsRowsArray];
         }
     }
 }
@@ -276,7 +282,7 @@ NSTimer *lyricsTimer;
         NSLog(@"!%@--%@",row.time,row.content);
     }
     
-    [self saveLyricsWithArtist:[[self.player nowPlayingItem] valueForKey:MPMediaItemPropertyArtist] Title:[[self.player nowPlayingItem] valueForKey:MPMediaItemPropertyTitle]];
+    //[self saveLyricsWithArtist:[[self.player nowPlayingItem] valueForKey:MPMediaItemPropertyArtist] Title:[[self.player nowPlayingItem] valueForKey:MPMediaItemPropertyTitle]];
 
 }
 

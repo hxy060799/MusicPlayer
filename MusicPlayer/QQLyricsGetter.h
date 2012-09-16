@@ -12,7 +12,7 @@
 @class QQLyricsGetter;
 
 @protocol QQLyricsGetterDelegate <NSObject>
--(void)getLyrcsFinishedWithLyrics:(NSString*)lyrics Getter:(QQLyricsGetter*)getter;
+-(void)getLyrcsFinishedWithLyrics:(NSString*)lyricsReturn Getter:(QQLyricsGetter*)getter;
 @end
 
 @interface QQLyricsGetter : NSObject<QQMusicSearcherDelegate>{
