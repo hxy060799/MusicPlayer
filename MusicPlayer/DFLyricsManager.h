@@ -17,6 +17,7 @@
 @interface DFLyricsManager : NSObject<QQLyricsGetterDelegate>{
     NSMutableArray *lyrics; 
     BOOL isDownloading;
+    NSTimer *lyricsTimer;
     
     id<DFLyricsManagerDelegate>delegate;
 }
@@ -24,6 +25,7 @@
 @property(retain,nonatomic)NSMutableArray *lyrics;
 @property(assign,nonatomic)BOOL isDowloading;
 @property(retain,nonatomic)id<DFLyricsManagerDelegate>delegate;
+@property(retain,nonatomic)NSTimer *lyricsTimer;
 
 -(id)init;
 

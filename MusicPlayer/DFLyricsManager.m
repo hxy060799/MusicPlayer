@@ -15,8 +15,7 @@
 @synthesize lyrics;
 @synthesize isDowloading;
 @synthesize delegate;
-
-NSTimer *aTimer;
+@synthesize lyricsTimer;
 
 -(id)init{
     if(self){
@@ -26,7 +25,7 @@ NSTimer *aTimer;
 }
 
 -(void)startLyricsTimer{
-    if(!aTimer.isValid){
+    if(!lyricsTimer.isValid){
         if(lyrics.count==0){
             NSLog(@"No Lyrics");
         }else{
@@ -35,19 +34,16 @@ NSTimer *aTimer;
     }else{
         [self stopLyricsTimer];
     }
+    NSLog(@"TimerStarted");
 }
 
 -(void)pauseLyricsTimer{
-    if(aTimer.isValid){
-        [aTimer invalidate];
-    }
+    [lyricsTimer invalidate];
+    NSLog(@"TimerPaused");
 }
 
 -(void)stopLyricsTimer{
-    if(aTimer.isValid){
-        [aTimer invalidate];
-        [lyrics removeAllObjects];
-    }
+    [lyrics removeAllObjects];
 }
 
 -(void)setLyricsWithArtist:(NSString*)theArtist SongName:(NSString*)songName{
@@ -89,7 +85,7 @@ NSTimer *aTimer;
             return i-1;
         }
     }
-    return -1;
+    return -2;
 }
 
 -(void)changeLyricsWithTime:(NSTimer*)timer{
@@ -100,12 +96,19 @@ NSTimer *aTimer;
     
     int indexShouldBe=[self getLyricsRowIndexByTime:manager.player.currentPlaybackTime];
     
+    if(indexShouldBe==-2){
+        [timer invalidate];
+        timer=nil;
+        NSLog(@"TimerStopped");
+        [self stopLyricsTimer];
+    }
+    
     if(indexShouldBe!=currentAt){
         currentAt=indexShouldBe;
         
         NSMutableArray *lyricsRowsArray=[NSMutableArray array];
         for(int i=indexShouldBe-3;i<=indexShouldBe+3;i++){
-            if(i>=0){
+            if(i>=0&&i<[lyrics count]){
                 NSMutableDictionary *row=[self.lyrics objectAtIndex:i];
                 [lyricsRowsArray addObject:[row valueForKey:@"content"]];
                 if(i==indexShouldBe){
