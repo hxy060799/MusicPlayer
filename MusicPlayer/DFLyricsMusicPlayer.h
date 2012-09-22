@@ -7,45 +7,34 @@
 //
 
 #import <MediaPlayer/MediaPlayer.h>
-#import "LyricsRow.h"
 #import "DFLyricsReader.h"
 #import "QQLyricsGetter.h"
+#import "DFLyricsManager.h"
 
 @protocol DFLyricsMusicPlayerDelegate <NSObject>
--(void)loadingFinished;
 -(void)musicEnded;
 -(void)updateSliderWithValue:(float)value TimeGoes:(NSString*)goesTime readyTime:(NSString*)readyTime;
+-(void)musicChanged;
 
 //测试中
--(void)updateLyrics:(NSMutableArray*)lyric;
--(void)musicChanged;
+
 @end
 
-@interface DFLyricsMusicPlayer : NSObject<DFLycirsReaderDelegete,QQLyricsGetterDelegate>{
+@interface DFLyricsMusicPlayer : NSObject{
     MPMusicPlayerController *player;
-    NSMutableArray *lyrics;
+    DFLyricsManager *lyricsManager;
+    
     id<DFLyricsMusicPlayerDelegate>delegate;
     BOOL isDownloading;
-    
-    //测试中
-    NSMutableDictionary *lyricsDictionary;
 }
 
 @property(retain,nonatomic)MPMusicPlayerController *player;
-@property(retain,nonatomic)NSMutableArray *lyrics;
 @property(retain,nonatomic)id<DFLyricsMusicPlayerDelegate>delegate;
-@property(assign,nonatomic)BOOL isDownloading;
-//测试中
-@property(retain,nonatomic)NSMutableDictionary *lyricsDictionary;
+@property(retain,nonatomic)DFLyricsManager *lyricsManager;
 
 -(id)init;
--(void)readLyricsWithString:(NSString*)string;
-
 
 //测试中
--(int)getLyricsRowIndexByTime:(NSString*)time;
--(void)saveLyricsWithArtist:(NSString*)artist Title:(NSString*)title;
--(void)findLyricsWithArtist:(NSString*)artist Title:(NSString*)title;
 -(void)startPlayWithMusicCollection:(MPMediaItemCollection*)collection Artist:(NSString*)theArtist Title:(NSString*)theTitle;
 -(void)stopMusic;
 

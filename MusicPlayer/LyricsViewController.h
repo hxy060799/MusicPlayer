@@ -13,7 +13,7 @@
 #import "DFLyricsAlbumViewController.h"
 #import "QQLyricsGetter.h"
 
-@interface LyricsViewController : UIViewController<DFLyricsMusicPlayerDelegate>{
+@interface LyricsViewController : UIViewController<DFLyricsMusicPlayerDelegate,DFLyricsManagerDelegate>{
     IBOutlet UILabel *label;
     IBOutlet UISlider *slider;
     

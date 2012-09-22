@@ -41,8 +41,18 @@
     [songTitle autorelease];
     [songArtist autorelease];
     musicSearcher=nil;
+    
+    DFLyricsReader *lyricsReader=[[DFLyricsReader alloc]init];
+    lyricsReader.delegate=self;
+    [lyricsReader readLyricsWithLyricsString:result];
+
+    
+
+}
+
+-(void)readingFinishedWithLyrics:(NSMutableArray *)lyricsFinished{
     if(delegate){
-        [delegate getLyrcsFinishedWithLyrics:result Getter:self];
+        [delegate getLyrcsFinishedWithLyrics:lyricsFinished Getter:self];
     }
 }
 

@@ -7,7 +7,6 @@
 //
 
 #import "DFLyricsReader.h"
-#import "LyricsRow.h"
 
 @implementation DFLyricsReader
 @synthesize delegate;
@@ -52,11 +51,14 @@
             NSString *tTime=[temp objectAtIndex:i];
             //部分歌词会有t_time:(xx:xx)的标记导致程序出错，这里要处理掉
             if(![tTime rangeOfString:@"t_time"].length>0){
-                LyricsRow *row=[[LyricsRow alloc]init];
-                row.time=tTime;
+                NSMutableDictionary *row=[[NSMutableDictionary alloc]init];
+                
+                NSNumber *timeUse=[NSNumber numberWithFloat:[self getLyricsTime:tTime]];
+                
+                [row setObject:timeUse forKey:@"time"];
                 NSString *tContent=[temp objectAtIndex:[temp count]-1];
                 tContent=[tContent stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-                row.content=tContent;
+                [row setObject:tContent forKey:@"content"];
                 [complateLyrics addObject:[row autorelease]];
             }
 
@@ -87,5 +89,11 @@
         return result;
     }
     return @"";
+}
+
+-(float)getLyricsTime:(NSString*)time{
+    NSString *minute=[[time componentsSeparatedByString:@":"] objectAtIndex:0];
+    NSString *second=[[time componentsSeparatedByString:@":"] objectAtIndex:1];
+    return 60*[minute intValue]+[second floatValue];
 }
 @end

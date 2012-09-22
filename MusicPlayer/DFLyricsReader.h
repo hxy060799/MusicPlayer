@@ -17,4 +17,5 @@
 }
 @property(retain,nonatomic)id<DFLycirsReaderDelegete>delegate;
 -(void)readLyricsWithLyricsString:(NSString*)lyricsString;
+-(float)getLyricsTime:(NSString*)time;
 @end

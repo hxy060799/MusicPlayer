@@ -8,14 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import "QQMusicSearcher.h"
+#import "DFLyricsReader.h"
 
 @class QQLyricsGetter;
 
 @protocol QQLyricsGetterDelegate <NSObject>
--(void)getLyrcsFinishedWithLyrics:(NSString*)lyricsReturn Getter:(QQLyricsGetter*)getter;
+-(void)getLyrcsFinishedWithLyrics:(NSMutableArray*)lyricsReturn Getter:(QQLyricsGetter*)getter;
 @end
 
-@interface QQLyricsGetter : NSObject<QQMusicSearcherDelegate>{
+@interface QQLyricsGetter : NSObject<QQMusicSearcherDelegate,DFLycirsReaderDelegete>{
     NSString *songTitle;
     NSString *songArtist;
     id<QQLyricsGetterDelegate>delegate;

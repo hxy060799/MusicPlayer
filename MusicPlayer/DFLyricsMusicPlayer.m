@@ -13,32 +13,24 @@
 @implementation DFLyricsMusicPlayer
 
 @synthesize player;
-@synthesize lyrics;
 @synthesize delegate;
-@synthesize lyricsDictionary;
-@synthesize isDownloading;
-
+@synthesize lyricsManager;
 NSTimer *endTimer;
-
-NSTimer *lyricsTimer;
 
 -(id)init{
     if(self=[super init]){
         self.player=[MPMusicPlayerController applicationMusicPlayer];
-        self.lyrics=[[NSMutableArray alloc] init];
-        
+        self.lyricsManager=[[DFLyricsManager alloc]init];
         if (self.player) {
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(iPodPlaybackStateChanged:) name:MPMusicPlayerControllerPlaybackStateDidChangeNotification object:self.player];
             [self.player beginGeneratingPlaybackNotifications];
-            
-            self.lyricsDictionary=[[NSMutableDictionary alloc]init];
         }
-
+        
     }
     return self;
 }
 
--(void)removePlayBackDelecate{
+-(void)removePlayBackDelegate{
     if (self.player) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMusicPlayerControllerPlaybackStateDidChangeNotification object:self.player];
         [self.player endGeneratingPlaybackNotifications];
@@ -46,8 +38,8 @@ NSTimer *lyricsTimer;
 }
 
 -(void)dealloc{
-    [lyricsDictionary release];
-    [lyrics release];
+    [self.player release];
+    [self.lyricsManager release];
     [super dealloc];
 }
 
@@ -67,21 +59,10 @@ NSTimer *lyricsTimer;
             NSLog(@"音乐结束");
             [endTimer invalidate];
             endTimer=nil;
-        
-            [lyricsTimer invalidate];
-            lyricsTimer=nil;
-            
-            [lyrics removeAllObjects];
-            
-            //音乐结束事件的响应会比歌词开始寻找略迟一点，从而导致状态显示出现问题
-            if(isDownloading==NO){
-                //[delegate updateLyrics:@"歌词"];
-            }
             
             [delegate updateSliderWithValue:0.0f TimeGoes:@"00:00" readyTime:@"-00:00"];
             [delegate musicEnded];
             
-        
         }
         
         lastState=MPMusicPlaybackStateStopped;
@@ -96,31 +77,6 @@ NSTimer *lyricsTimer;
     }
 }
 
--(void)findLyricsWithArtist:(NSString*)artist Title:(NSString*)title{
-    NSLog(@"%@",artist);
-    isDownloading=YES;
-    if(delegate){
-        //[delegate updateLyrics:@"寻找歌词..."];
-    }else{
-        NSLog(@"Nil~");
-    }
-    QQLyricsGetter *lyricsGetter=[[QQLyricsGetter alloc]init];
-    lyricsGetter.delegate=self;
-    [lyricsGetter startGetLyricsWithTitle:title Artist:artist];
-}
-
--(void)getLyrcsFinishedWithLyrics:(NSString *)lyricsReturn Getter:(QQLyricsGetter *)getter{
-    isDownloading=NO;
-    if(![lyricsReturn isEqualToString:@"NoLyrics"]){
-        //[delegate updateLyrics:@"处理歌词..."];
-        [self readLyricsWithString:lyricsReturn];
-    }else {
-        //[delegate updateLyrics:@"没有找到歌词！"];
-        NSLog(@"没有找到歌词");
-    }
-    [getter release];
-}
-
 -(void)timerGoes:(NSTimer*)sender{
     
     //发现如果播放器状态改变的回调和这个函数同时触发的的时候会导致定时器不被停止，这里再做一次判断
@@ -129,9 +85,6 @@ NSTimer *lyricsTimer;
         NSLog(@"音乐已经结束");
         [endTimer invalidate];
         endTimer=nil;
-
-        [lyricsTimer invalidate];
-        lyricsTimer=nil;
         
     }else{
         float timeGoes=self.player.currentPlaybackTime;
@@ -142,8 +95,6 @@ NSTimer *lyricsTimer;
         //NSLog(@"播放中");
     }
     
-
-
 }
 
 -(void)startPlayWithMusicCollection:(MPMediaItemCollection*)collection Artist:(NSString*)theArtist Title:(NSString*)theTitle{
@@ -154,38 +105,19 @@ NSTimer *lyricsTimer;
     [self.player play];
     
     NSLog(@"%@",theArtist);
-    [self findLyricsWithArtist:theArtist Title:theTitle];
+    
+    [lyricsManager setLyricsWithArtist:theArtist SongName:theTitle];
+    
     endTimer=[NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerGoes:) userInfo:nil repeats:YES];
     
     [delegate musicChanged];
 }
 
--(void)saveLyricsWithArtist:(NSString*)artist Title:(NSString*)title{
-    NSLog(@"startSaving");
-    [self.lyricsDictionary setObject:lyrics forKey:[NSString stringWithFormat:@"%@-%@",artist,title]];
-    //NSLog(@"%@",self.lyricsDictionary);
-}
-
--(int)getLyricsRowIndexByTime:(NSString*)time{
-    
-    float fTime=[self getLyricsTime:time];
-    
-    for(int i=0;i<[lyrics count];i++){
-        LyricsRow *row=(LyricsRow*)[self.lyrics objectAtIndex:i];
-        float rTime=[self getLyricsTime:row.time];
-        //NSLog(@"索引%i对应的时间为%f",i,rTime);
-        if(fTime<rTime){
-            return i-1;
-        }
-    }
-    return -1;
-}
-
--(float)getLyricsTime:(NSString*)time{
-    NSString *minute=[[time componentsSeparatedByString:@":"] objectAtIndex:0];
-    NSString *second=[[time componentsSeparatedByString:@":"] objectAtIndex:1];
-    return 60*[minute intValue]+[second floatValue];
-}
+//-(void)saveLyricsWithArtist:(NSString*)artist Title:(NSString*)title{
+//    NSLog(@"startSaving");
+//    [self.lyricsDictionary setObject:lyrics forKey:[NSString stringWithFormat:@"%@-%@",artist,title]];
+//    //NSLog(@"%@",self.lyricsDictionary);
+//}
 
 -(NSString*)timeStringWithNumber:(float)theTime{
     NSString *minuteS=[NSString string];
@@ -207,83 +139,7 @@ NSTimer *lyricsTimer;
     }
     
     return playTimeS;
-
-}
-
--(void)lyricsTimerGoes:(NSTimer*)sender{
     
-    //原本这个nowAt是一个全局变量，但是后来觉得为了这只有两个方法使用到的变量定义一个全局变量有点没必要就改成static变量了
-    
-    static int nowAt=-2;
-    
-        
-    float playTime=[self.player currentPlaybackTime];
-    
-    
-    NSString *playTimeS=[self timeStringWithNumber:playTime];
-
-    
-    //NSLog(@"%@",playTimeS);
-    
-    
-    int t=[self getLyricsRowIndexByTime:playTimeS];
-    
-    
-    if(nowAt!=t){
-        nowAt=t;
-        if(t!=-1){
-            
-            NSMutableArray *lyricsRowsArray=[NSMutableArray array];
-            for(int i=t-3;i<=t+3;i++){
-                if(i>=0){
-                    LyricsRow *row=(LyricsRow*)[self.lyrics objectAtIndex:i];
-                    [lyricsRowsArray addObject:row.content];
-                    if(i==t){
-                        NSLog(@"%@",row.content);
-                    }
-                }else{
-                    [lyricsRowsArray addObject:@"***"];
-                }
-            }
-            [delegate updateLyrics:lyricsRowsArray];
-        }
-    }
-}
-
--(void)readLyricsWithString:(NSString *)string{
-    DFLyricsReader *reader=[[DFLyricsReader alloc] init];
-    reader.delegate=self;
-    [reader readLyricsWithLyricsString:string];
-
-    if(delegate){
-        [delegate loadingFinished];
-    }else{
-        NSLog(@"Nil");
-    }
-    lyricsTimer=[NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(lyricsTimerGoes:) userInfo:nil repeats:YES];
-    NSLog(@"TimerStarted-");
-}
-
--(void)readingFinishedWithLyrics:(NSMutableArray *)lyricsFinished{
-    NSMutableArray *theLyrics=[[NSMutableArray alloc]initWithArray:lyricsFinished];;
-    
-    //赋值部分
-    if([lyrics count]>0){
-        [self.lyrics removeAllObjects];
-    }
-    for(int i=0;i<[theLyrics count];i++){
-        [self.lyrics addObject:[theLyrics objectAtIndex:i]];
-    }
-    [theLyrics release];
-    
-    //输出部分
-    for(int i=0;i<[self.lyrics count];i++){
-        LyricsRow *row=(LyricsRow*)[self.lyrics objectAtIndex:i];
-        NSLog(@"!%@--%@",row.time,row.content);
-    }
-    
-    //[self saveLyricsWithArtist:[[self.player nowPlayingItem] valueForKey:MPMediaItemPropertyArtist] Title:[[self.player nowPlayingItem] valueForKey:MPMediaItemPropertyTitle]];
-
 }
 
 -(void)stopMusic{

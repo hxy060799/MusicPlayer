@@ -7,7 +7,6 @@
 //
 
 #import "LyricsViewController.h"
-#import "LyricsRow.h"
 #import <AVFoundation/AVFoundation.h>
 #import "DFDownloader.h"
 #import "Constents.h"
@@ -84,6 +83,7 @@
     [super viewDidLoad];
     manager=[[DFLyricsMusicPlayer alloc]init];
     manager.delegate=self;
+    manager.lyricsManager.delegate=self;
     slider.enabled=NO;
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
@@ -92,15 +92,6 @@
     [lyricsAlbumViewController.view setFrame:CGRectMake(0, 44, 320, 320)];
     [self.view addSubview:lyricsAlbumViewController.view];
     
-
-    
-    //[musicSearcher getLyricsWithMusicID:612212];
-    //[musicSearcher getAlbumArtworkWithMusicId:612212];
-    //[musicSearcher autorelease];
-    
-    //DFDownloader *d=[[DFDownloader alloc]init];
-    //[d startDownloadWithURLString:@"http://ttlrccnc.qianqian.com/dll/lyricsvr.dll?sh?Artist=0F5C4E861F96&Title=3172&Flags=0"];
-    //[d release];
     
 }
 
