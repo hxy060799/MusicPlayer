@@ -11,7 +11,7 @@
 #import "DFDownloader.h"
 #import "Constents.h"
 #import "DFOnlinePlayer.h"
-
+#import "UIImage+Reflection.h"
 
 @implementation LyricsViewController
 
@@ -48,6 +48,7 @@
     }else{
         [lyricsAlbumViewController setAlbumArtwork:[UIImage imageNamed:@"no_album.png"]];
     }
+    [artWorkReflection setImage:[artworkImage reflectionWithAlpha:1.0]];
 }
 
 -(void)dealloc{
@@ -91,6 +92,13 @@
     lyricsAlbumViewController=[[DFLyricsAlbumViewController alloc]initWithNibName:@"DFLyricsAlbumViewController" bundle:nil];
     [lyricsAlbumViewController.view setFrame:CGRectMake(0, 44, 320, 320)];
     [self.view addSubview:lyricsAlbumViewController.view];
+    
+    [artWorkReflection setImage:[[UIImage imageNamed:@"no_album.png"] reflectionRotatedWithAlpha:0.1f]];
+    
+    UIButton *pauseButton=[[UIButton alloc]initWithFrame:CGRectMake(140, 368, 40, 40)];
+    [pauseButton setImage:[UIImage imageNamed:@"AudioPlayerPause.png"] forState:UIControlStateNormal];
+    pauseButton.showsTouchWhenHighlighted=YES;
+    [self.view addSubview:pauseButton];
     
     
 }

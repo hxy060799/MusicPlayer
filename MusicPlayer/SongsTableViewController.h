@@ -8,16 +8,27 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum{
+    DFMusicListTypeAllSongs,
+    DFMusicListTypeArtistGroup,
+    DFMusicListTypeArtistSongs,
+    DFMusicListTypeAlbumGroup,
+    DFMusicListTypeAlbumSongs
+}DFMusicListType;
 
 @interface SongsTableViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
-    //其中包括一个Tableview
     UITableView *songsTableView;
-    NSMutableArray *musicArray;
+    NSMutableArray *contentArray;
+    DFMusicListType currentType;
+    
+    IBOutlet UINavigationBar *navigationBar;
 }
 
 @property(retain,nonatomic)UITableView *songsTableView;
-@property(retain,nonatomic)NSMutableArray *musicArray;
+@property(retain,nonatomic)NSMutableArray *contentArray;
+@property(readwrite,nonatomic)DFMusicListType currentType;
 
--(void)setTableViewWithMusicArray:(NSMutableArray*)array;
+-(void)setCellsWithContentArray:(NSMutableArray*)array ListType:(DFMusicListType)listType;
+-(void)setCellsWithIndex:(int)index ListType:(DFMusicListType)listType;
 
 @end

@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "IPodLibraryMainViewController.h"
-#import "AllSongsViewController.h"
-#import "AlbumViewController.h"
+//#import "AllSongsViewController.h"
+//#import "AlbumViewController.h"
 #import "CoverFlowViewController.h"
-#import "AlbumSongsViewController.h"
-#import "ArtistViewController.h"
-#import "ArtistSongsViewController.h"
+//#import "AlbumSongsViewController.h"
+//#import "ArtistViewController.h"
+#import "SongsTableViewController.h"
 #import "Constents.h"
 
 extern BOOL musicSynced;
@@ -21,12 +21,12 @@ extern NSMutableArray *musicByTitle;
 
 @interface IPodLibrarySwitchViewController : UIViewController{
     IPodLibraryMainViewController *mainViewController;
-    AllSongsViewController *allSongsViewController;
-    AlbumViewController *albumController;
+    SongsTableViewController *allSongsViewController;
+    SongsTableViewController *albumController;
     CoverFlowViewController *coverFlowViewController;
-    AlbumSongsViewController *albumSongsViewController;
-    ArtistViewController *artistViewController;
-    ArtistSongsViewController *artistSongViewController;
+    SongsTableViewController *albumSongsViewController;
+    SongsTableViewController *artistViewController;
+    SongsTableViewController *artistSongViewController;
     
     UIViewController *current;
     
@@ -34,7 +34,7 @@ extern NSMutableArray *musicByTitle;
 }
 
 -(void)changeToAllSongsView;
--(void)changeToIPodLibraryMainViewWithNowController:(NSString*)controller;
+-(void)changeToIPodLibraryMainViewWithNowController:(SongsTableViewController*)controller;
 -(void)changeToAlbumController;
 -(void)changeBackToAlbumController;
 -(void)changeBackToArtistController;

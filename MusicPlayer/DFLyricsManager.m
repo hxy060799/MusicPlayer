@@ -29,7 +29,7 @@
         if(lyrics.count==0){
             NSLog(@"No Lyrics");
         }else{
-            [NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(changeLyricsWithTime:) userInfo:nil repeats:YES];
+            lyricsTimer=[NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(changeLyricsWithTime:) userInfo:nil repeats:YES];
         }
     }else{
         [self stopLyricsTimer];
@@ -38,12 +38,19 @@
 }
 
 -(void)pauseLyricsTimer{
-    [lyricsTimer invalidate];
-    NSLog(@"TimerPaused");
+    if(lyricsTimer.isValid){
+        [lyricsTimer invalidate];
+        NSLog(@"TimerPaused");
+    }
 }
 
 -(void)stopLyricsTimer{
-    [lyrics removeAllObjects];
+    if(lyricsTimer.isValid){
+        [lyrics removeAllObjects];
+        [lyricsTimer invalidate];
+        lyricsTimer=nil;
+        NSLog(@"TimerStopped");
+    }
 }
 
 -(void)setLyricsWithArtist:(NSString*)theArtist SongName:(NSString*)songName{
@@ -69,7 +76,6 @@
         NSLog(@"!%@--%@",[row valueForKey:@"time"],[row valueForKey:@"content"]);
     }
     
-    //lyricsTimer=[NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(lyricsTimerGoes:) userInfo:nil repeats:YES];
     NSLog(@"TimerStarted-");
     [getter autorelease];
     
@@ -80,7 +86,6 @@
     for(int i=0;i<[lyrics count];i++){
         NSMutableDictionary *row=[self.lyrics objectAtIndex:i];
         float rTime=[[row valueForKey:@"time"]floatValue];
-        //NSLog(@"索引%i对应的时间为%f",i,rTime);
         if(fTime<rTime){
             return i-1;
         }
@@ -92,14 +97,9 @@
     
     static int currentAt=-1;
     
-    //NSLog(@"%f",fTime);
-    
     int indexShouldBe=[self getLyricsRowIndexByTime:manager.player.currentPlaybackTime];
     
     if(indexShouldBe==-2){
-        [timer invalidate];
-        timer=nil;
-        NSLog(@"TimerStopped");
         [self stopLyricsTimer];
     }
     
@@ -127,6 +127,7 @@
 
 -(void)dealloc{
     [self.lyrics release];
+    [self.lyricsTimer release];
     [super dealloc];
 }
 

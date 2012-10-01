@@ -91,7 +91,7 @@ UILabel *label;
 }
 
 -(BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item{
-    [[[AppDelegate switchViewController] iPodLibrarySwitchViewController]changeToIPodLibraryMainViewWithNowController:@"CoverflowView"];
+    //[[[AppDelegate switchViewController] iPodLibrarySwitchViewController]changeToIPodLibraryMainViewWithNowController:@"CoverflowView"];
     [controller.view setFrame:CGRectMake(-224, -224, 224, 224)];
     return NO;
 }

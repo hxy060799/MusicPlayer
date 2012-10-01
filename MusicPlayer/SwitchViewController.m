@@ -33,28 +33,28 @@
     
     iPodLibrarySwitchViewController=[[IPodLibrarySwitchViewController alloc]init];
     
-    mvSwitchViewController=[[MVSwitchViewController alloc]initWithNibName:@"MVSwitchViewController" bundle:nil];
-    musicSearchViewController=[[MusicSearchViewController alloc]initWithNibName:@"MusicSearchViewController" bundle:nil];
+    //mvSwitchViewController=[[MVSwitchViewController alloc]initWithNibName:@"MVSwitchViewController" bundle:nil];
+    //musicSearchViewController=[[MusicSearchViewController alloc]initWithNibName:@"MusicSearchViewController" bundle:nil];
     
     
     UITabBarItem *itemLibrary=[[UITabBarItem alloc]initWithTitle:@"音乐库" image:[UIImage imageNamed: @"MusicLibraryTabBarItem"] tag:2];
     
     UITabBarItem *itemPlaying=[[UITabBarItem alloc]initWithTitle:@"正在播放" image:[UIImage imageNamed:@"NowPlayingTabBarItem.png"] tag:1];
     
-    UITabBarItem *itemMV=[[UITabBarItem alloc]initWithTitle:@"MV" image:[UIImage imageNamed:@"MVTabBarItem"] tag:3];
+    //UITabBarItem *itemMV=[[UITabBarItem alloc]initWithTitle:@"MV" image:[UIImage imageNamed:@"MVTabBarItem"] tag:3];
     
-    UITabBarItem *itemSearch=[[UITabBarItem alloc]initWithTitle:@"在线搜索" image:[UIImage imageNamed:@"OnlineSearchTabBarIcon"] tag:4];
+    //UITabBarItem *itemSearch=[[UITabBarItem alloc]initWithTitle:@"在线搜索" image:[UIImage imageNamed:@"OnlineSearchTabBarIcon"] tag:4];
     
     iPodLibrarySwitchViewController.tabBarItem=itemLibrary;
     
     lyricsViewController.tabBarItem=itemPlaying;
     
-    mvSwitchViewController.tabBarItem=itemMV;
+    //mvSwitchViewController.tabBarItem=itemMV;
     
-    musicSearchViewController.tabBarItem=itemSearch;
+    //musicSearchViewController.tabBarItem=itemSearch;
     
     self.delegate=self;
-    self.viewControllers=[NSArray arrayWithObjects:lyricsViewController,iPodLibrarySwitchViewController,mvSwitchViewController,musicSearchViewController,nil];
+    self.viewControllers=[NSArray arrayWithObjects:lyricsViewController,iPodLibrarySwitchViewController/*,mvSwitchViewController,musicSearchViewController*/,nil];
 }
 
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{

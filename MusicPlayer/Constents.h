@@ -17,6 +17,7 @@
 NSMutableArray *musicByTitle;
 NSMutableArray *musicByArtist;
 NSMutableArray *musicByAlbum;
+
 DFLyricsMusicPlayer *manager;
 
 DFOnlinePlayer *onlinePlayer;

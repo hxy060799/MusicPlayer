@@ -8,18 +8,31 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "MusicPlayer/DFLyricsManager.m"
-         timestampString = "369981338.934244"
+         timestampString = "370009718.248439"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "53"
-         endingLineNumber = "53"
+         startingLineNumber = "60"
+         endingLineNumber = "60"
          landmarkName = "-setLyricsWithArtist:SongName:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "MusicPlayer/DFLyricsMusicPlayer.m"
+         timestampString = "370010127.755588"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "72"
+         endingLineNumber = "72"
+         landmarkName = "-iPodPlaybackStateChanged:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
    <ExceptionBreakpoints>
       <ExceptionBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          scope = "0"

@@ -65,58 +65,46 @@
 
 -(void)changeToAllSongsView{
     if(!allSongsViewController){
-        allSongsViewController=[[AllSongsViewController alloc]initWithNibName:@"AllSongsViewController" bundle:nil];
+        allSongsViewController=[[SongsTableViewController alloc]initWithNibName:@"SongsTableViewController" bundle:nil];
+        [allSongsViewController setCellsWithContentArray:musicByTitle ListType:DFMusicListTypeAllSongs];
     }
     [self pushViewControllerWithLeftController:mainViewController RightController:allSongsViewController PushWay:ViewPushWayLeft];
 }
 
 -(void)changeToArtistView{
     if(artistViewController==nil){
-        artistViewController=[[ArtistViewController alloc]initWithNibName:@"ArtistViewController" bundle:nil];
-        [artistViewController setTableViewWithMusicArray:musicByArtist];
+        artistViewController=[[SongsTableViewController alloc]initWithNibName:@"SongsTableViewController" bundle:nil];
+        [artistViewController setCellsWithContentArray:musicByArtist ListType:DFMusicListTypeArtistGroup];
     }
     [self pushViewControllerWithLeftController:mainViewController RightController:artistViewController PushWay:ViewPushWayLeft];
 }
 
 -(void)changeToAlbumController{
     if(albumController==nil){
-        albumController=[[AlbumViewController alloc]initWithNibName:@"AlbumViewController" bundle:nil];
-        [albumController setTableViewWithMusicArray:musicByAlbum];
+        albumController=[[SongsTableViewController alloc]initWithNibName:@"SongsTableViewController" bundle:nil];
+        [albumController setCellsWithContentArray:musicByAlbum ListType:DFMusicListTypeAlbumGroup];
     }
     [self pushViewControllerWithLeftController:mainViewController RightController:albumController PushWay:ViewPushWayLeft];
 }
 
 -(void)changeBackToAlbumController{
     if(albumController==nil){
-        albumController=[[AlbumViewController alloc]initWithNibName:@"AlbumViewController" bundle:nil];
+        albumController=[[SongsTableViewController alloc]initWithNibName:@"SongsTableViewController" bundle:nil];
     }
     [self pushViewControllerWithLeftController:albumController RightController:albumSongsViewController PushWay:ViewPushWayRight];
 }
 
 -(void)changeToAlbumSongsViewWithIndex:(int)index{
-    
     if(albumSongsViewController==nil){
-        albumSongsViewController=[[AlbumSongsViewController alloc]initWithNibName:@"AlbumSongsViewController" bundle:nil];
-        [albumSongsViewController setItemsWithIndex:index];
+        albumSongsViewController=[[SongsTableViewController alloc]initWithNibName:@"SongsTableViewController" bundle:nil];
+        [albumSongsViewController setCellsWithIndex:index ListType:DFMusicListTypeAlbumSongs];
     }
     [self pushViewControllerWithLeftController:albumController RightController:albumSongsViewController PushWay:ViewPushWayLeft];
     
 }
 
--(void)changeToIPodLibraryMainViewWithNowController:(NSString*)controller{
-    
-    UIViewController *usingController=nil;
-    
-    if([controller isEqualToString:@"MusicSelectView"]){
-        usingController=allSongsViewController;
-    }else if([controller isEqualToString:@"CoverflowView"]){
-        usingController=coverFlowViewController;
-    }else if([controller isEqualToString:@"AlbumView"]){
-        usingController=albumController;
-    }else if([controller isEqualToString:@"ArtistView"]){
-        usingController=artistViewController;
-    }
-    [self pushViewControllerWithLeftController:mainViewController RightController:usingController PushWay:ViewPushWayRight];
+-(void)changeToIPodLibraryMainViewWithNowController:(SongsTableViewController*)controller{
+    [self pushViewControllerWithLeftController:mainViewController RightController:controller PushWay:ViewPushWayRight];
 }
 
 -(void)changeToCoverFlowView{
@@ -130,15 +118,17 @@
 
 -(void)changeBackToArtistController{
     if(artistViewController==nil){
-        artistViewController=[[ArtistViewController alloc]initWithNibName:@"ArtistViewController" bundle:nil];
+        artistViewController=[[SongsTableViewController alloc]initWithNibName:@"SongsTableViewController" bundle:nil];
+        [allSongsViewController setCellsWithContentArray:musicByArtist ListType:DFMusicListTypeArtistGroup];
     }
     [self pushViewControllerWithLeftController:artistViewController RightController:artistSongViewController PushWay:ViewPushWayRight];
 }
 
 -(void)changeToArtistSongsViewWithIndex:(int)index{
     if(artistSongViewController==nil){
-        artistSongViewController=[[ArtistSongsViewController alloc]initWithNibName:@"ArtistSongsViewController" bundle:nil];
-        [artistSongViewController setItemsWithIndex:index];
+        artistSongViewController=[[SongsTableViewController alloc]initWithNibName:@"SongsTableViewController" bundle:nil];
+
+        [artistSongViewController setCellsWithIndex:index ListType:DFMusicListTypeArtistSongs];
     }
     [self pushViewControllerWithLeftController:artistViewController RightController:artistSongViewController PushWay:ViewPushWayLeft];
 }

@@ -25,6 +25,8 @@
     IBOutlet UILabel *readyTimeL;
     IBOutlet UINavigationBar *navigationBar;
     
+    IBOutlet UIImageView *artWorkReflection;
+    
     DFLyricsAlbumViewController *lyricsAlbumViewController;
 }
 

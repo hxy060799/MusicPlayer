@@ -27,9 +27,9 @@
     
     
     //输出部分
-    for(int i=0;i<[musicByTitle count];i++){
-        NSLog(@"%@",[[musicByTitle objectAtIndex:i] valueForProperty:MPMediaItemPropertyTitle]);
-    }
+    //for(int i=0;i<[musicByTitle count];i++){
+    //    NSLog(@"%@",[[musicByTitle objectAtIndex:i] valueForProperty:MPMediaItemPropertyTitle]);
+    //}
      
 }
 
@@ -47,14 +47,14 @@
     
     
     //输出部分
-    for(MPMediaItemCollection *songs in musicByArtist){
-        NSArray *songsArray=[songs items];
-        for(MPMediaItem *song in songsArray){
-            NSLog(@"%@--%@",[song valueForProperty:MPMediaItemPropertyTitle],[song valueForProperty:MPMediaItemPropertyArtist]);
-            
-        }
-        NSLog(@"---------------");
-    }
+    //for(MPMediaItemCollection *songs in musicByArtist){
+    //    NSArray *songsArray=[songs items];
+    //    for(MPMediaItem *song in songsArray){
+    //        NSLog(@"%@--%@",[song valueForProperty:MPMediaItemPropertyTitle],[song valueForProperty:MPMediaItemPropertyArtist]);
+    //        
+    //    }
+    //    NSLog(@"---------------");
+    //}
 }
 
 -(void)albumQuery{
@@ -71,14 +71,14 @@
     
     
     //输出部分
-    for(MPMediaItemCollection *songs in musicByAlbum){
-        NSArray *songsArray=[songs items];
-        for(MPMediaItem *song in songsArray){
-            NSLog(@"%@--%@",[song valueForProperty:MPMediaItemPropertyTitle],[song valueForProperty:MPMediaItemPropertyAlbumTitle]);
-            
-        }
-        NSLog(@"---------------");
-    }
+    //for(MPMediaItemCollection *songs in musicByAlbum){
+    //    NSArray *songsArray=[songs items];
+    //    for(MPMediaItem *song in songsArray){
+    //        NSLog(@"%@--%@",[song valueForProperty:MPMediaItemPropertyTitle],[song valueForProperty:MPMediaItemPropertyAlbumTitle]);
+    //        
+    //    }
+    //    NSLog(@"---------------");
+    //}
 }
 
 -(void)dealloc{
