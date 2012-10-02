@@ -23,7 +23,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
     Loading *loading=[[Loading alloc]init];
     NSLog(@"Loading......");
     [loading query];
@@ -31,11 +30,11 @@
     
     window=[[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
     switchViewController=[[SwitchViewController alloc] init];
-    //switchViewController.delegate=self;
+    switchViewController.delegate=self;
     //[switchViewController showMainView];
     self.window.rootViewController=switchViewController;
     [self.window makeKeyAndVisible];
-    
+     
     return YES;
 }
 

@@ -8,11 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "IPodLibraryMainViewController.h"
-//#import "AllSongsViewController.h"
-//#import "AlbumViewController.h"
 #import "CoverFlowViewController.h"
-//#import "AlbumSongsViewController.h"
-//#import "ArtistViewController.h"
 #import "SongsTableViewController.h"
 #import "Constents.h"
 

@@ -16,19 +16,27 @@ typedef enum{
     DFMusicListTypeAlbumSongs
 }DFMusicListType;
 
+struct MusicListInformation{
+    DFMusicListType listType;//歌曲菜单的类型
+    int listSuperIdnex;//列表类型为单个歌手/专辑时来表示这个专辑或者歌手在组里面的索引
+};
+
 @interface SongsTableViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
     UITableView *songsTableView;
-    NSMutableArray *contentArray;
-    DFMusicListType currentType;
+    struct MusicListInformation currentType;
     
     IBOutlet UINavigationBar *navigationBar;
 }
 
 @property(retain,nonatomic)UITableView *songsTableView;
-@property(retain,nonatomic)NSMutableArray *contentArray;
-@property(readwrite,nonatomic)DFMusicListType currentType;
+//@property(retain,nonatomic)NSMutableArray *contentArray;
+@property(readwrite,nonatomic)struct MusicListInformation currentType;
 
--(void)setCellsWithContentArray:(NSMutableArray*)array ListType:(DFMusicListType)listType;
--(void)setCellsWithIndex:(int)index ListType:(DFMusicListType)listType;
+-(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil listInformation:(struct MusicListInformation)information;
+
+//(void)setCellsWithContentArray:(NSMutableArray*)array ListType:(DFMusicListType)listType;
+//-(void)setCellsWithIndex:(int)index ListType:(DFMusicListType)listType;
+
+struct MusicListInformation MusicListInformationMake(DFMusicListType listType,int listSuperIdnex);
 
 @end
