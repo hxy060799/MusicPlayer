@@ -49,7 +49,6 @@ NSTimer *endTimer;
     
     static MPMusicPlaybackState lastState=0;
     
-    
     if(self.player.playbackState==MPMusicPlaybackStateStopped){
         if(lastState==0){
             NSLog(@"Player inited");

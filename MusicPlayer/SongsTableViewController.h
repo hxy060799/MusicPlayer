@@ -23,19 +23,15 @@ struct MusicListInformation{
 
 @interface SongsTableViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
     UITableView *songsTableView;
-    struct MusicListInformation currentType;
+    struct MusicListInformation listInformation;
     
     IBOutlet UINavigationBar *navigationBar;
 }
 
 @property(retain,nonatomic)UITableView *songsTableView;
-//@property(retain,nonatomic)NSMutableArray *contentArray;
-@property(readwrite,nonatomic)struct MusicListInformation currentType;
+@property(readwrite,nonatomic)struct MusicListInformation listInformation;
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil listInformation:(struct MusicListInformation)information;
-
-//(void)setCellsWithContentArray:(NSMutableArray*)array ListType:(DFMusicListType)listType;
-//-(void)setCellsWithIndex:(int)index ListType:(DFMusicListType)listType;
 
 struct MusicListInformation MusicListInformationMake(DFMusicListType listType,int listSuperIdnex);
 

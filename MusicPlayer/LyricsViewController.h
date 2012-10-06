@@ -14,18 +14,15 @@
 #import "QQLyricsGetter.h"
 
 @interface LyricsViewController : UIViewController<DFLyricsMusicPlayerDelegate,DFLyricsManagerDelegate>{
-    IBOutlet UILabel *label;
+    IBOutlet UILabel *titleLabel;
+    IBOutlet UILabel *artistLabel;
+    IBOutlet UILabel *albumLabel;
     IBOutlet UISlider *slider;
-    
-    //IBOutlet UILabel *titleLabel;
-    //IBOutlet UILabel *artistLabel;
-    //IBOutlet UILabel *albumLabel;
     
     IBOutlet UILabel *goesTimeL;
     IBOutlet UILabel *readyTimeL;
     IBOutlet UINavigationBar *navigationBar;
     
-    IBOutlet UIImageView *artWorkReflection;
     
     DFLyricsAlbumViewController *lyricsAlbumViewController;
 }

@@ -33,13 +33,10 @@
 
 -(void)musicChanged{
     MPMediaItem *item=manager.player.nowPlayingItem;
-    //NSString *sel_title=[item valueForProperty:MPMediaItemPropertyTitle];
-    //NSString *sel_artist=[item valueForProperty:MPMediaItemPropertyArtist];
-    //NSString *sel_album=[item valueForProperty:MPMediaItemPropertyAlbumTitle];
     
-    //[titleLabel setText:sel_title];
-    //[artistLabel setText:sel_artist];
-    //[albumLabel setText:sel_album];
+    [titleLabel setText:[item valueForKey:MPMediaItemPropertyTitle]];
+    [artistLabel setText:[item valueForKey:MPMediaItemPropertyArtist]];
+    [albumLabel setText:[item valueForKey:MPMediaItemPropertyAlbumTitle]];
     
     MPMediaItemArtwork *artwork=[item valueForProperty:MPMediaItemPropertyArtwork];
     UIImage *artworkImage=[artwork imageWithSize:CGSizeMake(135, 135)];
@@ -48,11 +45,12 @@
     }else{
         [lyricsAlbumViewController setAlbumArtwork:[UIImage imageNamed:@"no_album.png"]];
     }
-    [artWorkReflection setImage:[artworkImage reflectionWithAlpha:1.0]];
 }
 
 -(void)dealloc{
-    [label release];
+    [titleLabel release];
+    [albumLabel release];
+    [artistLabel release];
     [lyricsAlbumViewController release];
     [super dealloc];
 }
@@ -67,7 +65,6 @@
 
 -(void)loadingFinished{
     NSLog(@"歌词处理结束回调");
-    [label setText:@"歌词处理完成，即将显示"];
 }
 
 -(IBAction)stopButtonClicked{
@@ -93,14 +90,20 @@
     [lyricsAlbumViewController.view setFrame:CGRectMake(0, 44, 320, 320)];
     [self.view addSubview:lyricsAlbumViewController.view];
     
-    [artWorkReflection setImage:[[UIImage imageNamed:@"no_album.png"] reflectionRotatedWithAlpha:0.1f]];
-    
     UIButton *pauseButton=[[UIButton alloc]initWithFrame:CGRectMake(140, 368, 40, 40)];
     [pauseButton setImage:[UIImage imageNamed:@"AudioPlayerPause.png"] forState:UIControlStateNormal];
     pauseButton.showsTouchWhenHighlighted=YES;
     [self.view addSubview:pauseButton];
     
+    UIButton *lastButton=[[UIButton alloc]initWithFrame:CGRectMake(50, 368, 40, 40)];
+    [lastButton setImage:[UIImage imageNamed:@"AudioPlayerPause.png"] forState:UIControlStateNormal];
+    lastButton.showsTouchWhenHighlighted=YES;
+    [self.view addSubview:lastButton];
     
+    UIButton *stopButton=[[UIButton alloc]initWithFrame:CGRectMake(230, 368, 40, 40)];
+    [stopButton setImage:[UIImage imageNamed:@"AudioPlayerPause.png"] forState:UIControlStateNormal];
+    stopButton.showsTouchWhenHighlighted=YES;
+    [self.view addSubview:stopButton];
 }
 
 - (void)viewDidUnload

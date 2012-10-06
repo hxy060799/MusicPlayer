@@ -15,7 +15,7 @@
 @implementation SongsTableViewController
 
 @synthesize songsTableView;
-@synthesize currentType;
+@synthesize listInformation;
 
 #pragma UIViewView Methods
 
@@ -24,17 +24,13 @@
     if(self){
         [self.view setFrame:CGRectMake(0, 0, 320, 480)];
         
-        UINavigationItem *item=[[UINavigationItem alloc] initWithTitle:@"MusicList"];
-        UINavigationItem *back=[[UINavigationItem alloc]initWithTitle:@"音乐库"];
-        NSArray *items=[[NSArray alloc]initWithObjects:back,item,nil];
+        UINavigationItem *item=[[[UINavigationItem alloc] initWithTitle:@"MusicList"]autorelease];
+        UINavigationItem *back=[[[UINavigationItem alloc]initWithTitle:@"音乐库"]autorelease];
+        NSArray *items=[[[NSArray alloc]initWithObjects:back,item,nil]autorelease];
         [navigationBar setItems:items];
         navigationBar.delegate=self;
-        [back release];
-        [item release];
-        [items release];
         
-        currentType.listType=information.listType;
-        currentType.listSuperIdnex=information.listSuperIdnex;
+        self.listInformation=MusicListInformationMake(information.listType, information.listSuperIdnex);
         
         if(!songsTableView){
             songsTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 44, 320, 367) style:UITableViewStylePlain];
@@ -54,11 +50,12 @@
 
 -(void)dealloc{
     [songsTableView release];
+    [navigationBar release];
     [super dealloc];
 }
 
 -(BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item{
-    switch(currentType.listType) {
+    switch(listInformation.listType) {
         case DFMusicListTypeArtistSongs:
             [[[AppDelegate switchViewController] iPodLibrarySwitchViewController]changeBackToArtistController];
             break;
@@ -79,7 +76,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    switch(currentType.listType){
+    switch(listInformation.listType){
         case DFMusicListTypeAllSongs:
             return [musicByTitle count];
             break;
@@ -90,9 +87,9 @@
             return [musicByArtist count];
             break;
         case DFMusicListTypeAlbumSongs:
-            return ((MPMediaItemCollection*)[musicByAlbum objectAtIndex:currentType.listSuperIdnex]).items.count;
+            return ((MPMediaItemCollection*)[musicByAlbum objectAtIndex:listInformation.listSuperIdnex]).items.count;
         case DFMusicListTypeArtistSongs:
-            return ((MPMediaItemCollection*)[musicByArtist objectAtIndex:currentType.listSuperIdnex]).items.count;
+            return ((MPMediaItemCollection*)[musicByArtist objectAtIndex:listInformation.listSuperIdnex]).items.count;
         default:
             return 0;
             break;
@@ -105,12 +102,14 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
-    if(!cell)cell=[[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier]autorelease];
+    if(!cell){
+        cell=[[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier]autorelease];
+    }
     
-    NSString *cellText=[NSString string];
-    NSString *smallText=[NSString string];
+    NSString *cellText=nil;
+    NSString *smallText=nil;
     UIImage *artworkImage=nil;
-    if(currentType.listType==DFMusicListTypeArtistGroup){
+    if(listInformation.listType==DFMusicListTypeArtistGroup){
         NSArray *collection=[[musicByArtist objectAtIndex:indexPath.row]items];
         
         cellText=[[collection objectAtIndex:0]valueForProperty:MPMediaItemPropertyArtist];
@@ -118,7 +117,7 @@
         
         artworkImage=[[[collection objectAtIndex:0] valueForProperty:MPMediaItemPropertyArtwork] imageWithSize:CGSizeMake(44, 44)];
         artworkImage=(!artworkImage)?[UIImage imageNamed:@"no_album.png"]:artworkImage;
-    }else if(currentType.listType==DFMusicListTypeAlbumGroup){
+    }else if(listInformation.listType==DFMusicListTypeAlbumGroup){
         NSArray *collection=[[musicByAlbum objectAtIndex:indexPath.row]items];
         
         cellText=[[collection objectAtIndex:0]valueForProperty:MPMediaItemPropertyAlbumTitle];
@@ -128,12 +127,12 @@
         artworkImage=(!artworkImage)?[UIImage imageNamed:@"no_album.png"]:artworkImage;
     }else{
         MPMediaItem *nowItem=nil;
-        if(currentType.listType==DFMusicListTypeAllSongs){
+        if(listInformation.listType==DFMusicListTypeAllSongs){
             nowItem=[musicByTitle objectAtIndex:indexPath.row];
-        }else if(currentType.listType==DFMusicListTypeArtistSongs){
-            nowItem=[((MPMediaItemCollection*)[musicByArtist objectAtIndex:currentType.listSuperIdnex]).items objectAtIndex:indexPath.row];
-        }else if(currentType.listType==DFMusicListTypeAlbumSongs){
-            nowItem=[((MPMediaItemCollection*)[musicByAlbum objectAtIndex:currentType.listSuperIdnex]).items objectAtIndex:indexPath.row];
+        }else if(listInformation.listType==DFMusicListTypeArtistSongs){
+            nowItem=[((MPMediaItemCollection*)[musicByArtist objectAtIndex:listInformation.listSuperIdnex]).items objectAtIndex:indexPath.row];
+        }else if(listInformation.listType==DFMusicListTypeAlbumSongs){
+            nowItem=[((MPMediaItemCollection*)[musicByAlbum objectAtIndex:listInformation.listSuperIdnex]).items objectAtIndex:indexPath.row];
         }
         cellText=[nowItem valueForProperty:MPMediaItemPropertyTitle];
         smallText=[NSString stringWithFormat:@"%@-%@",[nowItem valueForProperty:MPMediaItemPropertyArtist],[nowItem valueForProperty: MPMediaItemPropertyAlbumTitle]];
@@ -147,11 +146,38 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(currentType.listType==DFMusicListTypeArtistGroup){
-        [[[AppDelegate switchViewController]iPodLibrarySwitchViewController]changeToArtistSongsViewWithIndex:indexPath.row];
-    }else if(currentType.listType==DFMusicListTypeAlbumGroup){
-        [[[AppDelegate switchViewController]iPodLibrarySwitchViewController]changeToAlbumSongsViewWithIndex:indexPath.row];
+    
+    switch(listInformation.listType){
+        case DFMusicListTypeArtistGroup:
+            [[[AppDelegate switchViewController]iPodLibrarySwitchViewController]changeToArtistSongsViewWithIndex:indexPath.row];
+            break;
+        case DFMusicListTypeAlbumGroup:
+            [[[AppDelegate switchViewController]iPodLibrarySwitchViewController]changeToAlbumSongsViewWithIndex:indexPath.row];
+            break;
+        case DFMusicListTypeAlbumSongs:{
+            MPMediaItem *selectedItem=[((MPMediaItemCollection*)[musicByAlbum objectAtIndex:listInformation.listSuperIdnex]).items objectAtIndex:indexPath.row];
+            NSString *theTitle=[selectedItem valueForProperty:MPMediaItemPropertyTitle];
+            NSString *theArtist=[selectedItem valueForProperty:MPMediaItemPropertyArtist];
+            [manager startPlayWithMusicCollection:[MPMediaItemCollection collectionWithItems:[NSArray arrayWithObject:selectedItem]] Artist:theArtist Title:theTitle];
+            break;
+        }
+        case DFMusicListTypeAllSongs:{
+            MPMediaItem *selectedItem=[musicByTitle objectAtIndex:indexPath.row];
+            NSString *theTitle=[selectedItem valueForProperty:MPMediaItemPropertyTitle];
+            NSString *theArtist=[selectedItem valueForProperty:MPMediaItemPropertyArtist];
+            NSLog(@"%@",theArtist);
+            [manager startPlayWithMusicCollection:[MPMediaItemCollection collectionWithItems:[NSArray arrayWithObject:selectedItem]] Artist:theArtist Title:theTitle];
+            [songsTableView deselectRowAtIndexPath:indexPath animated:YES];
+            break;
+        }case DFMusicListTypeArtistSongs:{
+            MPMediaItem *selectedItem=[((MPMediaItemCollection*)[musicByArtist objectAtIndex:listInformation.listSuperIdnex]).items objectAtIndex:indexPath.row];
+            NSString *theTitle=[selectedItem valueForProperty:MPMediaItemPropertyTitle];
+            NSString *theArtist=[selectedItem valueForProperty:MPMediaItemPropertyArtist];
+            [manager startPlayWithMusicCollection:[MPMediaItemCollection collectionWithItems:[NSArray arrayWithObject:selectedItem]] Artist:theArtist Title:theTitle];
+            break;
+        }
     }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
