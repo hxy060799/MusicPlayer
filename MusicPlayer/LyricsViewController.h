@@ -23,7 +23,7 @@
     IBOutlet UILabel *readyTimeL;
     IBOutlet UINavigationBar *navigationBar;
     
-    
+    UIButton *playButton;
     DFLyricsAlbumViewController *lyricsAlbumViewController;
 }
 
