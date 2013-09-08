@@ -19,6 +19,8 @@ NSMutableArray *musicByArtist;
 NSMutableArray *musicByAlbum;
 
 DFLyricsMusicPlayer *manager;
+int currentSongOfIndex;//当前播放歌曲在musicByTitle列表中的索引
+BOOL isPlay;//是否正在播放状态
 
 DFOnlinePlayer *onlinePlayer;
 

@@ -83,6 +83,7 @@
     manager.delegate=self;
     manager.lyricsManager.delegate=self;
     slider.enabled=NO;
+    isPlay = YES;//初始化为播放状态
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     
@@ -90,20 +91,77 @@
     [lyricsAlbumViewController.view setFrame:CGRectMake(0, 44, 320, 320)];
     [self.view addSubview:lyricsAlbumViewController.view];
     
-    UIButton *pauseButton=[[UIButton alloc]initWithFrame:CGRectMake(140, 368, 40, 40)];
-    [pauseButton setImage:[UIImage imageNamed:@"AudioPlayerPause.png"] forState:UIControlStateNormal];
-    pauseButton.showsTouchWhenHighlighted=YES;
-    [self.view addSubview:pauseButton];
+    //playBtn
+    playButton = [[UIButton alloc]initWithFrame:CGRectMake(140, 368, 40, 40)];
+    [playButton setImage:[UIImage imageNamed:@"media-play.png"] forState:UIControlStateNormal];
+    playButton.showsTouchWhenHighlighted=YES;
+    [playButton addTarget:self action:@selector(play) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:playButton];
     
-    UIButton *lastButton=[[UIButton alloc]initWithFrame:CGRectMake(50, 368, 40, 40)];
-    [lastButton setImage:[UIImage imageNamed:@"AudioPlayerPause.png"] forState:UIControlStateNormal];
-    lastButton.showsTouchWhenHighlighted=YES;
-    [self.view addSubview:lastButton];
+    //previous
+    UIButton *previousButton=[[UIButton alloc]initWithFrame:CGRectMake(50, 368, 40, 40)];
+    [previousButton setImage:[UIImage imageNamed:@"media-previous.png"] forState:UIControlStateNormal];
+    previousButton.showsTouchWhenHighlighted=YES;
+    [previousButton addTarget:self action:@selector(previous:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:previousButton];
     
-    UIButton *stopButton=[[UIButton alloc]initWithFrame:CGRectMake(230, 368, 40, 40)];
-    [stopButton setImage:[UIImage imageNamed:@"AudioPlayerPause.png"] forState:UIControlStateNormal];
-    stopButton.showsTouchWhenHighlighted=YES;
-    [self.view addSubview:stopButton];
+    //next
+    UIButton *nextButton=[[UIButton alloc]initWithFrame:CGRectMake(230, 368, 40, 40)];
+    [nextButton setImage:[UIImage imageNamed:@"media-next.png"] forState:UIControlStateNormal];
+    nextButton.showsTouchWhenHighlighted=YES;
+    [nextButton addTarget:self action:@selector(next:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:nextButton];
+}
+
+- (void)play
+{
+    if(isPlay)
+    {
+        //play
+        MPMediaItem *selectedItem=[musicByTitle objectAtIndex:currentSongOfIndex];
+        NSString *theTitle=[selectedItem valueForProperty:MPMediaItemPropertyTitle];
+        NSString *theArtist=[selectedItem valueForProperty:MPMediaItemPropertyArtist];
+        //NSLog(@"%@",theArtist);
+        [manager startPlayWithMusicCollection:[MPMediaItemCollection collectionWithItems:[NSArray arrayWithObject:selectedItem]] Artist:theArtist Title:theTitle];
+        
+        [playButton setImage:[UIImage imageNamed:@"media-pause.png"] forState:UIControlStateNormal];
+        isPlay = NO;
+    }
+    else
+    {
+        //pause
+        [manager stopMusic];
+        [playButton setImage:[UIImage imageNamed:@"media-play.png"] forState:UIControlStateNormal];
+        isPlay = YES;
+    }
+}
+
+- (IBAction)previous:(id)sender
+{
+    if (currentSongOfIndex == 0)
+    {
+        currentSongOfIndex = musicByTitle.count - 1;
+    }
+    else
+    {
+        currentSongOfIndex--;
+    }
+    isPlay = YES;
+    [self play];
+}
+
+- (IBAction)next:(id)sender
+{
+    if (currentSongOfIndex == (musicByTitle.count - 1))
+    {
+        currentSongOfIndex = 0;
+    }
+    else
+    {
+        currentSongOfIndex++;
+    }
+    isPlay = YES;
+    [self play];
 }
 
 - (void)viewDidUnload

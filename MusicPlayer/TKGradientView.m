@@ -53,7 +53,7 @@
     NSMutableArray *uiColors = [NSMutableArray arrayWithCapacity:[cgColors count]];
 	
     for (id cgColor in cgColors) 
-        [uiColors addObject:[UIColor colorWithCGColor:(__bridge CGColorRef)cgColor]];
+        [uiColors addObject:[UIColor colorWithCGColor:( CGColorRef)cgColor]];
     
     return [NSArray arrayWithArray:uiColors];
 }

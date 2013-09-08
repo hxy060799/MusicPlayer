@@ -33,7 +33,7 @@
         [lyricLabel setTextColor:[UIColor whiteColor]];
         [lyricLabel setFont:[UIFont systemFontOfSize:20]];
         [lyricLabel setBackgroundColor:[UIColor clearColor]];
-        [lyricLabel setText:@"Hello"];
+        [lyricLabel setText:@"*****"];
         [lyricLabel setTextAlignment:UITextAlignmentCenter];
         if(i==3){
             lyricLabel.redValue=1;

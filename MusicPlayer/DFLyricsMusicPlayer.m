@@ -105,7 +105,7 @@ NSTimer *endTimer;
     
     NSLog(@"%@",theArtist);
     
-    [lyricsManager setLyricsWithArtist:theArtist SongName:theTitle];
+    [lyricsManager setLyricsWithArtist:theArtist SongName:theTitle];//通过qq音乐获取歌词
     
     endTimer=[NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerGoes:) userInfo:nil repeats:YES];
     
@@ -123,7 +123,7 @@ NSTimer *endTimer;
     
     int minute=(theTime)/60;
     if(theTime<60){
-        minuteS=[NSString stringWithString:@"00"];
+        minuteS=@"00";
     }else if(minute<10){
         minuteS=[NSString stringWithFormat:@"0%i",(minute)];
     }else{

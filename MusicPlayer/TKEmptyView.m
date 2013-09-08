@@ -48,7 +48,7 @@
 	
 	
 	CGColorSpaceRef colorSpace = CGColorGetColorSpace([[colors lastObject] CGColor]);
-	CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)ar, NULL);
+	CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, ( CFArrayRef)ar, NULL);
 	
 	
 	CGContextClipToRect(context, rect);
